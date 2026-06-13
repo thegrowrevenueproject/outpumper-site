@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OutPumper Pricing — 49 dollars a month or 497 Lifetime</title>
-<meta name="description" content="OutPumper pricing: Pro 49 dollars a month, Lifetime 497 dollars one-time, Agency 49 plus 15 per client. 7-day free trial and a 30-day money-back guarantee.">
+<meta name="theme-color" content="#0a0e1a">
+<title>OutPumper Pricing — 49 a month or 497 Lifetime</title>
+<meta name="description" content="OutPumper pricing: Pro 49 a month, Lifetime 497 one-time, Agency 49 plus 15 per client. 7-day free trial and a 30-day money-back guarantee.">
 <link rel="canonical" href="https://outpumper.com/pricing.html">
 <meta property="og:title" content="OutPumper Pricing">
 <meta property="og:description" content="Pro 49 a month, Lifetime 497 one-time, Agency 49 plus 15 per client. 7-day free trial.">
@@ -13,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/app.css">
 </head>
 <body>
 
@@ -24,6 +25,7 @@
       <li><a href="/features.html">Features</a></li>
       <li><a href="/pricing.html" class="active">Pricing</a></li>
       <li><a href="/comparison.html">Compare</a></li>
+      <li><a href="https://theoutboundgame.com">Blog</a></li>
       <li><a href="/download.html">Download</a></li>
     </ul></nav>
     <div class="nav-cta">
@@ -45,7 +47,7 @@
 <section id="plans" style="padding-top:24px">
   <div class="container">
     <div class="plans">
-      <div class="plan">
+      <div class="plan reveal">
         <div class="pname">The Subscription</div>
         <div class="price">$49<small> /month</small></div>
         <div class="sub">Try free for 7 days. Cancel anytime.</div>
@@ -53,8 +55,8 @@
           <li>Up to 50,000 emails a day with account rotation</li>
           <li>Unlimited campaigns and contacts</li>
           <li>Built-in email verification, unlimited</li>
-          <li>LinkedIn email finder, no per-lookup fees</li>
           <li>Auto-bounce intelligence</li>
+          <li>Word variation and A/B testing</li>
           <li>Every update, instantly</li>
           <li>Priority support from real people</li>
         </ul>
@@ -62,7 +64,7 @@
         <div class="finehint">No charge for 7 days. Cancel before the trial ends and pay nothing.</div>
       </div>
 
-      <div class="plan featured">
+      <div class="plan featured reveal d1">
         <div class="badge">Best value</div>
         <div class="pname">Lifetime</div>
         <div class="price">$497<small> once</small></div>
@@ -73,7 +75,6 @@
           <li>Mailbox rotation, smart throttling, A/B testing</li>
           <li>Word variation engine</li>
           <li>Built-in verification, unlimited and free</li>
-          <li>LinkedIn email finder included</li>
           <li>Connect SendGrid, Mailgun, SES, anything</li>
           <li>One year of updates included</li>
         </ul>
@@ -81,7 +82,7 @@
         <div class="finehint">97 dollars a year after year one for updates. Optional, not required.</div>
       </div>
 
-      <div class="plan">
+      <div class="plan reveal d2">
         <div class="pname">The Agency Plan</div>
         <div class="price">$49<small> /mo + $15/client</small></div>
         <div class="sub">Try free for 7 days. Built for agencies.</div>
@@ -119,7 +120,7 @@
 </section>
 
 <section style="padding-top:24px">
-  <div class="container"><div class="cta-band">
+  <div class="container"><div class="cta-band reveal">
     <h2>Ready to send from your own domain?</h2>
     <p class="lead">7-day free trial on Pro and Agency. Full features. Nothing charged for seven days.</p>
     <a class="btn btn-primary btn-lg" href="https://buy.stripe.com/6oUbJ1cEs9Is31T9Pq9oc0r">Start 7-day free trial</a>
@@ -138,6 +139,7 @@
         <li><a href="/features.html">Features</a></li><li><a href="/pricing.html">Pricing</a></li>
         <li><a href="/comparison.html">Comparison</a></li><li><a href="/download.html">Download</a></li></ul></div>
       <div class="foot-col"><h4>Resources</h4><ul>
+        <li><a href="https://theoutboundgame.com">Blog</a></li>
         <li><a href="https://theoutboundgame.com">The Outbound Game</a></li><li><a href="/pricing.html#faq">FAQ</a></li></ul></div>
       <div class="foot-col"><h4>Legal</h4><ul>
         <li><a href="/terms.html">Terms</a></li><li><a href="/privacy.html">Privacy</a></li></ul></div>
@@ -148,6 +150,10 @@
     </div>
   </div>
 </footer>
-<script>document.querySelectorAll('.menu-toggle').forEach(b=>{});</script>
+<script>
+(function(){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(function(el){if(rm){el.classList.add('in');}else{io.observe(el);}});})();
+</script>
 </body>
 </html>

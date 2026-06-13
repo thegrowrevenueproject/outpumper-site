@@ -2,8 +2,9 @@ Drop the signed OutPumper installer here, named exactly:
 
     OutPumper-Setup.exe
 
-The Download page (download.html) links to /downloads/OutPumper-Setup.exe.
-If you use a different filename, update the href in download.html to match.
+The Download page links to /downloads/OutPumper-Setup.exe.
+The installer is freely downloadable; the license key is only required
+at activation after the 7-day trial.
 
-Note: large binaries can also be served from Cloudflare R2 or a GitHub Release
-and linked from the Download button instead of committing the EXE to the repo.
+For a large EXE you can instead host it on a GitHub Release or Cloudflare R2
+and update the download links in download.html and the nav.

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
 <title>OutPumper — Cold Email From Your Own Outlook</title>
 <meta name="description" content="OutPumper sends cold email from your own Outlook and real domain. No warmup, no throwaway domains, no third-party servers. 7-day free trial.">
 <link rel="canonical" href="https://outpumper.com/">
@@ -15,16 +16,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/app.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"OutPumper","applicationCategory":"BusinessApplication","operatingSystem":"Windows (Microsoft 365 + Outlook)","description":"OutPumper sends cold email from your own Outlook and real domain, with no warmup, no throwaway domains, and no third-party servers.","offers":[{"@type":"Offer","price":"49","priceCurrency":"USD","name":"Pro monthly"},{"@type":"Offer","price":"497","priceCurrency":"USD","name":"Lifetime"}],"publisher":{"@type":"Organization","name":"The Grow Revenue Company Limited"}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Do I need Microsoft 365 to use OutPumper?","acceptedAnswer":{"@type":"Answer","text":"Yes. OutPumper is an Outlook add-in. If you have desktop Outlook connected to a Microsoft 365 account, you are ready to go. That is the only requirement."}},
-{"@type":"Question","name":"Will sending with OutPumper get my account banned?","acceptedAnswer":{"@type":"Answer","text":"OutPumper is built around Microsoft's sending limits. It throttles automatically, sends in natural waves, and stops before you approach a limit, so your account stays in good standing."}},
-{"@type":"Question","name":"How is OutPumper different from Instantly or Smartlead?","acceptedAnswer":{"@type":"Answer","text":"Those tools send from their own servers, which means buying throwaway domains and warming them for weeks, and your mail still arrives from an address no one recognizes. OutPumper sends from your real Outlook and your real domain, with no warmup and no extra domains."}},
-{"@type":"Question","name":"Is there a free trial?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Pro and Agency plans include a 7-day free trial. We collect a card up front but charge nothing during the trial. Cancel before day seven and you pay nothing."}}
+{"@type":"Question","name":"Do I need Microsoft 365 to use OutPumper?","acceptedAnswer":{"@type":"Answer","text":"Yes. OutPumper is an Outlook add-in. If you have desktop Outlook connected to a Microsoft 365 account, you are ready to go."}},
+{"@type":"Question","name":"Will sending with OutPumper get my account banned?","acceptedAnswer":{"@type":"Answer","text":"OutPumper is built around Microsoft's sending limits. It throttles automatically, sends in natural waves, and stops before you approach a limit."}},
+{"@type":"Question","name":"How is OutPumper different from Instantly or Smartlead?","acceptedAnswer":{"@type":"Answer","text":"Those tools send from their own servers, which means buying throwaway domains and warming them for weeks. OutPumper sends from your real Outlook and real domain, with no warmup."}},
+{"@type":"Question","name":"Is there a free trial?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Pro and Agency plans include a 7-day free trial. We collect a card up front but charge nothing during the trial."}}
 ]}
 </script>
 </head>
@@ -38,6 +39,7 @@
         <li><a href="/features.html">Features</a></li>
         <li><a href="/pricing.html">Pricing</a></li>
         <li><a href="/comparison.html">Compare</a></li>
+        <li><a href="https://theoutboundgame.com">Blog</a></li>
         <li><a href="/download.html">Download</a></li>
       </ul>
     </nav>
@@ -51,23 +53,47 @@
 <main>
 <section class="hero">
   <div class="container">
-    <p class="eyebrow reveal">Cold email, from inside Outlook</p>
-    <h1 class="reveal d1">Send cold email from your own domain.</h1>
-    <p class="lead reveal d2">OutPumper runs inside Outlook and sends from the address your prospects already trust. No warmup, no throwaway domains, and no third-party servers standing between you and the inbox.</p>
-    <div class="hero-cta reveal d3">
-      <a class="btn btn-primary btn-lg" href="/pricing.html">Start 7-day free trial</a>
-      <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
-    </div>
-    <div class="hero-note reveal d3">
-      <span>✓ Works with Microsoft 365</span>
-      <span>✓ 7-day free trial</span>
-      <span>✓ 30-day money-back guarantee</span>
-    </div>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <p class="eyebrow reveal">Cold email, from inside Outlook</p>
+        <h1 class="reveal d1">Send cold email from your own domain.</h1>
+        <p class="lead reveal d2">OutPumper runs inside Outlook and sends from the address your prospects already trust. No warmup, no throwaway domains, and no third-party servers between you and the inbox.</p>
+        <div class="hero-cta reveal d3">
+          <a class="btn btn-primary btn-lg" href="/pricing.html">Start 7-day free trial</a>
+          <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
+        </div>
+        <div class="hero-note reveal d3">
+          <span>✓ Works with Microsoft 365</span>
+          <span>✓ 7-day free trial</span>
+          <span>✓ 30-day money-back guarantee</span>
+        </div>
+        <div class="fromcard reveal d4" aria-label="OutPumper sends from your real address, not a rented relay">
+          <div class="row"><span class="ok">✓</span> <span>from: you@yourcompany.com</span><span class="tag good">your real domain</span></div>
+          <div class="divider"></div>
+          <div class="row"><span class="bad">from: mailer-47.relay-sender.net</span><span class="tag warn">their servers</span></div>
+        </div>
+      </div>
 
-    <div class="fromcard reveal d4" aria-label="OutPumper sends from your real address, not a rented relay">
-      <div class="row"><span class="ok">✓</span> <span>from: you@yourcompany.com</span><span class="tag good">your real domain</span></div>
-      <div class="divider"></div>
-      <div class="row"><span class="bad">from: mailer-47.relay-sender.net</span><span class="tag warn">their servers</span></div>
+      <div class="hero-mockup reveal d2">
+        <div class="mockup">
+          <div class="mockup-bar"><i></i><i></i><i></i><span class="title">OutPumper — Outlook</span></div>
+          <div class="mockup-stats">
+            <div class="mockup-stat"><span class="n" data-count="1284">0</span><span class="l">Sent today</span></div>
+            <div class="mockup-stat"><span class="n" data-count="63">0</span><span class="l">Replies</span></div>
+            <div class="mockup-stat"><span class="n" data-count="98" data-suffix="%">0</span><span class="l">Inbox rate</span></div>
+          </div>
+          <div class="mockup-rows">
+            <div class="mockup-row"><span class="e">ceo@acme.io</span><span class="pill replied">replied</span></div>
+            <div class="mockup-row"><span class="e">ops@northwind.co</span><span class="pill sent">sent</span></div>
+            <div class="mockup-row"><span class="e">founder@lumen.dev</span><span class="pill sending">sending</span></div>
+            <div class="mockup-row"><span class="e">vp@harbor.com</span><span class="pill sent">sent</span></div>
+          </div>
+          <div class="mockup-prog">
+            <div class="lab"><span>Campaign: Q3 Founders</span><span>94%</span></div>
+            <div class="track"><span class="fill"></span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -75,7 +101,7 @@
 <section class="section-tight">
   <div class="container">
     <div class="contrast">
-      <div class="panel them">
+      <div class="panel them reveal">
         <h3>Every other tool</h3>
         <ul>
           <li>Sends from their servers, on shared IPs you do not control</li>
@@ -85,7 +111,7 @@
           <li>Mail arrives from an address your prospects have never seen</li>
         </ul>
       </div>
-      <div class="panel you">
+      <div class="panel you reveal d1">
         <h3>OutPumper</h3>
         <ul>
           <li>Sends from your Outlook and your real domain</li>
@@ -107,14 +133,25 @@
       <p class="lead">No external app to learn, no separate sending infrastructure to manage. OutPumper adds the full outbound engine to the inbox you already work in.</p>
     </div>
     <div class="grid grid-3">
-      <div class="card"><div class="ico">↗</div><h3>Multi-step sequences</h3><p>Follow-ups that run on autopilot, with per-contact tracking so you always know where every prospect stands.</p></div>
-      <div class="card"><div class="ico">⏱</div><h3>Smart throttling</h3><p>Sends in natural waves and slows down as needed. An automatic stop keeps you clear of Microsoft's limits.</p></div>
-      <div class="card"><div class="ico">🔀</div><h3>Mailbox rotation</h3><p>Detects your user and shared mailboxes and rotates across them automatically. Shared mailboxes are free in M365.</p></div>
-      <div class="card"><div class="ico">✎</div><h3>Word variation</h3><p>Rewrites each email so no two are identical, which keeps pattern-matching spam filters from flagging your sends.</p></div>
-      <div class="card"><div class="ico">✓</div><h3>Built-in verification</h3><p>Every address is verified before it is sent to. Unlimited, included, with no per-check fee.</p></div>
-      <div class="card"><div class="ico">🧠</div><h3>Bounce intelligence</h3><p>A bounced address is blacklisted across every campaign automatically, so your sends get cleaner over time.</p></div>
+      <div class="card reveal"><div class="ico">↗</div><h3>Multi-step sequences</h3><p>Follow-ups that run on autopilot, with per-contact tracking so you always know where every prospect stands.</p></div>
+      <div class="card reveal d1"><div class="ico">⏱</div><h3>Smart throttling</h3><p>Sends in natural waves and slows down as needed. An automatic stop keeps you clear of Microsoft's limits.</p></div>
+      <div class="card reveal d2"><div class="ico">🔀</div><h3>Mailbox rotation</h3><p>Detects your user and shared mailboxes and rotates across them automatically. Shared mailboxes are free in M365.</p></div>
+      <div class="card reveal"><div class="ico">✎</div><h3>Word variation</h3><p>Rewrites each email so no two are identical, which keeps pattern-matching spam filters from flagging your sends.</p></div>
+      <div class="card reveal d1"><div class="ico">✓</div><h3>Built-in verification</h3><p>Every address is verified before it is sent to. Unlimited, included, with no per-check fee.</p></div>
+      <div class="card reveal d2"><div class="ico">🧠</div><h3>Bounce intelligence</h3><p>A bounced address is blacklisted across every campaign automatically, so your sends get cleaner over time.</p></div>
     </div>
     <p style="margin-top:24px"><a href="/features.html">See the full feature list →</a></p>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal"><div class="n" data-count="50" data-suffix="K">0</div><div class="l">Emails/day ceiling</div></div>
+      <div class="stat reveal d1"><div class="n" data-count="48">0</div><div class="l">Built-in templates</div></div>
+      <div class="stat reveal d2"><div class="n" data-count="100" data-suffix="%">0</div><div class="l">Stays in your tenant</div></div>
+      <div class="stat reveal d3"><div class="n" data-count="0">0</div><div class="l">Extra domains needed</div></div>
+    </div>
   </div>
 </section>
 
@@ -122,18 +159,18 @@
   <div class="container">
     <div class="sec-head">
       <p class="eyebrow">What it replaces</p>
-      <h2>Three tools other senders pay for, included.</h2>
+      <h2>Tools other senders pay for, included.</h2>
     </div>
     <div class="killer">
-      <div class="killer-row">
+      <div class="killer-row reveal">
         <div><h3>Email verification</h3><p>Built into the sending engine. Verify ten addresses or ten million for the same price.</p></div>
         <div class="price-tag"><div class="them">0.003 to 0.01 dollars per email elsewhere</div><div class="ours">Included</div></div>
       </div>
-      <div class="killer-row">
-        <div><h3>LinkedIn email finder</h3><p>Pull verified emails, titles, and company data straight from LinkedIn and Sales Navigator.</p></div>
-        <div class="price-tag"><div class="them">49 to 79 dollars per month elsewhere</div><div class="ours">Included</div></div>
+      <div class="killer-row reveal d1">
+        <div><h3>Warmup tools and extra domains</h3><p>Send from your own domain on day one. No warmup service to subscribe to, no 30 to 50 throwaway domains to buy.</p></div>
+        <div class="price-tag"><div class="them">Hundreds a month elsewhere</div><div class="ours">Not needed</div></div>
       </div>
-      <div class="killer-row">
+      <div class="killer-row reveal d2">
         <div><h3>Bounce list hygiene</h3><p>Auto-blacklisting across all campaigns, past and future. No manual cleanup, no re-uploading cleaned lists.</p></div>
         <div class="price-tag"><div class="them">Manual cleanup elsewhere</div><div class="ours">Automatic</div></div>
       </div>
@@ -148,16 +185,16 @@
       <h2>Three steps to your first campaign.</h2>
     </div>
     <div class="steps">
-      <div class="step"><div class="n"></div><div><h3>Install the Outlook add-in</h3><p>Download, install, and OutPumper appears in your Outlook ribbon. Microsoft 365 plus desktop Outlook is all you need.</p></div></div>
-      <div class="step"><div class="n"></div><div><h3>Drop in your list</h3><p>Import a CSV with any columns. No mapping wizard, no long setup. Your contacts are ready to send.</p></div></div>
-      <div class="step"><div class="n"></div><div><h3>Send from your domain</h3><p>OutPumper sends from your real address, throttled and rotated automatically, and tracks every reply in a live dashboard.</p></div></div>
+      <div class="step reveal"><div class="n"></div><div><h3>Install the Outlook add-in</h3><p>Download, install, and OutPumper appears in your Outlook ribbon. Microsoft 365 plus desktop Outlook is all you need.</p></div></div>
+      <div class="step reveal d1"><div class="n"></div><div><h3>Drop in your list</h3><p>Import a CSV with any columns. No mapping wizard, no long setup. Your contacts are ready to send.</p></div></div>
+      <div class="step reveal d2"><div class="n"></div><div><h3>Send from your domain</h3><p>OutPumper sends from your real address, throttled and rotated automatically, and tracks every reply in a live dashboard.</p></div></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="cta-band">
+    <div class="cta-band reveal">
       <h2>Stop renting someone else's sending reputation.</h2>
       <p class="lead">Your Outlook already does the hard part. OutPumper unlocks the rest. Try it free for seven days.</p>
       <div class="hero-cta" style="justify-content:center">
@@ -174,7 +211,7 @@
     <div class="faq">
       <details class="qa"><summary>Do I need Microsoft 365?</summary><p>Yes. OutPumper is an Outlook add-in. If you have desktop Outlook connected to a Microsoft 365 account, you are ready to go. That is the only requirement.</p></details>
       <details class="qa"><summary>Will this get my account banned?</summary><p>OutPumper is built around Microsoft's sending limits. It throttles automatically, sends in natural waves, and stops before you approach a limit, so your account stays in good standing.</p></details>
-      <details class="qa"><summary>How is this different from Instantly?</summary><p>Instantly sends from its own servers, which means buying 30 to 50 throwaway domains, warming them for weeks, and still sending from an address your prospects have never seen. OutPumper sends from your own Outlook and your real domain, with no warmup and no extra domains.</p></details>
+      <details class="qa"><summary>How is this different from Instantly?</summary><p>Instantly sends from its own servers, which means buying 30 to 50 throwaway domains, warming them for weeks, and still sending from an address your prospects have never seen. OutPumper sends from your own Outlook and your real domain.</p></details>
       <details class="qa"><summary>Can I connect external providers?</summary><p>Yes. Connect Google Workspace, SendGrid, Mailgun, Amazon SES, or any standard SMTP server, and manage all of it from one dashboard inside Outlook.</p></details>
       <details class="qa"><summary>Is there a trial?</summary><p>The Pro and Agency plans include a 7-day free trial. We collect a card up front but charge nothing during the trial. Cancel before day seven and you pay nothing. The Lifetime plan is a one-time purchase and does not include a trial.</p></details>
       <details class="qa"><summary>What is the refund policy?</summary><p>Thirty days, no questions asked. If OutPumper is not right for you, you get every cent back.</p></details>
@@ -197,6 +234,7 @@
         <li><a href="/download.html">Download</a></li>
       </ul></div>
       <div class="foot-col"><h4>Resources</h4><ul>
+        <li><a href="https://theoutboundgame.com">Blog</a></li>
         <li><a href="https://theoutboundgame.com">The Outbound Game</a></li>
         <li><a href="/pricing.html#faq">FAQ</a></li>
       </ul></div>
@@ -213,11 +251,28 @@
 </footer>
 
 <script>
-  // reveal on scroll for elements below the fold
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const io = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.animation='rise .7s cubic-bezier(.2,.7,.3,1) forwards';io.unobserve(e.target);}})},{threshold:.12});
-    document.querySelectorAll('section .card, .killer-row, .step, .panel').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(16px)';io.observe(el);});
+(function(){
+  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // scroll reveal + count-up trigger
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.classList.contains('stat')) countUp(e.target.querySelector('.n'));
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){ if(rm){el.classList.add('in');} else {io.observe(el);} });
+
+  function countUp(el){
+    if(!el || rm){ if(el){el.textContent = el.dataset.count + (el.dataset.suffix||'');} return; }
+    var target = +el.dataset.count, suffix = el.dataset.suffix||'', dur = 1100, t0 = null;
+    function step(ts){ if(!t0)t0=ts; var p = Math.min((ts-t0)/dur,1);
+      el.textContent = Math.round(p*target) + suffix; if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
   }
+})();
 </script>
 </body>
 </html>

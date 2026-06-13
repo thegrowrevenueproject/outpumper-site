@@ -9,7 +9,7 @@ OutPumper is built by The Grow Revenue Company Limited and is part of The Outbou
 - No warmup period and no need to buy 30 to 50 throwaway domains.
 - Your contact data never leaves your Microsoft 365 tenant.
 - Smart throttling with an automatic safety stop keeps sending within Microsoft limits.
-- Built-in unlimited email verification, a LinkedIn email finder, and automatic bounce blacklisting are included at no extra cost.
+- Built-in unlimited email verification and automatic bounce blacklisting are included at no extra cost.
 - Connects to Google Workspace, SendGrid, Mailgun, Amazon SES, or any SMTP server.
 
 ## Pricing
@@ -27,3 +27,4 @@ OutPumper is built by The Grow Revenue Company Limited and is part of The Outbou
 - Pricing: https://outpumper.com/pricing.html
 - Comparison vs Instantly, Smartlead, Woodpecker: https://outpumper.com/comparison.html
 - Download: https://outpumper.com/download.html
+- Blog: https://theoutboundgame.com

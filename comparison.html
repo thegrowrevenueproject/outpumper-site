@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
 <title>OutPumper vs Instantly vs Smartlead — Cold Email Comparison</title>
 <meta name="description" content="A straight comparison of OutPumper, Instantly, Smartlead, and Woodpecker: where mail sends from, warmup, extra domains, data privacy, and real cost.">
 <link rel="canonical" href="https://outpumper.com/comparison.html">
@@ -13,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/app.css">
 </head>
 <body>
 
@@ -24,6 +25,7 @@
       <li><a href="/features.html">Features</a></li>
       <li><a href="/pricing.html">Pricing</a></li>
       <li><a href="/comparison.html" class="active">Compare</a></li>
+      <li><a href="https://theoutboundgame.com">Blog</a></li>
       <li><a href="/download.html">Download</a></li>
     </ul></nav>
     <div class="nav-cta">
@@ -44,7 +46,7 @@
 
 <section style="padding-top:16px">
   <div class="container">
-    <div class="tablewrap">
+    <div class="tablewrap reveal">
       <table class="cmp">
         <thead><tr>
           <th>What you care about</th>
@@ -68,7 +70,6 @@
           <tr><td>One-time purchase option</td><td class="us">497 forever</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
           <tr><td>Connect external providers</td><td class="us">SendGrid, Mailgun, SES, any SMTP</td><td class="no">No</td><td class="no">No</td><td class="no">Limited</td></tr>
           <tr><td>Built-in email verification</td><td class="us">Free, unlimited</td><td class="no">Third party required</td><td class="no">Third party required</td><td class="no">Third party required</td></tr>
-          <tr><td>LinkedIn email finder</td><td class="us">Built in</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
           <tr><td>Learns from bounces</td><td class="us">Auto-blacklists everywhere</td><td class="no">No</td><td class="no">No</td><td class="no">Manual cleanup</td></tr>
         </tbody>
       </table>
@@ -79,15 +80,15 @@
 <section class="section-tight">
   <div class="container">
     <div class="grid grid-3">
-      <div class="card"><h3>vs Instantly</h3><p>Instantly has you buy and warm dozens of throwaway domains, then pay for a warmup tool on top, and your mail still comes from servers no one recognizes. OutPumper sends from your real domain and your real Outlook on day one, with no extra layer to buy or manage.</p></div>
-      <div class="card"><h3>vs Smartlead</h3><p>Smartlead still cannot send from your actual domain, and your contact data sits on its infrastructure. If a shared IP gets burned, your campaigns feel it. OutPumper keeps the sending, the data, and the reputation in your own tenant.</p></div>
-      <div class="card"><h3>vs Woodpecker</h3><p>Woodpecker is solid, but it still needs external SMTP, DNS configuration, and sends from servers that are not yours. OutPumper removes that entire layer. No SMTP setup, no new SPF records, just Outlook doing what it already does.</p></div>
+      <div class="card reveal"><h3>vs Instantly</h3><p>Instantly has you buy and warm dozens of throwaway domains, then pay for a warmup tool on top, and your mail still comes from servers no one recognizes. OutPumper sends from your real domain and your real Outlook on day one, with no extra layer to buy or manage.</p></div>
+      <div class="card reveal d1"><h3>vs Smartlead</h3><p>Smartlead still cannot send from your actual domain, and your contact data sits on its infrastructure. If a shared IP gets burned, your campaigns feel it. OutPumper keeps the sending, the data, and the reputation in your own tenant.</p></div>
+      <div class="card reveal d2"><h3>vs Woodpecker</h3><p>Woodpecker is solid, but it still needs external SMTP, DNS configuration, and sends from servers that are not yours. OutPumper removes that entire layer. No SMTP setup, no new SPF records, just Outlook doing what it already does.</p></div>
     </div>
   </div>
 </section>
 
 <section style="padding-top:24px">
-  <div class="container"><div class="cta-band">
+  <div class="container"><div class="cta-band reveal">
     <h2>Keep your domain. Keep your data. Keep your reputation.</h2>
     <p class="lead">Your Outlook already does the hard part. Try OutPumper free for seven days.</p>
     <div class="hero-cta" style="justify-content:center">
@@ -109,6 +110,7 @@
         <li><a href="/features.html">Features</a></li><li><a href="/pricing.html">Pricing</a></li>
         <li><a href="/comparison.html">Comparison</a></li><li><a href="/download.html">Download</a></li></ul></div>
       <div class="foot-col"><h4>Resources</h4><ul>
+        <li><a href="https://theoutboundgame.com">Blog</a></li>
         <li><a href="https://theoutboundgame.com">The Outbound Game</a></li><li><a href="/pricing.html#faq">FAQ</a></li></ul></div>
       <div class="foot-col"><h4>Legal</h4><ul>
         <li><a href="/terms.html">Terms</a></li><li><a href="/privacy.html">Privacy</a></li></ul></div>
@@ -119,5 +121,10 @@
     </div>
   </div>
 </footer>
+<script>
+(function(){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){if(rm){el.classList.add('in');}else{io.observe(el);}});})();
+</script>
 </body>
 </html>
