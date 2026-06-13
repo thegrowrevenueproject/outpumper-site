@@ -1,0 +1,29 @@
+# OutPumper
+
+> OutPumper is a cold email tool that runs as a Microsoft Outlook add-in and sends from your own domain and inbox, with no warmup, no throwaway domains, and no third-party sending servers.
+
+OutPumper is built by The Grow Revenue Company Limited and is part of The Outbound Game ecosystem (https://theoutboundgame.com). It is for B2B founders, salespeople, and agencies who run outbound cold email and want to send from their real Microsoft 365 address instead of rented infrastructure.
+
+## What makes it different
+- Sends from your own Outlook and your real domain, so mail comes from the address prospects already trust.
+- No warmup period and no need to buy 30 to 50 throwaway domains.
+- Your contact data never leaves your Microsoft 365 tenant.
+- Smart throttling with an automatic safety stop keeps sending within Microsoft limits.
+- Built-in unlimited email verification, a LinkedIn email finder, and automatic bounce blacklisting are included at no extra cost.
+- Connects to Google Workspace, SendGrid, Mailgun, Amazon SES, or any SMTP server.
+
+## Pricing
+- Pro: 49 US dollars per month, 7-day free trial.
+- Lifetime: 497 US dollars one-time, with one year of updates included.
+- Agency: 49 US dollars per month plus 15 US dollars per client, 7-day free trial.
+- 30-day money-back guarantee on all plans.
+
+## Requirements
+- Windows with desktop Outlook connected to a Microsoft 365 account.
+
+## Key pages
+- Home: https://outpumper.com/
+- Features: https://outpumper.com/features.html
+- Pricing: https://outpumper.com/pricing.html
+- Comparison vs Instantly, Smartlead, Woodpecker: https://outpumper.com/comparison.html
+- Download: https://outpumper.com/download.html
