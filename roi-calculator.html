@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
+<title>Cold Email ROI & Pipeline Calculator — OutPumper</title>
+<meta name="description" content="Project the pipeline and revenue from your cold email, then see the one bottleneck costing you the most. Free calculator.">
+<link rel="canonical" href="https://outpumper.com/roi-calculator.html">
+<meta property="og:title" content="Cold Email ROI & Pipeline Calculator">
+<meta property="og:description" content="See your projected pipeline and the bottleneck costing you the most. Free.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<style>
+  .tool-wrap{max-width:880px;margin:0 auto;}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:1.6rem;}
+  @media(max-width:760px){.calc-grid{grid-template-columns:1fr;}}
+  .inputs{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;}
+  .inrow{margin-bottom:18px;}
+  .inrow:last-child{margin-bottom:0;}
+  .inrow label{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;font-weight:600;color:var(--t1);margin-bottom:.5rem;}
+  .inrow .val{font-family:var(--mono);font-weight:700;color:var(--accent-bright);font-size:.95rem;}
+  .inrow .bench{font-size:.72rem;color:var(--t3);font-family:var(--mono);}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;background:var(--border2);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent-bright);cursor:pointer;border:2px solid var(--bg1);}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent-bright);cursor:pointer;border:2px solid var(--bg1);}
+  .num-in{width:100%;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-family:var(--mono);font-size:.95rem;padding:.55rem .7rem;margin-top:.1rem;}
+  .num-in:focus{outline:none;border-color:var(--accent);}
+  .outputs{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--border);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;}
+  .out-head{font-size:.74rem;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:1rem;}
+  .out-row{display:flex;justify-content:space-between;align-items:baseline;padding:.6rem 0;border-bottom:1px solid var(--border);}
+  .out-row .k{color:var(--t2);font-size:.92rem;}
+  .out-row .v{font-family:var(--mono);font-weight:700;font-size:1.05rem;color:var(--t1);}
+  .out-hero{margin-top:auto;padding-top:1rem;}
+  .out-hero .lbl{font-size:.8rem;color:var(--t2);text-transform:uppercase;letter-spacing:.08em;}
+  .out-hero .big{font-family:var(--mono);font-weight:800;font-size:2.2rem;color:var(--accent-bright);line-height:1.1;margin-top:.2rem;}
+  .out-hero .sub{font-size:.85rem;color:var(--t3);margin-top:.2rem;}
+  /* gate + analysis */
+  .gate{position:relative;margin-top:20px;}
+  .analysis-teaser{filter:blur(7px);pointer-events:none;user-select:none;}
+  .gate-overlay{position:absolute;inset:0;display:grid;place-items:center;padding:1rem;}
+  .gate-card{background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:26px;max-width:440px;text-align:center;box-shadow:0 30px 70px -40px rgba(37,99,235,.6);}
+  .gate-card h3{margin-bottom:.5rem;}.gate-card p{color:var(--t2);font-size:.92rem;margin-bottom:1rem;}
+  .gate-form{display:flex;gap:.5rem;flex-wrap:wrap;}
+  .gate-form input{flex:1;min-width:180px;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.95rem;padding:.75rem .9rem;}
+  .gate-form input:focus{outline:none;border-color:var(--accent);}
+  .gate-note{font-size:.76rem;color:var(--t3);margin-top:.7rem;}
+  .field-err{color:var(--danger);font-size:.85rem;margin-top:.5rem;min-height:1.1em;}
+  .hidden{display:none!important;}
+  .verdict{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--rs);padding:20px 22px;}
+  .verdict h3{font-size:1.1rem;margin-bottom:.4rem;}.verdict p{color:var(--t2);font-size:.96rem;}
+  .lever{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-top:12px;}
+  .lever.top{border-color:var(--accent);box-shadow:0 0 0 1px rgba(37,99,235,.3);}
+  .lever .ltop{display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;}
+  .lever .lname{font-weight:700;font-size:1rem;}
+  .lever .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .5rem;border-radius:99px;color:var(--accent-bright);background:rgba(37,99,235,.14);border:1px solid rgba(37,99,235,.3);}
+  .lever .worth{font-family:var(--mono);font-weight:800;color:var(--green);font-size:1.15rem;}
+  .lever p{color:var(--t2);font-size:.9rem;margin-top:.5rem;}
+  .lever .cur{color:var(--t3);font-family:var(--mono);font-size:.8rem;}
+  .target-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin-top:16px;}
+  .target-box h4{font-size:1rem;margin-bottom:.7rem;}
+  .target-row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;}
+  .target-row input{width:160px;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-family:var(--mono);padding:.5rem .7rem;}
+  .target-out{margin-top:.8rem;font-size:1rem;color:var(--t1);}
+  .target-out b{color:var(--accent-bright);font-family:var(--mono);}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
+    <nav><ul class="nav-links" id="navlinks">
+      <li><a href="/features.html">Features</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/comparison.html">Compare</a></li>
+      <li><a href="https://theoutboundgame.com">Blog</a></li>
+      <li><a href="/download.html">Download</a></li>
+    </ul></nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/pricing.html">Start free trial</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-bottom:32px">
+  <div class="container tool-wrap">
+    <p class="eyebrow">Free tool</p>
+    <h1 style="margin:1rem 0 1rem;font-size:clamp(2rem,5vw,3.2rem)">What is your cold email actually worth?</h1>
+    <p class="lead">Enter your real numbers. See the pipeline and revenue your outbound should produce, then unlock the one bottleneck quietly costing you the most, and what fixing it is worth.</p>
+
+    <div class="calc-grid">
+      <!-- INPUTS -->
+      <div class="inputs">
+        <div class="inrow">
+          <label for="emails">Emails sent per month <span class="val" id="emailsVal">1,000</span></label>
+          <input type="range" id="emails" min="100" max="50000" step="100" value="1000">
+          <input type="number" class="num-in" id="emailsNum" min="0" value="1000" aria-label="Emails per month">
+        </div>
+        <div class="inrow">
+          <label for="reply">Reply rate <span class="val" id="replyVal">4%</span></label>
+          <input type="range" id="reply" min="0" max="30" step="0.5" value="4">
+          <div class="bench">Typical 2025–26: 3–5%. Good: 8%+.</div>
+        </div>
+        <div class="inrow">
+          <label for="meeting">Meetings booked, of replies <span class="val" id="meetingVal">30%</span></label>
+          <input type="range" id="meeting" min="0" max="100" step="1" value="30">
+          <div class="bench">Typical: 25–35%. Good: 45%+.</div>
+        </div>
+        <div class="inrow">
+          <label for="close">Close rate, of meetings <span class="val" id="closeVal">25%</span></label>
+          <input type="range" id="close" min="0" max="100" step="1" value="25">
+          <div class="bench">Typical: 20–25%. Good: 30%+.</div>
+        </div>
+        <div class="inrow">
+          <label for="deal">Average deal value <span class="val" id="dealVal">$5,000</span></label>
+          <input type="range" id="deal" min="100" max="100000" step="100" value="5000">
+          <input type="number" class="num-in" id="dealNum" min="0" value="5000" aria-label="Average deal value">
+        </div>
+      </div>
+
+      <!-- OUTPUTS (live, free) -->
+      <div class="outputs">
+        <div class="out-head">Your monthly funnel</div>
+        <div class="out-row"><span class="k">Replies</span><span class="v" id="oReplies">40</span></div>
+        <div class="out-row"><span class="k">Meetings booked</span><span class="v" id="oMeetings">12</span></div>
+        <div class="out-row"><span class="k">New customers</span><span class="v" id="oDeals">3</span></div>
+        <div class="out-row"><span class="k">Revenue / month</span><span class="v" id="oRevMo">$15,000</span></div>
+        <div class="out-hero">
+          <div class="lbl">Projected pipeline / year</div>
+          <div class="big" id="oRevYr">$180,000</div>
+          <div class="sub">at your current numbers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GATED ANALYSIS -->
+    <div class="gate" id="gate">
+      <div class="analysis-teaser" id="teaser" aria-hidden="true">
+        <div class="verdict"><h3>Your biggest bottleneck</h3><p>One stage is costing you more than the others. Unlock the analysis to see which, and what fixing it is worth per year.</p></div>
+        <div class="lever top"><div class="ltop"><span class="lname">Reply rate</span><span class="worth">+$000,000/yr</span></div><p>Placeholder analysis text that is blurred until unlock.</p></div>
+        <div class="lever"><div class="ltop"><span class="lname">Meeting rate</span><span class="worth">+$00,000/yr</span></div><p>Placeholder analysis text that is blurred until unlock.</p></div>
+        <div class="lever"><div class="ltop"><span class="lname">Close rate</span><span class="worth">+$00,000/yr</span></div><p>Placeholder analysis text that is blurred until unlock.</p></div>
+      </div>
+      <div class="gate-overlay" id="gateOverlay">
+        <div class="gate-card">
+          <h3>Unlock your bottleneck analysis</h3>
+          <p>See which stage is costing you the most, what fixing each lever is worth per year, and the volume you need to hit your target, free.</p>
+          <form class="gate-form" id="gateForm" novalidate>
+            <input type="email" id="email" placeholder="you@yourcompany.com" aria-label="Your email">
+            <button class="btn btn-primary" type="submit" id="gateBtn">Show me the analysis</button>
+          </form>
+          <div class="field-err" id="emailErr" role="alert"></div>
+          <div class="gate-note">No spam. One short follow-up with outbound tips, unsubscribe anytime.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL ANALYSIS (revealed) -->
+    <div id="analysis" class="hidden">
+      <div class="verdict" id="verdict"></div>
+      <div id="levers"></div>
+      <div class="target-box">
+        <h4>How much volume hits your target?</h4>
+        <div class="target-row">
+          <span style="color:var(--t2);font-size:.9rem">Target pipeline per year</span>
+          <input type="number" id="target" min="0" step="10000" value="500000">
+        </div>
+        <div class="target-out" id="targetOut"></div>
+      </div>
+      <div class="cta-band" id="opCta" style="margin-top:28px">
+        <h2 id="ctaHead">The fastest lever you fully control is volume.</h2>
+        <p class="lead" id="ctaSub" style="margin:0 auto 1.5rem"></p>
+        <a class="btn btn-primary btn-lg" href="/pricing.html">Try OutPumper free for 7 days</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container tool-wrap">
+    <div class="sec-head"><p class="eyebrow">How to read it</p><h2 style="margin:.5rem 0 .8rem">Most teams do not have a lead problem.</h2></div>
+    <p class="lead">They have a conversion problem. When you put real numbers in, the math usually shows that the stage holding you back is not the top of the funnel, it is what happens after the reply. This tool finds that stage and prices it, so you fix the thing that actually moves revenue.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
+        <p class="lead">Cold email that sends from your own Outlook and your real domain. An Outbound Game company.</p>
+      </div>
+      <div class="foot-col"><h4>Product</h4><ul>
+        <li><a href="/features.html">Features</a></li><li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/comparison.html">Comparison</a></li><li><a href="/download.html">Download</a></li></ul></div>
+      <div class="foot-col"><h4>Free tools</h4><ul>
+        <li><a href="/deliverability-checker.html">Deliverability Checker</a></li>
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li></ul></div>
+      <div class="foot-col"><h4>Resources</h4><ul>
+        <li><a href="https://theoutboundgame.com">Blog</a></li><li><a href="/pricing.html#faq">FAQ</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 The Grow Revenue Company Limited. All rights reserved.</span>
+      <span>Cold email powered by Microsoft Exchange. Lives inside your Outlook.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  // benchmarks (cited 2025-26): good reply 8%, meeting-of-reply 45%, close 30%
+  var RB=0.08, MB=0.45, CB=0.30;
+  var state={emails:1000,reply:4,meeting:30,close:25,deal:5000};
+
+  function fmt(n){return n.toLocaleString('en-US');}
+  function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function funnel(emails,reply,meeting,close,deal){
+    var replies=emails*reply, meetings=replies*meeting, deals=meetings*close, rev=deals*deal;
+    return {replies:replies,meetings:meetings,deals:deals,revMo:rev,revYr:rev*12};
+  }
+  function current(){return funnel(state.emails,state.reply/100,state.meeting/100,state.close/100,state.deal);}
+
+  // ---- live outputs ----
+  function renderOutputs(){
+    var f=current();
+    $('oReplies').textContent=fmt(Math.round(f.replies));
+    $('oMeetings').textContent=f.meetings>=10?fmt(Math.round(f.meetings)):f.meetings.toFixed(1);
+    $('oDeals').textContent=f.deals>=10?fmt(Math.round(f.deals)):f.deals.toFixed(1);
+    $('oRevMo').textContent=money(f.revMo);
+    $('oRevYr').textContent=money(f.revYr);
+  }
+
+  // ---- input wiring (range <-> number, labels) ----
+  function bindRange(id,labelId,suffix,numId){
+    var r=$(id),lab=$(labelId);
+    function sync(v){
+      state[id]=parseFloat(v);
+      if(id==='emails'||id==='deal'){ lab.textContent=(id==='deal'?'$':'')+fmt(Math.round(state[id])); }
+      else { lab.textContent=state[id]+'%'; }
+      if(numId&&$(numId)) $(numId).value=Math.round(state[id]);
+      renderOutputs();
+    }
+    r.addEventListener('input',function(){sync(r.value);});
+    if(numId){
+      var n=$(numId);
+      n.addEventListener('input',function(){
+        var v=parseFloat(n.value);
+        if(isNaN(v)||v<0) v=0;
+        var max=parseFloat(r.max); if(v>max){v=max;}
+        state[id]=v; r.value=v;
+        lab.textContent=(id==='deal'?'$':'')+fmt(Math.round(v));
+        renderOutputs();
+      });
+    }
+    sync(r.value);
+  }
+  bindRange('emails','emailsVal','',  'emailsNum');
+  bindRange('reply','replyVal','%',   null);
+  bindRange('meeting','meetingVal','%',null);
+  bindRange('close','closeVal','%',   null);
+  bindRange('deal','dealVal','',      'dealNum');
+
+  // ---- bottleneck analysis ----
+  function deltas(){
+    var base=current().revMo, d=[];
+    var e=state.emails, r=state.reply/100, m=state.meeting/100, c=state.close/100, v=state.deal;
+    if(r<RB) d.push({key:'Reply rate',cur:state.reply+'%',bench:(RB*100)+'%',
+      worth:funnel(e,RB,m,c,v).revMo-base,
+      note:'You reply-convert below the benchmark. Better targeting, a sharper opening line, and a tight 2–3 step follow-up are the usual fixes.'});
+    if(m<MB) d.push({key:'Meeting rate',cur:state.meeting+'%',bench:(MB*100)+'%',
+      worth:funnel(e,r,MB,c,v).revMo-base,
+      note:'Replies are not turning into meetings often enough. The gap is almost always the response after the reply, speed, a clear next step, and a frictionless way to book.'});
+    if(c<CB) d.push({key:'Close rate',cur:state.close+'%',bench:(CB*100)+'%',
+      worth:funnel(e,r,m,CB,v).revMo-base,
+      note:'Meetings are not closing at benchmark. This is the most expensive leak, and the hardest, qualification, discovery, and a disciplined follow-through close it.'});
+    d.sort(function(a,b){return b.worth-a.worth;});
+    return d;
+  }
+
+  function renderAnalysis(){
+    var f=current(), ds=deltas();
+    var verdict=$('verdict');
+    if(ds.length===0){
+      verdict.innerHTML='<h3 class="band-strong">Your conversion is already strong</h3><p>Every stage is at or above benchmark, which is rare. At this point the lever you fully control is volume, send more and the pipeline scales with it. That is exactly where OutPumper comes in.</p>';
+      $('levers').innerHTML='';
+    } else {
+      var top=ds[0];
+      verdict.innerHTML='<h3>Your biggest bottleneck: '+top.key.toLowerCase()+'</h3><p>Of every stage in your funnel, '+top.key.toLowerCase()+
+        ' is costing you the most. Lifting it from '+top.cur+' to the '+top.bench+' benchmark is worth about <b style="color:var(--green)">'+money(top.worth*12)+'/year</b>, with everything else unchanged.</p>';
+      $('levers').innerHTML=ds.map(function(x,i){
+        return '<div class="lever'+(i===0?' top':'')+'"><div class="ltop"><span class="lname">'+x.key+
+          (i===0?' <span class="tag">biggest lever</span>':'')+'</span><span class="worth">+'+money(x.worth*12)+'/yr</span></div>'+
+          '<p>'+x.note+'</p><p class="cur">Now '+x.cur+' → benchmark '+x.bench+' · worth '+money(x.worth)+'/mo</p></div>';
+      }).join('');
+    }
+    renderTarget();
+    // CTA: volume angle
+    $('ctaSub').innerHTML='Every lever above takes time to move. Volume is the one you control today, and it scales the whole funnel at once. OutPumper sends cold email from your own Outlook and your real domain, no warmup, no throwaway domains, no third-party servers, so you can send more without burning a new domain. Runs on Microsoft 365 with desktop Outlook.';
+  }
+
+  function renderTarget(){
+    var t=parseFloat($('target').value);
+    var out=$('targetOut');
+    var r=state.reply/100, m=state.meeting/100, c=state.close/100, v=state.deal;
+    var perEmailYr=r*m*c*v*12;
+    if(isNaN(t)||t<=0){out.innerHTML='Enter a target above.';return;}
+    if(perEmailYr<=0){out.innerHTML='Set your rates and deal value above to calculate.';return;}
+    var needMo=Math.ceil(t/perEmailYr);
+    var nowYr=current().revYr;
+    out.innerHTML='To reach <b>'+money(t)+'</b>/year at your current rates, you need to send <b>'+fmt(needMo)+'</b> emails/month'+
+      (state.emails>0?(' — that is <b>'+(needMo/state.emails>=1?(needMo/state.emails).toFixed(1)+'x':'about '+Math.round(needMo/state.emails*100)+'%')+'</b> your current volume.'):'.')+
+      ' You are currently on track for '+money(nowYr)+'/year.';
+  }
+
+  // lead capture STUB — wire to Mautic later (Cloudflare Pages Function forwarding {email,magnet,inputs}).
+  function submitLead(payload){try{console.log('[lead capture stub]',payload);}catch(e){}return Promise.resolve(true);}
+
+  $('gateForm').addEventListener('submit',function(e){
+    e.preventDefault();$('emailErr').textContent='';
+    var em=($('email').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){$('emailErr').textContent='Enter a valid email so we can show the analysis.';return;}
+    $('gateBtn').disabled=true;
+    submitLead({email:em,magnet:'roi-calculator',inputs:state,projection:current()}).then(function(){
+      $('gate').classList.add('hidden');
+      renderAnalysis();
+      $('analysis').classList.remove('hidden');
+      $('verdict').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  $('target').addEventListener('input',renderTarget);
+
+  renderOutputs();
+})();
+</script>
+</body>
+</html>
