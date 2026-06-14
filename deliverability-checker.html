@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
+<title>Free Cold Email Deliverability Checker — OutPumper</title>
+<meta name="description" content="Check your sending domain's SPF, DKIM, DMARC, and MX in 30 seconds. Get a scored inbox-readiness report and plain-English fixes. Free.">
+<link rel="canonical" href="https://outpumper.com/deliverability-checker.html">
+<meta property="og:title" content="Free Cold Email Deliverability Checker">
+<meta property="og:description" content="See why your cold email lands in spam. Scored SPF, DKIM, DMARC, MX report with fixes. Free.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<style>
+  /* ---- tool-specific UI (scoped; does not touch app.css) ---- */
+  .tool-wrap{max-width:760px;margin:0 auto;}
+  .checker-form{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem;}
+  .checker-form input[type=text]{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border2);border-radius:var(--rs);
+    color:var(--t1);font-family:var(--mono);font-size:1rem;padding:.9rem 1rem;}
+  .checker-form input[type=text]:focus{outline:none;border-color:var(--accent);}
+  .field-err{color:var(--danger);font-size:.85rem;margin-top:.5rem;min-height:1.1em;}
+  .checker-loading{display:none;align-items:center;gap:.7rem;color:var(--t2);font-family:var(--mono);font-size:.9rem;margin-top:1.4rem;}
+  .spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--accent-bright);border-radius:50%;animation:sp .8s linear infinite;}
+  @keyframes sp{to{transform:rotate(360deg);}}
+  .result{display:none;margin-top:2rem;}
+  .score-card{display:flex;gap:1.6rem;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:26px;flex-wrap:wrap;}
+  .ring{--p:0;width:108px;height:108px;flex:none;position:relative;}
+  .ring svg{transform:rotate(-90deg);}
+  .ring .num{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-weight:800;font-size:1.6rem;}
+  .score-meta h3{margin-bottom:.25rem;font-size:1.3rem;}
+  .score-meta p{color:var(--t2);font-size:.95rem;}
+  .band-strong{color:var(--green);} .band-mid{color:var(--amber);} .band-risk{color:var(--danger);}
+  .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px;}
+  .pillar{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px 18px;}
+  .pillar .top{display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+  .pillar .name{font-weight:700;font-size:.98rem;}
+  .pillar .stat{font-family:var(--mono);font-size:.72rem;font-weight:700;padding:.18rem .5rem;border-radius:99px;}
+  .stat.pass{color:var(--green);background:rgba(16,185,129,.13);border:1px solid rgba(16,185,129,.3);}
+  .stat.warn{color:var(--amber);background:rgba(245,158,11,.13);border:1px solid rgba(245,158,11,.3);}
+  .stat.fail{color:var(--danger);background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);}
+  .pillar .detail{margin-top:.6rem;font-size:.88rem;color:var(--t2);}
+  .pillar .fix{margin-top:.6rem;font-size:.88rem;color:var(--t1);border-top:1px solid var(--border);padding-top:.6rem;}
+  .pillar .fix b{color:var(--accent-bright);}
+  /* gate */
+  .gate{position:relative;margin-top:18px;}
+  .locked .pillars{filter:blur(7px);pointer-events:none;user-select:none;}
+  .gate-overlay{position:absolute;inset:0;display:grid;place-items:center;padding:1rem;}
+  .gate-card{background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:26px;max-width:420px;text-align:center;box-shadow:0 30px 70px -40px rgba(37,99,235,.6);}
+  .gate-card h3{margin-bottom:.5rem;}
+  .gate-card p{color:var(--t2);font-size:.92rem;margin-bottom:1rem;}
+  .gate-form{display:flex;gap:.5rem;flex-wrap:wrap;}
+  .gate-form input{flex:1;min-width:180px;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.95rem;padding:.75rem .9rem;}
+  .gate-form input:focus{outline:none;border-color:var(--accent);}
+  .gate-note{font-size:.76rem;color:var(--t3);margin-top:.7rem;}
+  .hidden{display:none!important;}
+  @media(max-width:640px){.pillars{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
+    <nav><ul class="nav-links" id="navlinks">
+      <li><a href="/features.html">Features</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/comparison.html">Compare</a></li>
+      <li><a href="https://theoutboundgame.com">Blog</a></li>
+      <li><a href="/download.html">Download</a></li>
+    </ul></nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/pricing.html">Start free trial</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-bottom:32px">
+  <div class="container tool-wrap">
+    <p class="eyebrow">Free tool</p>
+    <h1 style="margin:1rem 0 1rem;font-size:clamp(2rem,5vw,3.2rem)">Why is your cold email landing in spam?</h1>
+    <p class="lead">Enter your sending domain. In about 30 seconds you will see whether your SPF, DKIM, DMARC, and MX are set up to reach the inbox, and exactly what to fix if they are not.</p>
+
+    <form class="checker-form" id="checkForm" novalidate>
+      <input type="text" id="domain" placeholder="yourcompany.com" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your sending domain">
+      <button class="btn btn-primary btn-lg" type="submit" id="checkBtn">Check my domain</button>
+    </form>
+    <div class="field-err" id="domainErr" role="alert"></div>
+    <div class="checker-loading" id="loading"><span class="spin"></span> Checking DNS records…</div>
+
+    <!-- RESULT -->
+    <div class="result" id="result">
+      <div class="score-card">
+        <div class="ring" id="ring">
+          <svg width="108" height="108" viewBox="0 0 108 108">
+            <circle cx="54" cy="54" r="48" fill="none" stroke="var(--border)" stroke-width="10"/>
+            <circle id="ringFill" cx="54" cy="54" r="48" fill="none" stroke="var(--accent-bright)" stroke-width="10" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6"/>
+          </svg>
+          <div class="num" id="scoreNum">0</div>
+        </div>
+        <div class="score-meta">
+          <h3 id="bandLabel">—</h3>
+          <p id="bandText">Here is how your domain looks to the inboxes you are emailing.</p>
+        </div>
+      </div>
+
+      <!-- gated detail -->
+      <div class="gate locked" id="gate">
+        <div class="pillars" id="pillars"><!-- filled by JS --></div>
+        <div class="gate-overlay" id="gateOverlay">
+          <div class="gate-card">
+            <h3>Unlock your full report</h3>
+            <p>See exactly what is wrong with each record and how to fix it, free. Enter your email to reveal the fixes.</p>
+            <form class="gate-form" id="gateForm" novalidate>
+              <input type="email" id="email" placeholder="you@yourcompany.com" aria-label="Your email">
+              <button class="btn btn-primary" type="submit" id="gateBtn">Show me the fixes</button>
+            </form>
+            <div class="field-err" id="emailErr" role="alert"></div>
+            <div class="gate-note">No spam. One short follow-up with deliverability tips, unsubscribe anytime.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OutPumper CTA (revealed with full report) -->
+      <div class="cta-band hidden" id="opCta" style="margin-top:28px">
+        <h2 id="ctaHead">Your domain is ready. Now send from it.</h2>
+        <p class="lead" id="ctaSub" style="margin:0 auto 1.5rem">OutPumper sends cold email from your own Outlook and this exact domain, no warmup, no throwaway domains, no third-party servers. The address your prospects already trust does the sending.</p>
+        <a class="btn btn-primary btn-lg" href="/pricing.html">Try OutPumper free for 7 days</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight" id="howRead">
+  <div class="container tool-wrap">
+    <div class="sec-head"><p class="eyebrow">What we check</p><h2 style="margin:.5rem 0 .8rem">The four records that decide the inbox.</h2></div>
+    <div class="grid grid-2">
+      <div class="card"><h3>SPF</h3><p>Tells receivers which servers may send for your domain. Missing or broken SPF is a fast track to spam.</p></div>
+      <div class="card"><h3>DKIM</h3><p>Cryptographically signs your mail so receivers trust it is really you. Without it, your mail looks forgeable.</p></div>
+      <div class="card"><h3>DMARC</h3><p>Tells receivers what to do with mail that fails SPF or DKIM. No DMARC means no policy, and weaker trust.</p></div>
+      <div class="card"><h3>MX</h3><p>Confirms your domain can receive mail, which receivers expect from a legitimate sender.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
+        <p class="lead">Cold email that sends from your own Outlook and your real domain. An Outbound Game company.</p>
+      </div>
+      <div class="foot-col"><h4>Product</h4><ul>
+        <li><a href="/features.html">Features</a></li><li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/comparison.html">Comparison</a></li><li><a href="/download.html">Download</a></li></ul></div>
+      <div class="foot-col"><h4>Free tools</h4><ul>
+        <li><a href="/deliverability-checker.html">Deliverability Checker</a></li></ul></div>
+      <div class="foot-col"><h4>Resources</h4><ul>
+        <li><a href="https://theoutboundgame.com">Blog</a></li><li><a href="/pricing.html#faq">FAQ</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 The Grow Revenue Company Limited. All rights reserved.</span>
+      <span>Cold email powered by Microsoft Exchange. Lives inside your Outlook.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var form=document.getElementById('checkForm'),
+      domainInput=document.getElementById('domain'),
+      domainErr=document.getElementById('domainErr'),
+      loading=document.getElementById('loading'),
+      result=document.getElementById('result'),
+      checkBtn=document.getElementById('checkBtn'),
+      pillarsEl=document.getElementById('pillars'),
+      gate=document.getElementById('gate'),
+      gateOverlay=document.getElementById('gateOverlay'),
+      gateForm=document.getElementById('gateForm'),
+      emailInput=document.getElementById('email'),
+      emailErr=document.getElementById('emailErr'),
+      gateBtn=document.getElementById('gateBtn'),
+      ringFill=document.getElementById('ringFill'),
+      scoreNum=document.getElementById('scoreNum'),
+      bandLabel=document.getElementById('bandLabel'),
+      bandText=document.getElementById('bandText'),
+      opCta=document.getElementById('opCta'),
+      ctaHead=document.getElementById('ctaHead'),
+      ctaSub=document.getElementById('ctaSub');
+
+  var lastDomain='', lastReport=null, RING_CIRC=301.6;
+  var DKIM_SELECTORS=['selector1','selector2','google','k1','default','dkim','mail','s1','s2','smtp'];
+
+  // ---------- DNS over HTTPS (Cloudflare primary, Google fallback) ----------
+  function dohQuery(name,type){
+    var cf='https://cloudflare-dns.com/dns-query?name='+encodeURIComponent(name)+'&type='+type;
+    var goog='https://dns.google/resolve?name='+encodeURIComponent(name)+'&type='+type;
+    function fetchJson(url,headers){
+      return fetch(url,{headers:headers||{}}).then(function(r){ if(!r.ok) throw new Error('dns '+r.status); return r.json(); });
+    }
+    return fetchJson(cf,{'accept':'application/dns-json'})
+      .catch(function(){ return fetchJson(goog,{}); })
+      .then(function(j){ return (j&&j.Answer)? j.Answer.map(function(a){return (a.data||'').replace(/^"|"$/g,'').replace(/" "/g,'');}) : []; })
+      .catch(function(){ return null; }); // null = lookup failed (network), [] = no records
+  }
+
+  function normalizeDomain(raw){
+    if(!raw) return '';
+    var d=raw.trim().toLowerCase();
+    d=d.replace(/^https?:\/\//,'').replace(/^www\./,'');
+    d=d.split('/')[0].split('?')[0].split('@').pop();
+    d=d.replace(/\.$/,'');
+    return d;
+  }
+  function validDomain(d){ return /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$/.test(d); }
+  function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+  // ---------- checks ----------
+  function checkSPF(domain){
+    return dohQuery(domain,'TXT').then(function(rec){
+      if(rec===null) return {key:'SPF',status:'unknown'};
+      var spf=rec.filter(function(t){return /v=spf1/i.test(t);});
+      if(!spf.length) return {key:'SPF',status:'fail',detail:'No SPF record found on '+domain+'.',
+        fix:'Add a TXT record at your DNS root: <b>v=spf1 include:spf.protection.outlook.com -all</b> for Microsoft 365. Receivers use it to confirm who may send for you.'};
+      var val=spf[0];
+      if(/[?~]all\s*$/.test(val)) return {key:'SPF',status:'warn',detail:'SPF found but ends with a soft policy.',
+        fix:'Tighten the ending to <b>-all</b> once you have listed every legitimate sender, so spoofed mail is rejected rather than merely flagged.'};
+      return {key:'SPF',status:'pass',detail:'SPF record present and enforcing.',fix:'No action needed. Keep the include list current as you add senders.'};
+    });
+  }
+  function checkDMARC(domain){
+    return dohQuery('_dmarc.'+domain,'TXT').then(function(rec){
+      if(rec===null) return {key:'DMARC',status:'unknown'};
+      var d=rec.filter(function(t){return /v=DMARC1/i.test(t);});
+      if(!d.length) return {key:'DMARC',status:'fail',detail:'No DMARC record at _dmarc.'+domain+'.',
+        fix:'Add a TXT record at <b>_dmarc.'+domain+'</b>: <b>v=DMARC1; p=none; rua=mailto:you@'+domain+'</b> to start monitoring, then move to p=quarantine and p=reject.'};
+      var val=d[0], pol=(val.match(/p=([a-z]+)/i)||[])[1]||'none';
+      if(/p=none/i.test(val)) return {key:'DMARC',status:'warn',detail:'DMARC present but policy is p=none (monitor only).',
+        fix:'Once your reports look clean, raise the policy to <b>p=quarantine</b> then <b>p=reject</b> so spoofed mail is actually stopped.'};
+      return {key:'DMARC',status:'pass',detail:'DMARC present and enforcing (p='+pol+').',fix:'No action needed. Keep reviewing your aggregate reports.'};
+    });
+  }
+  function checkMX(domain){
+    return dohQuery(domain,'MX').then(function(rec){
+      if(rec===null) return {key:'MX',status:'unknown'};
+      if(!rec.length) return {key:'MX',status:'fail',detail:'No MX records found.',
+        fix:'Point your MX to your mail provider (for Microsoft 365: <b>'+domain.replace(/\./g,'-')+'.mail.protection.outlook.com</b>). Receivers distrust domains that cannot receive mail.'};
+      return {key:'MX',status:'pass',detail:'MX records present ('+rec.length+' found). Your domain can receive mail.',fix:'No action needed.'};
+    });
+  }
+  function checkDKIM(domain){
+    var tries=DKIM_SELECTORS.map(function(sel){
+      var host=sel+'._domainkey.'+domain;
+      return dohQuery(host,'CNAME').then(function(c){
+        if(c&&c.length) return sel;
+        return dohQuery(host,'TXT').then(function(t){ return (t&&t.some(function(x){return /v=DKIM1|p=/i.test(x);}))? sel : null; });
+      });
+    });
+    return Promise.all(tries).then(function(found){
+      var hit=found.filter(Boolean);
+      if(hit.length) return {key:'DKIM',status:'pass',detail:'DKIM signing detected (selector: '+hit[0]+').',fix:'No action needed. Your mail is cryptographically signed.'};
+      return {key:'DKIM',status:'warn',detail:'No DKIM detected on the common selectors we checked.',
+        fix:'DKIM selectors vary, so this may exist under a custom name. For Microsoft 365, enable DKIM in the Defender portal, which publishes <b>selector1</b> and <b>selector2</b> CNAMEs for your domain.'};
+    });
+  }
+
+  // ---------- scoring ----------
+  function scoreOf(report){
+    var pts={pass:25,warn:12,fail:0,unknown:0}, total=0;
+    report.forEach(function(p){ total+=(pts[p.status]||0); });
+    return Math.round(total);
+  }
+  function band(score){
+    if(score>=80) return {label:'Strong',cls:'band-strong',text:'Your domain is set up to reach the inbox. A few tweaks may still help.'};
+    if(score>=50) return {label:'Needs work',cls:'band-mid',text:'Some records are missing or weak. Fix these before your next campaign.'};
+    return {label:'At risk',cls:'band-risk',text:'Your domain is likely landing in spam. Fix the records below first.'};
+  }
+
+  function renderPillars(report){
+    pillarsEl.innerHTML='';
+    report.forEach(function(p){
+      var st=p.status==='pass'?'pass':(p.status==='warn'||p.status==='unknown'?'warn':'fail');
+      var label=p.status==='pass'?'PASS':(p.status==='warn'?'NEEDS WORK':(p.status==='unknown'?'UNKNOWN':'FAIL'));
+      var detail=p.detail||(p.status==='unknown'?'We could not complete this lookup. Try again.':'');
+      var div=document.createElement('div');
+      div.className='pillar';
+      div.innerHTML='<div class="top"><span class="name">'+p.key+'</span><span class="stat '+st+'">'+label+'</span></div>'+
+        '<div class="detail">'+detail+'</div>'+
+        '<div class="fix">'+(p.fix||'')+'</div>';
+      pillarsEl.appendChild(div);
+    });
+  }
+  function animateScore(score){
+    ringFill.style.transition='stroke-dashoffset 1s cubic-bezier(.2,.7,.3,1)';
+    ringFill.style.strokeDashoffset=String(RING_CIRC*(1-score/100));
+    var c=band(score);
+    if(c.cls==='band-strong') ringFill.setAttribute('stroke','var(--green)');
+    else if(c.cls==='band-mid') ringFill.setAttribute('stroke','var(--amber)');
+    else ringFill.setAttribute('stroke','var(--danger)');
+    var t0=null,dur=1000;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); scoreNum.textContent=Math.round(p*score); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+    bandLabel.textContent=c.label; bandLabel.className=c.cls; bandText.textContent=c.text;
+  }
+
+  // ---------- lead capture (STUB — wire to Mautic later) ----------
+  // TODO(Mautic): replace this stub with a POST to the Cloudflare Pages Function
+  // that forwards { email, magnet:'deliverability', domain } to Mautic.
+  // Must resolve even on failure so the user always sees their report.
+  function submitLead(payload){
+    try{ console.log('[lead capture stub]', payload); }catch(e){}
+    return Promise.resolve(true); // always succeeds for now; never blocks the result
+  }
+
+  // ---------- flow ----------
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    domainErr.textContent='';
+    var d=normalizeDomain(domainInput.value);
+    if(!d){ domainErr.textContent='Enter your sending domain, for example yourcompany.com'; return; }
+    if(!validDomain(d)){ domainErr.textContent='That does not look like a valid domain. Try yourcompany.com (no http, no slashes).'; return; }
+    lastDomain=d; domainInput.value=d;
+    checkBtn.disabled=true; loading.style.display='flex'; result.style.display='none';
+
+    Promise.all([checkSPF(d),checkDKIM(d),checkDMARC(d),checkMX(d)]).then(function(report){
+      lastReport=report;
+      var allFailed=report.every(function(p){return p.status==='unknown';});
+      loading.style.display='none'; checkBtn.disabled=false;
+      if(allFailed){ domainErr.textContent='We could not reach the DNS service. Check your connection and try again.'; return; }
+      renderPillars(report);
+      animateScore(scoreOf(report));
+      result.style.display='block';
+      result.scrollIntoView({behavior:'smooth',block:'start'});
+    }).catch(function(){
+      loading.style.display='none'; checkBtn.disabled=false;
+      domainErr.textContent='Something went wrong running the check. Please try again.';
+    });
+  });
+
+  gateForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    emailErr.textContent='';
+    var em=(emailInput.value||'').trim();
+    if(!validEmail(em)){ emailErr.textContent='Enter a valid email so we can show the fixes.'; return; }
+    gateBtn.disabled=true;
+    submitLead({email:em,magnet:'deliverability',domain:lastDomain}).then(function(){
+      gate.classList.remove('locked');
+      gateOverlay.classList.add('hidden');
+      // tailor CTA to result
+      var s=scoreOf(lastReport||[]);
+      if(s>=80){ ctaHead.textContent='Your domain is ready. Now send from it.'; }
+      else { ctaHead.textContent='Fix those records, then send from your own domain.'; }
+      ctaSub.textContent='OutPumper sends cold email from your own Outlook and '+(lastDomain||'your real domain')+', no warmup, no throwaway domains, no third-party servers. The address your prospects already trust does the sending.';
+      opCta.classList.remove('hidden');
+      opCta.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  });
+})();
+</script>
+</body>
+</html>
