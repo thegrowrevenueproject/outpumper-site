@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0a0e1a">
 <title>Reply-to-Close Engine — OutPumper</title>
-<meta name="description" content="You got the reply. Now what? Pick what they said and get the exact next message to move it toward a call. Free.">
+<meta name="description" content="Paste the reply you got. The Reply-to-Close Engine reads it, tells you what you are looking at, and writes the exact next message in your tone. Free.">
 <link rel="canonical" href="https://outpumper.com/reply-to-close.html">
 <meta property="og:title" content="Reply-to-Close Engine">
-<meta property="og:description" content="Pick what the prospect said, get the exact next message that moves it toward a call. Free.">
+<meta property="og:description" content="Paste what the prospect said, get the exact next message, subject line and follow-up, in your tone. Free.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,47 +17,69 @@
 <link rel="stylesheet" href="/assets/app.css">
 <style>
   .tool-wrap{max-width:820px;margin:0 auto;}
-  .scen-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:1.4rem;}
+  .label-eyebrow{font-size:.74rem;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin:1.4rem 0 .5rem;}
+  .paste-box{width:100%;min-height:96px;background:var(--card);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.95rem;line-height:1.5;padding:.85rem 1rem;resize:vertical;}
+  .paste-box:focus{outline:none;border-color:var(--accent);}
+  .row-btn{margin-top:.7rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;}
+  .readout{background:linear-gradient(180deg,rgba(37,99,235,.09),rgba(37,99,235,.02));border:1px solid rgba(37,99,235,.3);border-radius:var(--r);padding:16px 20px;margin-top:14px;display:none;}
+  .readout h4{font-size:.95rem;margin-bottom:.5rem;}
+  .readout ul{margin:0;padding-left:1.1rem;color:var(--t2);font-size:.9rem;}
+  .readout li{margin-bottom:.3rem;}
+  .readout .det{color:var(--accent-bright);font-weight:600;}
+  .divider{display:flex;align-items:center;gap:.8rem;color:var(--t3);font-size:.8rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin:1.2rem 0 .4rem;}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border);}
+  .scen-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
   @media(max-width:640px){.scen-grid{grid-template-columns:1fr;}}
-  .scen{text-align:left;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s;color:var(--t1);}
+  .scen{text-align:left;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:13px 15px;cursor:pointer;transition:border-color .15s,background .15s;color:var(--t1);}
   .scen:hover{border-color:var(--accent);}
   .scen.sel{border-color:var(--accent);background:rgba(37,99,235,.08);box-shadow:0 0 0 1px var(--accent);}
-  .scen .st{font-weight:700;font-size:.95rem;}
-  .scen .sd{color:var(--t3);font-size:.8rem;margin-top:.2rem;}
-  .pers{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;margin-top:18px;}
-  .pers h4{font-size:.95rem;margin-bottom:.2rem;}
-  .pers .hint{color:var(--t3);font-size:.82rem;margin-bottom:1rem;}
+  .scen .st{font-weight:700;font-size:.92rem;}.scen .sd{color:var(--t3);font-size:.78rem;margin-top:.15rem;}
+  .pers{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin-top:14px;}
+  .pers .hint{color:var(--t3);font-size:.82rem;margin-bottom:.9rem;}
   .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   @media(max-width:560px){.pgrid{grid-template-columns:1fr;}}
   .pfield label{display:block;font-size:.8rem;color:var(--t2);margin-bottom:.3rem;}
   .pfield input{width:100%;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.92rem;padding:.55rem .7rem;}
   .pfield input:focus{outline:none;border-color:var(--accent);}
-  .genrow{margin-top:18px;}
+  .tones{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.3rem;}
+  .tone{background:var(--card);border:1px solid var(--border2);border-radius:99px;color:var(--t2);font-size:.85rem;font-weight:600;padding:.45rem 1rem;cursor:pointer;}
+  .tone:hover{border-color:var(--accent);color:var(--t1);}
+  .tone.sel{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .tone .desc{font-weight:400;font-size:.72rem;opacity:.8;}
   .field-err{color:var(--danger);font-size:.85rem;margin-top:.5rem;min-height:1.1em;}
-  .result{display:none;margin-top:22px;}
-  .msg{position:relative;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);padding:18px 20px 18px;white-space:pre-wrap;color:var(--t1);font-size:.95rem;line-height:1.6;margin:.5rem 0;}
-  .msg .copy{position:absolute;top:.5rem;right:.5rem;background:var(--card2);border:1px solid var(--border2);color:var(--t2);font-size:.72rem;font-family:var(--mono);padding:.25rem .6rem;border-radius:6px;cursor:pointer;}
-  .msg .copy:hover{color:var(--t1);border-color:var(--accent);}
-  .why{color:var(--t2);font-size:.88rem;border-left:2px solid var(--accent);padding-left:.8rem;margin:.3rem 0 .2rem;}
+  .result{display:none;margin-top:14px;}
+  .out-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin-top:12px;}
+  .out-card .cap{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;}
+  .out-card .cap .t{font-size:.74rem;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--t3);}
+  .ed{width:100%;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.95rem;line-height:1.6;padding:.7rem .85rem;font-family:inherit;}
+  textarea.ed{min-height:170px;resize:vertical;}
+  .ed:focus{outline:none;border-color:var(--accent);}
+  .copy{background:var(--card2);border:1px solid var(--border2);color:var(--t2);font-size:.72rem;font-family:var(--mono);padding:.25rem .6rem;border-radius:6px;cursor:pointer;}
+  .copy:hover{color:var(--t1);border-color:var(--accent);}
+  .why{color:var(--t2);font-size:.88rem;border-left:2px solid var(--accent);padding-left:.8rem;margin:.6rem 0;}
   .why b{color:var(--accent-bright);}
-  .label-eyebrow{font-size:.74rem;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin:1rem 0 .3rem;}
-  .gate{position:relative;margin-top:22px;}
+  .kills{color:var(--t1);font-size:.88rem;border-left:2px solid var(--danger);padding-left:.8rem;margin:.6rem 0;}
+  .kills b{color:var(--danger);}
+  .gate{position:relative;margin-top:20px;}
   .lib-teaser{filter:blur(7px);pointer-events:none;user-select:none;}
   .gate-overlay{position:absolute;inset:0;display:grid;place-items:center;padding:1rem;}
-  .gate-card{background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:26px;max-width:440px;text-align:center;box-shadow:0 30px 70px -40px rgba(37,99,235,.6);}
+  .gate-card{background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:26px;max-width:450px;text-align:center;box-shadow:0 30px 70px -40px rgba(37,99,235,.6);}
   .gate-card h3{margin-bottom:.5rem;}.gate-card p{color:var(--t2);font-size:.92rem;margin-bottom:1rem;}
   .gate-form{display:flex;gap:.5rem;flex-wrap:wrap;}
   .gate-form input{flex:1;min-width:180px;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.95rem;padding:.75rem .9rem;}
   .gate-form input:focus{outline:none;border-color:var(--accent);}
   .gate-note{font-size:.76rem;color:var(--t3);margin-top:.7rem;}
   .hidden{display:none!important;}
-  .libitem{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin-top:14px;}
-  .libitem .lh{font-weight:800;font-size:1.05rem;margin-bottom:.1rem;}
-  .libitem .ld{color:var(--t3);font-size:.82rem;margin-bottom:.4rem;}
+  .libitem{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-top:14px;}
+  .libitem .lh{font-weight:800;font-size:1.02rem;}
+  .libitem .ld{color:var(--t3);font-size:.8rem;margin-bottom:.5rem;}
+  .msg{position:relative;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);padding:14px 16px;white-space:pre-wrap;color:var(--t1);font-size:.92rem;line-height:1.6;margin:.4rem 0;}
+  .msg .copy{position:absolute;top:.45rem;right:.45rem;}
+  .msg .subj{color:var(--accent-bright);font-family:var(--mono);font-size:.8rem;margin-bottom:.5rem;padding-right:3.5rem;}
+  .libtones{display:flex;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 0;}
   .cadence{background:linear-gradient(180deg,rgba(37,99,235,.08),rgba(37,99,235,.02));border:1px solid rgba(37,99,235,.28);border-radius:var(--r);padding:22px 24px;margin-top:16px;}
   .cadence h4{margin-bottom:.6rem;}
-  .cadence ol{margin:0;padding-left:1.1rem;color:var(--t2);font-size:.92rem;}
-  .cadence li{margin-bottom:.4rem;}
+  .cadence ol{margin:0;padding-left:1.1rem;color:var(--t2);font-size:.92rem;}.cadence li{margin-bottom:.4rem;}
 </style>
 </head>
 <body>
@@ -84,41 +106,66 @@
   <div class="container tool-wrap">
     <p class="eyebrow">Free tool</p>
     <h1 style="margin:1rem 0 1rem;font-size:clamp(2rem,5vw,3.2rem)">You got the reply. Now what do you say?</h1>
-    <p class="lead">Replies are where most outbound quietly dies, not because the lead was bad, but because the next message was weak or never sent. Pick what they said, add a few details, and get the exact reply that moves it toward a call.</p>
+    <p class="lead">Paste what the prospect actually wrote. The engine reads it, tells you what you are looking at, and writes the exact next message, subject line and follow-up, in your tone. Or skip the paste and pick the situation yourself.</p>
 
-    <p class="label-eyebrow">1 · What did they say?</p>
+    <p class="label-eyebrow">1 · Paste their reply (recommended)</p>
+    <textarea class="paste-box" id="pasteBox" placeholder="Paste the prospect's reply here, for example: 'Thanks, looks interesting but pricing might be an issue for us right now and I'd need to run it past my team.'"></textarea>
+    <div class="row-btn">
+      <button class="btn btn-primary" id="analyzeBtn" type="button">Read it &amp; draft my reply</button>
+      <span style="color:var(--t3);font-size:.82rem">We read it in your browser. Nothing is sent anywhere.</span>
+    </div>
+    <div class="readout" id="readout"></div>
+
+    <div class="divider">or pick the situation</div>
     <div class="scen-grid" id="scenGrid"></div>
 
     <div class="pers">
-      <h4>2 · Make it yours</h4>
-      <p class="hint">Optional, but the message reads far better filled in. Nothing is stored until you choose to unlock the full library.</p>
       <div class="pgrid">
         <div class="pfield"><label for="pFirst">Prospect's first name</label><input type="text" id="pFirst" placeholder="Alex" autocomplete="off"></div>
         <div class="pfield"><label for="pYou">Your name</label><input type="text" id="pYou" placeholder="Jordan" autocomplete="off"></div>
         <div class="pfield"><label for="pValue">What you help them with (one line)</label><input type="text" id="pValue" placeholder="booking more qualified demos" autocomplete="off"></div>
         <div class="pfield"><label for="pLink">Your booking link (optional)</label><input type="text" id="pLink" placeholder="cal.com/you/15min" autocomplete="off"></div>
       </div>
-      <div class="genrow">
+      <p class="label-eyebrow" style="margin-bottom:.4rem">2 · Pick a tone</p>
+      <div class="tones" id="toneRow">
+        <button class="tone" data-tone="direct" type="button">Direct<span class="desc"> · short, confident</span></button>
+        <button class="tone sel" data-tone="warm" type="button">Warm<span class="desc"> · friendly, human</span></button>
+        <button class="tone" data-tone="formal" type="button">Formal<span class="desc"> · polished, professional</span></button>
+      </div>
+      <div class="row-btn" style="margin-top:1rem">
         <button class="btn btn-primary btn-lg" id="genBtn" type="button">Write my reply</button>
         <div class="field-err" id="genErr" role="alert"></div>
       </div>
     </div>
 
-    <!-- RESULT (free teaser: the message for the chosen scenario) -->
+    <!-- RESULT -->
     <div class="result" id="result">
-      <p class="label-eyebrow">Your next message</p>
-      <div id="primaryMsg"></div>
+      <p class="label-eyebrow">Your next message <span id="resScen" style="color:var(--accent-bright)"></span></p>
+      <div class="out-card">
+        <div class="cap"><span class="t">Subject line</span><button class="copy" type="button" data-target="edSubject">Copy</button></div>
+        <input class="ed" id="edSubject" type="text">
+      </div>
+      <div class="out-card">
+        <div class="cap"><span class="t">The reply</span><button class="copy" type="button" data-target="edReply">Copy</button></div>
+        <textarea class="ed" id="edReply"></textarea>
+      </div>
+      <div class="out-card">
+        <div class="cap"><span class="t">If no answer, the Day-3 bump</span><button class="copy" type="button" data-target="edBump">Copy</button></div>
+        <input class="ed" id="edBump" type="text">
+      </div>
       <div class="why" id="primaryWhy"></div>
+      <div class="kills" id="primaryKills"></div>
 
-      <!-- gated: full library -->
+      <!-- gated full library -->
       <div class="gate" id="gate">
         <div class="lib-teaser" id="teaser" aria-hidden="true">
-          <div class="libitem"><div class="lh">Every other reply, handled</div><div class="ld">Interested · Price · Already using something · No time · Check with team · Send info · Ghosted · Not interested</div><div class="msg">The full, personalized script for each of these, plus a second variant for the trickiest ones and a follow-up cadence, unlocks here.</div></div>
+          <div class="libitem"><div class="lh">Every other reply, handled, in your tone</div><div class="ld">Interested · Price · Already using something · No time · Check with team · Send info · Ghosted · Not interested</div>
+          <div class="msg"><div class="subj">Subject: …</div>The full subject, reply and follow-up for each of these unlocks here, switchable between Direct, Warm and Formal, plus the follow-up cadence.</div></div>
         </div>
         <div class="gate-overlay" id="gateOverlay">
           <div class="gate-card">
             <h3>Unlock the full reply-handling library</h3>
-            <p>Get the personalized script for every reply type, a second variant for the hard ones, and the follow-up cadence that gets answers, free.</p>
+            <p>Get the subject line, reply and follow-up for every reply type, switchable across all three tones, plus the cadence that gets answers, free.</p>
             <form class="gate-form" id="gateForm" novalidate>
               <input type="email" id="email" placeholder="you@yourcompany.com" aria-label="Your email">
               <button class="btn btn-primary" type="submit" id="gateBtn">Send me the library</button>
@@ -129,21 +176,28 @@
         </div>
       </div>
 
-      <!-- full library (revealed) -->
+      <!-- full library -->
       <div id="library" class="hidden">
-        <p class="label-eyebrow">The full library, written for you</p>
+        <div class="cap" style="display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem">
+          <p class="label-eyebrow" style="margin:0">The full library, written for you</p>
+        </div>
+        <div class="libtones" id="libToneRow">
+          <button class="tone" data-libtone="direct" type="button">Direct</button>
+          <button class="tone sel" data-libtone="warm" type="button">Warm</button>
+          <button class="tone" data-libtone="formal" type="button">Formal</button>
+        </div>
         <div id="libList"></div>
         <div class="cadence">
           <h4>The follow-up cadence that gets answers</h4>
-          <ol>
-            <li><b>Day 0</b> — Send the reply above, one clear ask, one easy yes.</li>
-            <li><b>Day 3</b> — If no answer, a one-line bump: "Floating this back up, {{first}}, still worth a quick look?"</li>
-            <li><b>Day 7</b> — Add value, not pressure: share one relevant proof point or resource, then re-offer the call.</li>
+          <ol id="cadenceList">
+            <li><b>Day 0</b> — Send the reply above. One clear ask, one easy yes.</li>
+            <li><b>Day 3</b> — If no answer, send the bump for that scenario, one line, no guilt.</li>
+            <li><b>Day 7</b> — Add value, not pressure: one relevant proof point or resource, then re-offer the call.</li>
             <li><b>Day 12</b> — The no-guilt close: "Should I leave this here for now?" A one-word reply is easy to give, which is why it works.</li>
-            <li><b>Stop</b> — After four touches with no response, move on and re-approach next quarter. Persistence past this point costs more reputation than it returns.</li>
+            <li><b>Stop</b> — After four touches with no response, move on and re-approach next quarter. Past this point, persistence costs more reputation than it returns.</li>
           </ol>
         </div>
-        <div class="cta-band" id="opCta" style="margin-top:28px">
+        <div class="cta-band" style="margin-top:28px">
           <h2>Send these at scale, from the inbox you already use.</h2>
           <p class="lead" style="margin:0 auto 1.5rem">Great replies only matter if they go out fast and consistently. OutPumper sends and sequences cold email and follow-ups straight from your own Outlook and your real domain, no warmup, no throwaway domains, no third-party servers. Runs on Microsoft 365 with desktop Outlook.</p>
           <a class="btn btn-primary btn-lg" href="/pricing.html">Try OutPumper free for 7 days</a>
@@ -156,7 +210,7 @@
 <section class="section-tight">
   <div class="container tool-wrap">
     <div class="sec-head"><p class="eyebrow">Why this matters</p><h2 style="margin:.5rem 0 .8rem">The reply is not the win. The next message is.</h2></div>
-    <p class="lead">Teams obsess over reply rates and then fumble the part that actually makes money, the response after the response. A booked call is worth more than a hundred opens. These scripts are built to turn each kind of reply into the one thing that moves a deal forward: a conversation.</p>
+    <p class="lead">Teams obsess over reply rates and then fumble the part that actually makes money, the response after the response. A booked call is worth more than a hundred opens. These scripts turn each kind of reply into the one thing that moves a deal forward: a conversation.</p>
   </div>
 </section>
 </main>
@@ -191,66 +245,172 @@
   var $=function(id){return document.getElementById(id);};
   var esc=function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
 
-  // scenario library. {{first}} {{you}} {{value}} {{link}} are merged.
   var SCEN=[
     {id:'interested',label:'Interested',desc:'"Looks interesting, tell me more"',
-     primary:"Hi {{first}}, great to hear, and thanks for the quick reply.\n\nThe fastest way to show whether this fits is a short call where I walk through {{value}} against what you are doing now. These usually run 15 minutes.\n\nDoes later this week work? Grab whatever suits here: {{link}}\n\n{{you}}",
-     variant:"Hi {{first}}, glad it landed.\n\nRather than send a wall of detail, would 15 minutes live be easier so I can tailor it to your setup? My calendar is here: {{link}}. If you would rather I send a short overview first, just say the word.\n\n{{you}}",
-     why:"Interest decays fast. Convert it into a <b>specific, low-time-cost next step</b> immediately, and offer both a concrete window and a self-serve link so saying yes takes one click."},
+     detect:['interested','interesting','tell me more','sounds good','sounds interesting','keen','lets talk',"let's talk",'learn more','more info','happy to chat','looks good','intrigued','love to'],
+     why:'Interest decays fast. Convert it into a <b>specific, low-time-cost next step</b> now, and offer a self-serve link so saying yes takes one click.',
+     kills:'<b>What kills this:</b> sending more information instead of asking for the call. Interest fades while they read. Ask for time now.',
+     tones:{
+       direct:{subject:'Quick 15 min?',reply:"Hi {{first}}, good to hear.\n\nFastest way to see if this fits: 15 minutes on {{value}} versus what you run now. Grab a time: {{link}}\n\n{{you}}",bump:"Hi {{first}}, still good to grab 15 minutes this week? {{link}}"},
+       warm:{subject:'Great to hear from you, {{first}}',reply:"Hi {{first}}, great to hear, and thanks for the quick reply.\n\nThe easiest way to show whether this fits is a short call where I walk through {{value}} against what you are doing now. These usually run 15 minutes.\n\nDoes later this week work? Grab whatever suits: {{link}}\n\n{{you}}",bump:"Hi {{first}}, floating this back up, still worth a quick 15 minutes? {{link}}"},
+       formal:{subject:'Scheduling a brief call',reply:"Hi {{first}}, thank you for getting back to me.\n\nThe most efficient next step would be a short call, around 15 minutes, to walk through {{value}} in the context of your current setup. You are welcome to choose a time that suits you: {{link}}\n\nBest,\n{{you}}",bump:"Hi {{first}}, following up on my note, would a brief call this week be possible? {{link}}"}
+     }},
     {id:'price',label:'Price / budget',desc:'"Too expensive" or "no budget"',
-     primary:"Hi {{first}}, fair question, and worth getting right.\n\nThe honest answer is it depends on what one more closed deal is worth to you. If {{value}} brings in even a couple of extra deals a quarter, the cost answers itself. I would rather show you that math against your own pipeline than quote a generic case study.\n\nFifteen minutes this week to run your numbers? {{link}}\n\n{{you}}",
-     why:"Do not discount on the first push, it signals the first price was inflated. <b>Reframe price as ROI</b> and offer to quantify it with their numbers, not yours."},
+     detect:['price','pricing','cost','how much','expensive','budget','afford','too much','quote','fee','rates','costly','spend'],
+     why:'Do not discount on the first push, it signals your first price was inflated. <b>Reframe price as ROI</b> and quantify it with their numbers.',
+     kills:'<b>What kills this:</b> dropping the price the moment they flinch. It trains them to push and cheapens what you sell. Anchor on value first.',
+     tones:{
+       direct:{subject:'On price',reply:"Hi {{first}}, fair.\n\nPrice depends on what one more deal is worth to you. If {{value}} adds a couple of deals a quarter, it pays for itself. Let me show you that math on your numbers, 15 minutes: {{link}}\n\n{{you}}",bump:"Hi {{first}}, want me to run the ROI on your pipeline before you decide? {{link}}"},
+       warm:{subject:'Worth getting the price question right',reply:"Hi {{first}}, fair question, and worth getting right.\n\nHonestly it depends on what one more closed deal is worth to you. If {{value}} brings in even a couple of extra deals a quarter, the cost answers itself. I would rather show you that math against your own pipeline than quote a generic case study.\n\nFifteen minutes this week to run your numbers? {{link}}\n\n{{you}}",bump:"Hi {{first}}, happy to put real numbers to this whenever it helps, no pressure. {{link}}"},
+       formal:{subject:'Regarding pricing and return',reply:"Hi {{first}}, that is a reasonable question.\n\nThe value of {{value}} is best judged against your own pipeline rather than a list price. If it generates even a small number of additional deals per quarter, the investment is straightforward to justify. I would be glad to model that with your figures on a short call.\n\nWould 15 minutes this week be convenient? {{link}}\n\nBest,\n{{you}}",bump:"Hi {{first}}, I would be glad to prepare a brief ROI estimate from your numbers if useful. {{link}}"}
+     }},
     {id:'incumbent',label:'Already using something',desc:'"We already have a tool for that"',
-     primary:"Hi {{first}}, that makes sense, most teams I speak to already have something in place.\n\nI am not asking you to rip it out. The teams that get value from {{value}} usually keep what works and use us only for the part their current setup does not cover. I can show you in 10 minutes where that line tends to fall, and you decide if any of it applies.\n\nWorth a quick look? {{link}}\n\n{{you}}",
-     why:"Never bash the incumbent. <b>Position as filling a gap, not replacing</b>, which removes the switching fear and lowers the ask to a low-commitment comparison."},
-    {id:'notime',label:'No time / not a priority',desc:'"Swamped right now" or "not a priority"',
-     primary:"Hi {{first}}, understood, and I do not want to add to the pile.\n\nSo I will make this easy. If {{value}} is not worth 10 minutes right now, no problem at all. If it might be, I will send a two-line summary you can read on your phone and you tell me yes or no. Either way you are not committing to anything.\n\nWant the two lines?\n\n{{you}}",
-     why:"\"Not a priority\" usually means \"not worth the effort I think it takes.\" <b>Shrink the ask to near zero</b> so the effort objection disappears."},
+     detect:['already use','already using','already have','we use','currently use','current provider','our tool','switch','happy with','vendor','in place','using a'],
+     why:'Never bash the incumbent. <b>Position as filling a gap</b>, which removes switching fear and lowers the ask to a low-commitment comparison.',
+     kills:'<b>What kills this:</b> trashing their current tool. It insults the person who chose it. Respect the incumbent and find the gap.',
+     tones:{
+       direct:{subject:'Keep what works',reply:"Hi {{first}}, makes sense, most teams already run something.\n\nNot asking you to switch. Teams use {{value}} for the gap their current tool leaves. 10 minutes and I will show you where that gap usually is: {{link}}\n\n{{you}}",bump:"Hi {{first}}, worth 10 minutes to see where we would, and would not, add to your setup? {{link}}"},
+       warm:{subject:'Most teams already have something',reply:"Hi {{first}}, that makes sense, most teams I speak to already have something in place.\n\nI am not asking you to rip it out. The teams that get value from {{value}} usually keep what works and use us only for the part their current setup does not cover. I can show you in 10 minutes where that line tends to fall, and you decide if any of it applies.\n\nWorth a quick look? {{link}}\n\n{{you}}",bump:"Hi {{first}}, still happy to show where we complement what you already use, whenever suits. {{link}}"},
+       formal:{subject:'Complementing your current setup',reply:"Hi {{first}}, that is understandable, most organisations already have a solution in place.\n\nMy suggestion is not to replace it. Teams typically adopt {{value}} for the specific area their existing tools do not address. I would be glad to outline where that boundary usually lies in about 10 minutes, after which you can judge its relevance.\n\nWould a brief call be of interest? {{link}}\n\nBest,\n{{you}}",bump:"Hi {{first}}, I remain happy to outline where we would complement your existing tools. {{link}}"}
+     }},
+    {id:'notime',label:'No time / not a priority',desc:'"Swamped" or "not a priority"',
+     detect:['no time','busy','swamped','slammed','not a priority','priority','bandwidth','crazy week','too much on','not now','not right now','capacity','hectic'],
+     why:'"Not a priority" usually means "not worth the effort I think it takes." <b>Shrink the ask to near zero</b> so the effort objection disappears.',
+     kills:'<b>What kills this:</b> asking for a 30-minute demo when they just said they are slammed. Match the ask to their bandwidth, not yours.',
+     tones:{
+       direct:{subject:'Two lines?',reply:"Hi {{first}}, understood.\n\nIf {{value}} is not worth 10 minutes now, no problem. If it might be, I will send two lines you can read on your phone and you tell me yes or no. No commitment.\n\nWant the two lines?\n\n{{you}}",bump:"Hi {{first}}, still happy to send the two-line version whenever, one word back is fine."},
+       warm:{subject:'Keeping this off your plate',reply:"Hi {{first}}, understood, and I do not want to add to the pile.\n\nSo I will make this easy. If {{value}} is not worth 10 minutes right now, no problem at all. If it might be, I will send a two-line summary you can read on your phone and you tell me yes or no. Either way you are not committing to anything.\n\nWant the two lines?\n\n{{you}}",bump:"Hi {{first}}, no rush at all, the offer of a two-line summary stands whenever timing is better."},
+       formal:{subject:'A brief, low-effort option',reply:"Hi {{first}}, I appreciate that timing is tight, and I have no wish to add to your workload.\n\nIf {{value}} is not worth ten minutes at present, that is entirely fine. If there is a chance it is, I would be glad to send a two-line summary you can review at your convenience and simply reply yes or no, with no obligation.\n\nWould that be helpful?\n\nBest,\n{{you}}",bump:"Hi {{first}}, should timing improve, I would be glad to send a short summary at your convenience."}
+     }},
     {id:'team',label:'Check with team',desc:'"Need to run it by the team"',
-     primary:"Hi {{first}}, of course, and thanks for being straight about it.\n\nTo make that conversation easy for you, here is the one-paragraph version you can forward: we help with {{value}}. If it is simpler, I am happy to join a short call with whoever owns this, so you are not stuck relaying the detail.\n\nWho else should be in the room, and what is the best way to get time with them?\n\n{{you}}",
-     why:"<b>Arm your champion.</b> Give them something forwardable and offer to take the explaining off their plate, while identifying the real decision-maker without going around your contact."},
+     detect:['check with','run it by','my team','the team','my boss','manager','internally','get approval','decision maker','stakeholder','loop in','discuss with','run this by','colleagues'],
+     why:'<b>Arm your champion.</b> Give them something forwardable and offer to do the explaining, while identifying the real decision-maker without going around your contact.',
+     kills:'<b>What kills this:</b> leaving your contact to sell it internally alone with nothing to forward. Most champions cannot pitch you as well as you can.',
+     tones:{
+       direct:{subject:'Easy to forward',reply:"Hi {{first}}, of course.\n\nForward this: we help with {{value}}. Or I can join a short call with whoever owns this, so you are not relaying detail. Who else should be in the room?\n\n{{you}}",bump:"Hi {{first}}, did the team get a look? Happy to join a call if that is easier. {{link}}"},
+       warm:{subject:'Making the team chat easy',reply:"Hi {{first}}, of course, and thanks for being straight about it.\n\nTo make that conversation easy for you, here is the one-paragraph version you can forward: we help with {{value}}. If it is simpler, I am happy to join a short call with whoever owns this, so you are not stuck relaying the detail.\n\nWho else should be in the room, and what is the best way to get time with them?\n\n{{you}}",bump:"Hi {{first}}, any thoughts from the team? Glad to jump on a quick call with them if useful. {{link}}"},
+       formal:{subject:'Supporting your internal discussion',reply:"Hi {{first}}, of course, and I appreciate you saying so.\n\nTo make the internal conversation straightforward, here is a short paragraph you may forward: we help with {{value}}. Alternatively, I would be glad to join a brief call with the relevant stakeholders so the detail does not fall to you.\n\nMight I ask who else is involved, and how best to arrange time with them?\n\nBest,\n{{you}}",bump:"Hi {{first}}, has the team had a chance to consider this? I am happy to present directly if helpful. {{link}}"}
+     }},
     {id:'sendinfo',label:'Send me info',desc:'"Send me a deck / some info"',
-     primary:"Hi {{first}}, happy to. So I send something useful rather than generic, one quick question: is the priority right now {{value}}, or something else?\n\nI will tailor what I send to that. And if it looks relevant once you have read it, the next step is a 15-minute call, I will include a link so it is easy.\n\n{{you}}",
-     why:"\"Send me info\" is often a polite brush-off. Send something, but <b>qualify first and anchor the next step</b>, or it vanishes into the inbox."},
+     detect:['send me','send info','send over','send some','more information','send a deck','send the deck','send details','brochure','one pager','one-pager','can you send','email me','send through'],
+     why:'"Send me info" is often a polite brush-off. Send something, but <b>qualify first and anchor the next step</b>, or it vanishes into the inbox.',
+     kills:'<b>What kills this:</b> dumping a generic deck and waiting. It is the easiest thing in the world to ignore. Tailor it and tie it to a next step.',
+     tones:{
+       direct:{subject:'One question first',reply:"Hi {{first}}, happy to.\n\nSo I send something useful: is the priority {{value}} or something else? I will tailor it, and include a link to a 15-minute call if it looks relevant.\n\n{{you}}",bump:"Hi {{first}}, did what I sent line up with what you need? Quick call to dig in? {{link}}"},
+       warm:{subject:'Sending something useful, not generic',reply:"Hi {{first}}, happy to. So I send something useful rather than generic, one quick question: is the priority right now {{value}}, or something else?\n\nI will tailor what I send to that. And if it looks relevant once you have read it, the next step is a 15-minute call, I will include a link so it is easy.\n\n{{you}}",bump:"Hi {{first}}, did the material land the way you hoped? Happy to talk it through anytime. {{link}}"},
+       formal:{subject:'Tailoring the information to you',reply:"Hi {{first}}, certainly. So that I send something genuinely relevant rather than generic, may I ask whether your current priority is {{value}} or something else?\n\nI will tailor the materials accordingly, and include a link to a short call should it prove relevant once you have reviewed them.\n\nBest,\n{{you}}",bump:"Hi {{first}}, I hope the materials were helpful. I would welcome the chance to discuss them. {{link}}"}
+     }},
     {id:'ghosted',label:'Ghosted',desc:'Went quiet after early interest',
-     primary:"Hi {{first}}, I know inboxes are brutal, so no hard feelings, I am just closing the loop.\n\nShould I leave this here, or is {{value}} still worth a short conversation? A one-word reply is plenty, \"later\" is completely fine and I will check back at a better time.\n\n{{you}}",
-     variant:"Hi {{first}}, before I close your file, one thing that might be useful either way: [share one relevant insight or resource]. If {{value}} is still on your radar, my calendar is here: {{link}}. If not, no worries at all.\n\n{{you}}",
-     why:"The <b>no-guilt breakup</b> gets replies because it is effortless to answer and removes pressure. Giving an easy out paradoxically revives a surprising share of dead threads."},
+     detect:['following up','circling back','checking in','no response','bumping this','still there','any update','haven\'t heard'],
+     why:'The <b>no-guilt breakup</b> gets replies because it is effortless to answer and removes pressure. An easy out paradoxically revives dead threads.',
+     kills:'<b>What kills this:</b> guilt-tripping ("I have tried reaching you several times"). It sounds needy. Stay light and give an easy out.',
+     tones:{
+       direct:{subject:'Close this out?',reply:"Hi {{first}}, inboxes are brutal, no hard feelings.\n\nShould I leave this, or is {{value}} still worth a short call? One word is plenty, \"later\" is fine.\n\n{{you}}",bump:"Hi {{first}}, last nudge from me, still worth a conversation or should I close it out?"},
+       warm:{subject:'Closing the loop',reply:"Hi {{first}}, I know inboxes are brutal, so no hard feelings, I am just closing the loop.\n\nShould I leave this here, or is {{value}} still worth a short conversation? A one-word reply is plenty, \"later\" is completely fine and I will check back at a better time.\n\n{{you}}",bump:"Hi {{first}}, no pressure at all, just let me know if this is worth keeping open."},
+       formal:{subject:'Closing the loop on my note',reply:"Hi {{first}}, I appreciate that inboxes are demanding, so please take this in good faith, I am simply closing the loop.\n\nWould you prefer I leave this for now, or is {{value}} still worth a brief conversation? A one-word reply is more than enough, and \"later\" is perfectly acceptable, I will follow up at a more suitable time.\n\nBest,\n{{you}}",bump:"Hi {{first}}, should I keep this open, or revisit at a later date? A brief reply is all I need."}
+     }},
     {id:'notinterested',label:'Not interested',desc:'A clear no',
-     primary:"Hi {{first}}, I appreciate you letting me know, and I will not keep chasing.\n\nIf it is ever useful down the line, you know where I am. And if someone else owns {{value}} and might find it relevant, a quick pointer would mean a lot. Either way, thanks for your time.\n\n{{you}}",
-     why:"<b>Exit graciously.</b> A clean, no-pressure close protects the relationship and often earns a referral, or a \"actually, circle back in Q3.\""}
+     detect:['not interested','no thanks','no thank you','not for us','not a fit','pass','unsubscribe','remove me','stop emailing','not right for','no need','we are good'],
+     why:'<b>Exit graciously.</b> A clean, no-pressure close protects the relationship and often earns a referral or a "circle back in Q3."',
+     kills:'<b>What kills this:</b> arguing with the no or asking "why not?" defensively. It burns the bridge. Accept it warmly and leave the door open.',
+     tones:{
+       direct:{subject:'Understood',reply:"Hi {{first}}, understood, I will stop here.\n\nIf it is ever useful, you know where I am. And if someone else owns {{value}}, a quick pointer would help. Thanks for your time.\n\n{{you}}",bump:"Hi {{first}}, all good. Just to close the loop, anyone else worth speaking to on {{value}}?"},
+       warm:{subject:'Appreciate the honesty',reply:"Hi {{first}}, I appreciate you letting me know, and I will not keep chasing.\n\nIf it is ever useful down the line, you know where I am. And if someone else owns {{value}} and might find it relevant, a quick pointer would mean a lot. Either way, thanks for your time.\n\n{{you}}",bump:"Hi {{first}}, no worries at all, if timing changes or someone else should see this, just point me their way."},
+       formal:{subject:'Thank you for your time',reply:"Hi {{first}}, thank you for letting me know, I will not continue to follow up.\n\nShould it become relevant in future, I would welcome the opportunity to reconnect. And if another colleague is responsible for {{value}}, I would be grateful for an introduction. Thank you again for your time.\n\nBest,\n{{you}}",bump:"Hi {{first}}, understood entirely. If circumstances change, or a colleague should be involved, do let me know."}
+     }}
   ];
 
-  var selected=null;
+  var selected=null, tone='warm', libTone='warm';
+  function getScen(id){for(var i=0;i<SCEN.length;i++){if(SCEN[i].id===id)return SCEN[i];}return null;}
+
+  // scenario cards
   var grid=$('scenGrid');
   SCEN.forEach(function(s){
     var b=document.createElement('button');
     b.type='button';b.className='scen';b.setAttribute('data-id',s.id);
     b.innerHTML='<div class="st">'+esc(s.label)+'</div><div class="sd">'+esc(s.desc)+'</div>';
-    b.addEventListener('click',function(){
-      selected=s.id;
-      Array.prototype.forEach.call(grid.children,function(c){c.classList.toggle('sel',c.getAttribute('data-id')===s.id);});
-      $('genErr').textContent='';
-    });
+    b.addEventListener('click',function(){selectScenario(s.id);if($('result').style.display==='block')generate();});
     grid.appendChild(b);
+  });
+  function selectScenario(id){
+    selected=id;
+    Array.prototype.forEach.call(grid.children,function(c){c.classList.toggle('sel',c.getAttribute('data-id')===id);});
+    $('genErr').textContent='';
+  }
+
+  // tone selectors
+  Array.prototype.forEach.call($('toneRow').children,function(btn){
+    btn.addEventListener('click',function(){
+      tone=btn.getAttribute('data-tone');
+      Array.prototype.forEach.call($('toneRow').children,function(b){b.classList.toggle('sel',b===btn);});
+      if($('result').style.display==='block'&&selected)generate();
+    });
+  });
+  Array.prototype.forEach.call($('libToneRow').children,function(btn){
+    btn.addEventListener('click',function(){
+      libTone=btn.getAttribute('data-libtone');
+      Array.prototype.forEach.call($('libToneRow').children,function(b){b.classList.toggle('sel',b===btn);});
+      renderLibrary();
+    });
   });
 
   function vals(){
-    var first=($('pFirst').value||'').trim()||'there';
-    var you=($('pYou').value||'').trim()||'[your name]';
-    var value=($('pValue').value||'').trim()||'[what you help with]';
-    var link=($('pLink').value||'').trim()||'[your booking link]';
-    return {first:first,you:you,value:value,link:link};
+    return {
+      first:($('pFirst').value||'').trim()||'there',
+      you:($('pYou').value||'').trim()||'[your name]',
+      value:($('pValue').value||'').trim()||'[what you help with]',
+      link:($('pLink').value||'').trim()||'[your booking link]'
+    };
   }
-  function merge(tpl,v){
-    return tpl.replace(/\{\{first\}\}/g,v.first).replace(/\{\{you\}\}/g,v.you).replace(/\{\{value\}\}/g,v.value).replace(/\{\{link\}\}/g,v.link);
+  function merge(tpl,v){return tpl.replace(/\{\{first\}\}/g,v.first).replace(/\{\{you\}\}/g,v.you).replace(/\{\{value\}\}/g,v.value).replace(/\{\{link\}\}/g,v.link);}
+
+  // ---- reply analysis (in-browser, no network) ----
+  function detectScenario(text){
+    var t=text.toLowerCase(),best=null,bestScore=0;
+    SCEN.forEach(function(s){
+      var score=0;
+      s.detect.forEach(function(k){if(t.indexOf(k)!==-1)score++;});
+      if(score>bestScore){bestScore=score;best=s.id;}
+    });
+    return bestScore>0?best:null;
   }
-  function msgBlock(text){
-    return '<div class="msg"><button class="copy" type="button" data-copy="'+esc(text)+'">Copy</button>'+esc(text)+'</div>';
+  function signals(text){
+    var t=text.toLowerCase(),notes=[];
+    if(/(price|pricing|cost|how much|budget|quote)/.test(t)) notes.push('They raised <span class="det">cost</span>, do not discount, reframe as ROI on their numbers.');
+    if(/(this quarter|next quarter|this month|by end of|deadline|timeline|asap|soon)/.test(t)) notes.push('They mentioned <span class="det">timing</span>, mirror their timeframe in your reply.');
+    if(/\b\d+\s*(reps|people|employees|users|seats|staff)\b/.test(t)||/(our team of|team of \d)/.test(t)) notes.push('They referenced <span class="det">team size</span>, acknowledge it so the reply feels specific.');
+    if(/(circle back|next quarter|next year|maybe later|revisit|down the line|not right now|later this year)/.test(t)) notes.push('This reads like a <span class="det">soft no</span>, lower the pressure and make "later" easy to say.');
+    if(text.indexOf('?')!==-1) notes.push('They <span class="det">asked a question</span>, answer it directly before your ask.');
+    if(/(interested|interesting|keen|sounds good|tell me more|love to|looks good)/.test(t)&&!/(not interested|not interesting|no interest|n't interested|not keen|not for us)/.test(t)) notes.push('Clear <span class="det">buying signal</span>, move to a call fast before it cools.');
+    return notes;
   }
-  function wireCopy(scope){
-    Array.prototype.forEach.call(scope.querySelectorAll('.copy'),function(btn){
-      if(btn._wired) return; btn._wired=true;
+  function renderReadout(text){
+    var ro=$('readout');
+    if(!text.trim()){ro.style.display='none';return;}
+    var det=detectScenario(text), s=det?getScen(det):null;
+    var notes=signals(text);
+    var html='<h4>What we noticed</h4><ul>';
+    if(s) html+='<li>This looks like a <span class="det">'+esc(s.label.toLowerCase())+'</span> reply, selected below.</li>';
+    else html+='<li>No single situation stood out, pick the closest one below.</li>';
+    if(notes.length) notes.forEach(function(n){html+='<li>'+n+'</li>';});
+    else html+='<li>No strong signals, the script below is a solid default.</li>';
+    html+='</ul>';
+    ro.innerHTML=html;ro.style.display='block';
+  }
+
+  function copyFrom(el,btn){
+    var txt=(el.value!=null)?el.value:el.textContent;
+    var done=function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy';},1500);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(function(){btn.textContent='Copy manually';});}
+    else{btn.textContent='Copy manually';}
+  }
+  // editable copy buttons (subject/reply/bump)
+  Array.prototype.forEach.call(document.querySelectorAll('.copy[data-target]'),function(btn){
+    btn.addEventListener('click',function(){copyFrom($(btn.getAttribute('data-target')),btn);});
+  });
+  function wireMsgCopy(scope){
+    Array.prototype.forEach.call(scope.querySelectorAll('.copy[data-copy]'),function(btn){
+      if(btn._w)return;btn._w=true;
       btn.addEventListener('click',function(){
         var txt=btn.getAttribute('data-copy');
         var done=function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy';},1500);};
@@ -260,44 +420,63 @@
     });
   }
 
-  function getScen(id){for(var i=0;i<SCEN.length;i++){if(SCEN[i].id===id)return SCEN[i];}return null;}
-
-  $('genBtn').addEventListener('click',function(){
-    $('genErr').textContent='';
-    if(!selected){$('genErr').textContent='Pick what they said first.';return;}
-    var s=getScen(selected),v=vals();
-    $('primaryMsg').innerHTML=msgBlock(merge(s.primary,v));
+  function generate(){
+    if(!selected){$('genErr').textContent='Paste a reply above, or pick a situation first.';return;}
+    var s=getScen(selected),v=vals(),tn=s.tones[tone];
+    $('resScen').textContent='· '+s.label+' · '+tone.charAt(0).toUpperCase()+tone.slice(1)+' tone';
+    $('edSubject').value=merge(tn.subject,v);
+    $('edReply').value=merge(tn.reply,v);
+    $('edBump').value=merge(tn.bump,v);
     $('primaryWhy').innerHTML='Why this works: '+s.why;
-    wireCopy($('primaryMsg'));
-    // reset gate state on each generate
+    $('primaryKills').innerHTML=s.kills;
     $('library').classList.add('hidden');
     $('gate').classList.remove('hidden');
     $('result').style.display='block';
     $('result').scrollIntoView({behavior:'smooth',block:'start'});
-  });
+  }
 
-  // lead capture STUB — wire to Mautic later (Cloudflare Pages Function forwarding {email,magnet,scenario,inputs}).
+  function renderLibrary(){
+    var v=vals();
+    $('libList').innerHTML=SCEN.map(function(s){
+      var tn=s.tones[libTone];
+      return '<div class="libitem"><div class="lh">'+esc(s.label)+'</div><div class="ld">'+esc(s.desc)+'</div>'+
+        '<div class="msg"><div class="subj">Subject: '+esc(merge(tn.subject,v))+'</div>'+
+        '<button class="copy" type="button" data-copy="'+esc(merge(tn.reply,v))+'">Copy</button>'+esc(merge(tn.reply,v))+'</div>'+
+        '<div class="msg"><button class="copy" type="button" data-copy="'+esc(merge(tn.bump,v))+'">Copy</button><span style="color:var(--t3);font-size:.78rem">Day-3 bump:</span>\n'+esc(merge(tn.bump,v))+'</div>'+
+        '<div class="why">'+s.why+'</div><div class="kills">'+s.kills+'</div></div>';
+    }).join('');
+    wireMsgCopy($('libList'));
+  }
+
+  // lead capture STUB — wire to Mautic later (Cloudflare Pages Function forwarding {email,magnet,scenario,tone,inputs}).
   function submitLead(payload){try{console.log('[lead capture stub]',payload);}catch(e){}return Promise.resolve(true);}
+
+  $('analyzeBtn').addEventListener('click',function(){
+    var text=$('pasteBox').value||'';
+    if(!text.trim()){$('genErr').textContent='';renderReadout('');$('pasteBox').focus();return;}
+    renderReadout(text);
+    var det=detectScenario(text);
+    if(det){selectScenario(det);generate();}
+    else{$('genErr').textContent='Could not auto-detect, pick the closest situation below.';$('scenGrid').scrollIntoView({behavior:'smooth',block:'center'});}
+  });
+  $('genBtn').addEventListener('click',function(){
+    renderReadout($('pasteBox').value||'');
+    generate();
+  });
 
   $('gateForm').addEventListener('submit',function(e){
     e.preventDefault();$('emailErr').textContent='';
     var em=($('email').value||'').trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){$('emailErr').textContent='Enter a valid email so we can send the library.';return;}
     $('gateBtn').disabled=true;
-    var v=vals();
-    submitLead({email:em,magnet:'reply-to-close',scenario:selected,inputs:{first:$('pFirst').value,you:$('pYou').value,value:$('pValue').value}}).then(function(){
-      // build full personalized library
-      var html=SCEN.map(function(s){
-        var parts='<div class="libitem"><div class="lh">'+esc(s.label)+'</div><div class="ld">'+esc(s.desc)+'</div>'+msgBlock(merge(s.primary,v));
-        if(s.variant){ parts+='<div class="why" style="margin-top:.4rem">Variant for a tougher case:</div>'+msgBlock(merge(s.variant,v)); }
-        parts+='<div class="why">'+s.why+'</div></div>';
-        return parts;
-      }).join('');
-      $('libList').innerHTML=html;
-      // merge {{first}} in cadence text
-      var cad=$('library').querySelector('.cadence');
+    libTone=tone;
+    Array.prototype.forEach.call($('libToneRow').children,function(b){b.classList.toggle('sel',b.getAttribute('data-libtone')===libTone);});
+    submitLead({email:em,magnet:'reply-to-close',scenario:selected,tone:tone,inputs:{first:$('pFirst').value,you:$('pYou').value,value:$('pValue').value}}).then(function(){
+      renderLibrary();
+      // personalize cadence first-name
+      var v=vals();
+      var cad=$('cadenceList');
       cad.innerHTML=cad.innerHTML.replace(/\{\{first\}\}/g,esc(v.first));
-      wireCopy($('libList'));
       $('gate').classList.add('hidden');
       $('library').classList.remove('hidden');
       $('library').scrollIntoView({behavior:'smooth',block:'start'});
