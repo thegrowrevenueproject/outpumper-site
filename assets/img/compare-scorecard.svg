@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" font-family="'Inter',system-ui,'Segoe UI',sans-serif">
+  <defs>
+    <style>
+      .mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;}.t1{fill:#eef2f8;}.t2{fill:#9aa6bd;}.t3{fill:#6b7591;}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="1000" height="440" rx="16" fill="#131826"/>
+
+  <!-- column headers -->
+  <text x="40" y="52" class="t3 mono" font-size="11" letter-spacing="1">AT A GLANCE</text>
+  <g text-anchor="middle" font-size="12.5" font-weight="700">
+    <rect x="520" y="32" width="100" height="26" rx="6" fill="#2563eb"/><text x="570" y="50" fill="#fff">OutPumper</text>
+    <text x="690" y="50" class="t2">Instantly</text>
+    <text x="800" y="50" class="t2">Smartlead</text>
+    <text x="912" y="50" class="t2">Woodpecker</text>
+  </g>
+  <line x1="40" y1="68" x2="960" y2="68" stroke="#2f3b54"/>
+  <!-- OutPumper column highlight (behind rows) -->
+  <rect x="528" y="74" width="84" height="320" rx="8" fill="#2563eb" fill-opacity="0.07" stroke="#2563eb" stroke-opacity="0.3"/>
+
+  <!-- rows -->
+  <g font-size="13">
+    <!-- row template: label at x=40; dots at 570,690,800,912 -->
+    <text x="40" y="100" class="t2">Send on day one, no warmup</text>
+    <text x="40" y="146" class="t2">Data stays in your own tenant</text>
+    <text x="40" y="192" class="t2">No domain farm to buy</text>
+    <text x="40" y="238" class="t2">A couple of mailboxes, not hundreds</text>
+    <text x="40" y="284" class="t2">Runs inside Outlook</text>
+    <text x="40" y="330" class="t2">Verification included free</text>
+    <text x="40" y="376" class="t2">One-time purchase option</text>
+  </g>
+
+  <!-- dots: green check (#10b981) for yes, grey/red cross for no -->
+  <g font-family="'JetBrains Mono',monospace" font-size="15" font-weight="700" text-anchor="middle">
+    <!-- OutPumper col: all yes -->
+    <g fill="#10b981"><text x="570" y="105">✓</text><text x="570" y="151">✓</text><text x="570" y="197">✓</text><text x="570" y="243">✓</text><text x="570" y="289">✓</text><text x="570" y="335">✓</text><text x="570" y="381">✓</text></g>
+    <!-- Instantly col: all no -->
+    <g fill="#5b6478"><text x="690" y="105">✕</text><text x="690" y="151">✕</text><text x="690" y="197">✕</text><text x="690" y="243">✕</text><text x="690" y="289">✕</text><text x="690" y="335">✕</text><text x="690" y="381">✕</text></g>
+    <!-- Smartlead col: all no -->
+    <g fill="#5b6478"><text x="800" y="105">✕</text><text x="800" y="151">✕</text><text x="800" y="197">✕</text><text x="800" y="243">✕</text><text x="800" y="289">✕</text><text x="800" y="335">✕</text><text x="800" y="381">✕</text></g>
+    <!-- Woodpecker col: mostly no -->
+    <g fill="#5b6478"><text x="912" y="105">✕</text><text x="912" y="151">✕</text><text x="912" y="197">✕</text><text x="912" y="243">✕</text><text x="912" y="289">✕</text><text x="912" y="335">✕</text><text x="912" y="381">✕</text></g>
+  </g>
+
+  <!-- row separators -->
+  <g stroke="#1b2230"><line x1="40" y1="122" x2="960" y2="122"/><line x1="40" y1="168" x2="960" y2="168"/><line x1="40" y1="214" x2="960" y2="214"/><line x1="40" y1="260" x2="960" y2="260"/><line x1="40" y1="306" x2="960" y2="306"/><line x1="40" y1="352" x2="960" y2="352"/></g>
+
+  <text x="40" y="420" class="t3" font-size="11">Summary of the full table below. Competitor capabilities vary by plan; this reflects their standard cold-email setup.</text>
+</svg>

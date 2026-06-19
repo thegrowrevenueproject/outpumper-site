@@ -15,6 +15,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css">
+<style>
+  .figure{margin:0;}
+  .figure img{display:block;width:100%;height:auto;border-radius:var(--r);border:1px solid var(--border);background:var(--card);}
+  .figure.bare img{border:0;background:transparent;border-radius:0;}
+  .figcap{margin-top:10px;font-size:.82rem;color:var(--t3);text-align:center;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  @media(max-width:820px){.split{grid-template-columns:1fr;gap:28px;}}
+</style>
 </head>
 <body>
 
@@ -44,6 +52,14 @@
   </div>
 </section>
 
+<section style="padding-top:8px">
+  <div class="container">
+    <figure class="figure bare" style="max-width:480px;margin:0 auto">
+      <img src="/assets/img/outlook-panel.svg" alt="OutPumper dispatcher panel inside Outlook: queued campaigns, live send stats, controls and a log" loading="lazy">
+    </figure>
+  </div>
+</section>
+
 <section style="padding-top:24px">
   <div class="container">
     <div class="sec-head"><p class="eyebrow">Campaign management</p><h2>Run campaigns like a system.</h2></div>
@@ -60,6 +76,7 @@
 <section class="section-tight">
   <div class="container">
     <div class="sec-head"><p class="eyebrow">Sending intelligence</p><h2>Sends the way a person would.</h2></div>
+    <figure class="figure" style="margin-bottom:26px"><img src="/assets/img/throttling-waves.svg" alt="A day of sending shown as natural waves that ramp up gradually and stay under Microsoft's daily limit, with an automatic safety stop" loading="lazy"></figure>
     <div class="grid grid-3">
       <div class="card reveal"><div class="ico">⏱</div><h3>Throttling that works</h3><p>Speeds up when it can, slows down when it should, and stops before Microsoft notices. Your account stays clean.</p></div>
       <div class="card reveal d1"><div class="ico">🌊</div><h3>Natural sending waves</h3><p>Sends in organic waves rather than a flat fire hose, the way a real person emails across a day.</p></div>
@@ -72,6 +89,7 @@
 <section class="section-tight">
   <div class="container">
     <div class="sec-head"><p class="eyebrow">Deliverability and safety</p><h2>Built to protect your domain.</h2></div>
+    <figure class="figure" style="margin-bottom:26px"><img src="/assets/img/warmup-footprint.svg" alt="A flagged warmup pool of throwaway mailboxes versus a single trusted real Microsoft 365 mailbox" loading="lazy"></figure>
     <div class="grid grid-3">
       <div class="card reveal"><div class="ico">🌐</div><h3>Domain spreading</h3><p>Never hammers the same recipient domain in a row. Sends are spread so nothing looks like a spike.</p></div>
       <div class="card reveal d1"><div class="ico">🚨</div><h3>Automatic stop</h3><p>Approaching a Microsoft limit triggers an automatic stop, before anything goes wrong, then resumes when limits reset.</p></div>
@@ -96,6 +114,7 @@
 <section class="section-tight">
   <div class="container">
     <div class="sec-head"><p class="eyebrow">Mailbox management and providers</p><h2>One dashboard, every sender.</h2></div>
+    <figure class="figure" style="margin-bottom:26px"><img src="/assets/img/mailbox-rotation.svg" alt="A campaign spreading its sends across several user and shared Microsoft 365 mailboxes in rotation, each within its own daily window" loading="lazy"></figure>
     <div class="grid grid-3">
       <div class="card reveal"><div class="ico">🔍</div><h3>Auto-detect mailboxes</h3><p>Finds your user and shared mailboxes automatically. No manual configuration, no admin-panel hunting.</p></div>
       <div class="card reveal d1"><div class="ico">🔄</div><h3>Automatic rotation</h3><p>Cycles through shared mailboxes on its own, in randomized order, so sending stays natural.</p></div>
@@ -107,6 +126,7 @@
 <section class="section-tight">
   <div class="container">
     <div class="sec-head"><p class="eyebrow">What it replaces</p><h2>Tools other senders pay for, included.</h2></div>
+    <figure class="figure" style="margin-bottom:26px"><img src="/assets/img/cost-stack.svg" alt="A typical cold-email stack of domains, mailboxes, a warmup tool and a platform costs about 434 dollars a month, versus OutPumper at 49" loading="lazy"></figure>
     <div class="killer">
       <div class="killer-row reveal"><div><h3>Free email verification</h3><p>Every address is verified before it is sent to, built into the engine. Unlimited, at no extra cost.</p></div><div class="price-tag"><div class="them">0.003 to 0.01 dollars per email elsewhere</div><div class="ours">Included</div></div></div>
       <div class="killer-row reveal d1"><div><h3>Warmup tools and extra domains</h3><p>Send on day one from real Microsoft 365 mailboxes. No warmup subscription, no 30 to 50 throwaway domains to buy and manage.</p></div><div class="price-tag"><div class="them">Hundreds a month elsewhere</div><div class="ours">Not needed</div></div></div>

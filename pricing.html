@@ -15,6 +15,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css">
+<style>
+  .figure{margin:0;}
+  .figure img{display:block;width:100%;height:auto;border-radius:var(--r);border:1px solid var(--border);background:var(--card);}
+  .figure.bare img{border:0;background:transparent;border-radius:0;}
+  .figcap{margin-top:10px;font-size:.82rem;color:var(--t3);text-align:center;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  @media(max-width:820px){.split{grid-template-columns:1fr;gap:28px;}}
+</style>
 </head>
 <body>
 
@@ -101,6 +109,21 @@
     </div>
 
     <div class="guarantee">🛡️ <span><b>30-day money-back guarantee.</b> If it is not right for you, ask and we refund every cent. No retention dance.</span></div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="sec-head center"><p class="eyebrow">The math</p><h2>Less than the stack it replaces.</h2></div>
+    <figure class="figure" style="margin-bottom:30px"><img src="/assets/img/cost-stack.svg" alt="A typical cold-email stack of domains, extra mailboxes, a warmup tool and a sending platform costs about 434 dollars a month, versus OutPumper at 49" loading="lazy"><figcaption class="figcap">What a typical cold-email stack costs each month, and what OutPumper folds into one price.</figcaption></figure>
+    <div class="split" style="margin-bottom:30px">
+      <figure class="figure"><img src="/assets/img/break-even.svg" alt="Cumulative cost over 24 months: paying 49 dollars a month overtakes the 497 dollar Lifetime price at about month 10, after which Lifetime saves money" loading="lazy"></figure>
+      <div>
+        <h2 style="font-size:1.5rem;margin-bottom:.6rem">Lifetime pays for itself fast.</h2>
+        <p class="lead">At $49 a month, you pass the one-time $497 Lifetime price in about ten months. Everything after that is saved. If you plan to send for more than a year, Lifetime is the cheaper path, with no subscription to cancel.</p>
+      </div>
+    </div>
+    <figure class="figure"><img src="/assets/img/whats-included.svg" alt="Three tools other senders pay for separately, verification, warmup plus domains, and bounce hygiene, all folded into OutPumper at one price" loading="lazy"><figcaption class="figcap">Three tools other senders pay for separately, included at one price.</figcaption></figure>
   </div>
 </section>
 

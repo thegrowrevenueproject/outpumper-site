@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" font-family="'Inter',system-ui,'Segoe UI',sans-serif">
+  <defs>
+    <linearGradient id="save" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10b981" stop-opacity="0.28"/><stop offset="1" stop-color="#10b981" stop-opacity="0.03"/></linearGradient>
+    <style>.mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;}.t1{fill:#eef2f8;}.t2{fill:#9aa6bd;}.t3{fill:#6b7591;}</style>
+  </defs>
+  <rect x="0" y="0" width="1000" height="420" rx="16" fill="#131826"/>
+  <text x="40" y="46" class="t1" font-size="16" font-weight="800">Lifetime pays for itself in about 10 months</text>
+
+  <!-- plot region x 90..930, y 80..360 -->
+  <!-- gridlines + y labels ($0,$500,$1000) -->
+  <g stroke="#252f44"><line x1="90" y1="360" x2="930" y2="360"/><line x1="90" y1="244" x2="930" y2="244" stroke-dasharray="3 4"/><line x1="90" y1="128" x2="930" y2="128" stroke-dasharray="3 4"/></g>
+  <g class="t3 mono" font-size="10.5" text-anchor="end"><text x="80" y="364">$0</text><text x="80" y="248">$500</text><text x="80" y="132">$1000</text></g>
+
+  <!-- savings shade: between crossover(443,244) and end, region under monthly above lifetime -->
+  <path d="M443,244 L930,86 L930,244 Z" fill="url(#save)"/>
+
+  <!-- lifetime flat line at $497 (y=244) -->
+  <line x1="90" y1="244" x2="930" y2="244" stroke="#10b981" stroke-width="2.5"/>
+  <!-- monthly cumulative line from (90,360) to (930,86) -->
+  <line x1="90" y1="360" x2="930" y2="86" stroke="#3b82f6" stroke-width="2.5"/>
+
+  <!-- crossover -->
+  <circle cx="443" cy="244" r="6" fill="#eef2f8" stroke="#0a0e1a" stroke-width="2"/>
+  <line x1="443" y1="244" x2="443" y2="360" stroke="#6b7591" stroke-dasharray="3 4"/>
+  <text x="443" y="380" class="t2 mono" font-size="11" text-anchor="middle">≈ month 10</text>
+
+  <!-- end labels -->
+  <text x="924" y="80" fill="#3b82f6" class="mono" font-size="12" font-weight="700" text-anchor="end">$1,176 paid monthly</text>
+  <text x="690" y="190" fill="#10b981" class="mono" font-size="12" font-weight="700">you save from here</text>
+
+  <!-- x labels -->
+  <g class="t3 mono" font-size="10.5" text-anchor="middle"><text x="90" y="380">0</text><text x="300" y="398">6</text><text x="510" y="398">12</text><text x="720" y="398">18</text><text x="930" y="398">24 mo</text></g>
+
+  <!-- legend -->
+  <g font-size="12.5"><rect x="90" y="402" width="14" height="4" rx="2" fill="#3b82f6"/><text x="112" y="408" class="t2">Pay monthly, $49/mo</text>
+  <rect x="300" y="402" width="14" height="4" rx="2" fill="#10b981"/><text x="322" y="408" class="t2">Lifetime, $497 once</text></g>
+</svg>

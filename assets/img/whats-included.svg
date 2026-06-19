@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" font-family="'Inter',system-ui,'Segoe UI',sans-serif">
+  <defs>
+    <marker id="iah" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0 0 L8 4.5 L0 9 z" fill="#3b82f6"/></marker>
+    <style>.mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;}.t1{fill:#eef2f8;}.t2{fill:#9aa6bd;}.t3{fill:#6b7591;}</style>
+  </defs>
+  <rect x="0" y="0" width="1000" height="360" rx="16" fill="#131826"/>
+
+  <!-- three external tools (left) -->
+  <g>
+    <rect x="40" y="56" width="270" height="68" rx="10" fill="#0f1525" stroke="#252f44"/>
+    <text x="60" y="86" class="t1" font-size="14" font-weight="700">Email verification</text>
+    <text x="60" y="108" class="t3 mono" font-size="11">$0.003–0.01 per email elsewhere</text>
+
+    <rect x="40" y="146" width="270" height="68" rx="10" fill="#0f1525" stroke="#252f44"/>
+    <text x="60" y="176" class="t1" font-size="14" font-weight="700">Warmup tool + domains</text>
+    <text x="60" y="198" class="t3 mono" font-size="11">hundreds per month elsewhere</text>
+
+    <rect x="40" y="236" width="270" height="68" rx="10" fill="#0f1525" stroke="#252f44"/>
+    <text x="60" y="266" class="t1" font-size="14" font-weight="700">Bounce list hygiene</text>
+    <text x="60" y="288" class="t3 mono" font-size="11">manual cleanup elsewhere</text>
+  </g>
+
+  <!-- merge arrows -->
+  <g stroke="#3b82f6" stroke-width="2" fill="none">
+    <path d="M310,90 C400,90 430,170 510,178" marker-end="url(#iah)"/>
+    <path d="M310,180 L510,180" marker-end="url(#iah)"/>
+    <path d="M310,270 C400,270 430,190 510,182" marker-end="url(#iah)"/>
+  </g>
+
+  <!-- one price (right) -->
+  <rect x="540" y="120" width="400" height="120" rx="14" fill="#131826" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="740" y="158" fill="#3b82f6" class="mono" font-size="11" font-weight="700" letter-spacing="1.5" text-anchor="middle">ALL INCLUDED IN OUTPUMPER</text>
+  <text x="740" y="196" class="t1 mono" font-size="26" font-weight="800" text-anchor="middle">$49<tspan class="t3" font-size="13" font-weight="400">/mo</tspan> <tspan class="t3" font-size="15">or</tspan> $497<tspan class="t3" font-size="13" font-weight="400"> once</tspan></text>
+  <text x="740" y="222" class="t2" font-size="12.5" text-anchor="middle">no per-check, per-mailbox or warmup fees</text>
+</svg>

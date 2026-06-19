@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="'Inter',system-ui,'Segoe UI',sans-serif">
+  <style>.mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;}.t1{fill:#eef2f8;}.t2{fill:#9aa6bd;}.t3{fill:#6b7591;}</style>
+  <rect x="0" y="0" width="1000" height="380" rx="16" fill="#131826"/>
+
+  <!-- LEFT: your tenant (OutPumper) -->
+  <rect x="32" y="60" width="448" height="280" rx="14" fill="#0f1525" stroke="#10b981" stroke-width="1.6"/>
+  <rect x="56" y="40" width="240" height="26" rx="13" fill="#10b98122" stroke="#10b981"/>
+  <text x="176" y="58" fill="#10b981" class="mono" font-size="11" font-weight="700" text-anchor="middle">YOUR MICROSOFT 365 TENANT</text>
+  <text x="256" y="110" fill="#3b82f6" font-size="15" font-weight="800" text-anchor="middle">OutPumper</text>
+  <g text-anchor="middle">
+    <rect x="74" y="138" width="170" height="56" rx="9" fill="#131826" stroke="#252f44"/><text x="159" y="162" class="t1" font-size="12.5">Contacts</text><text x="159" y="180" class="t3 mono" font-size="10">never uploaded out</text>
+    <rect x="268" y="138" width="170" height="56" rx="9" fill="#131826" stroke="#252f44"/><text x="353" y="162" class="t1" font-size="12.5">Campaigns</text><text x="353" y="180" class="t3 mono" font-size="10">stored in your mailbox</text>
+    <rect x="74" y="210" width="170" height="56" rx="9" fill="#131826" stroke="#252f44"/><text x="159" y="234" class="t1" font-size="12.5">Sending</text><text x="159" y="252" class="t3 mono" font-size="10">through your Outlook</text>
+    <rect x="268" y="210" width="170" height="56" rx="9" fill="#131826" stroke="#252f44"/><text x="353" y="234" class="t1" font-size="12.5">Replies</text><text x="353" y="252" class="t3 mono" font-size="10">in your inbox</text>
+  </g>
+  <text x="256" y="304" fill="#10b981" font-size="12.5" font-weight="700" text-anchor="middle">Nothing leaves the boundary you control</text>
+
+  <!-- divider -->
+  <line x1="500" y1="70" x2="500" y2="330" stroke="#2f3b54" stroke-dasharray="4 5"/>
+
+  <!-- RIGHT: their platform -->
+  <rect x="520" y="60" width="448" height="280" rx="14" fill="#0f1525" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <rect x="544" y="40" width="220" height="26" rx="13" fill="#f59e0b22" stroke="#f59e0b"/>
+  <text x="654" y="58" fill="#f59e0b" class="mono" font-size="11" font-weight="700" text-anchor="middle">THEIR CLOUD PLATFORM</text>
+  <text x="744" y="110" class="t2" font-size="15" font-weight="800" text-anchor="middle">Instantly · Smartlead · others</text>
+  <g text-anchor="middle">
+    <rect x="562" y="138" width="170" height="56" rx="9" fill="#131826" stroke="#2f3b54"/><text x="647" y="162" class="t1" font-size="12.5">Your contacts</text><text x="647" y="180" class="t3 mono" font-size="10">uploaded to them</text>
+    <rect x="756" y="138" width="170" height="56" rx="9" fill="#131826" stroke="#2f3b54"/><text x="841" y="162" class="t1" font-size="12.5">Your campaigns</text><text x="841" y="180" class="t3 mono" font-size="10">on their servers</text>
+    <rect x="562" y="210" width="170" height="56" rx="9" fill="#131826" stroke="#2f3b54"/><text x="647" y="234" class="t1" font-size="12.5">Sending</text><text x="647" y="252" class="t3 mono" font-size="10">routed through them</text>
+    <rect x="756" y="210" width="170" height="56" rx="9" fill="#131826" stroke="#2f3b54"/><text x="841" y="234" class="t1" font-size="12.5">Reputation</text><text x="841" y="252" class="t3 mono" font-size="10">tied to their pool</text>
+  </g>
+  <text x="744" y="304" class="t2" font-size="12.5" text-anchor="middle">Your data and reputation sit outside your control</text>
+</svg>

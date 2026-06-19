@@ -15,6 +15,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css">
+<style>
+  .figure{margin:0;}
+  .figure img{display:block;width:100%;height:auto;border-radius:var(--r);border:1px solid var(--border);background:var(--card);}
+  .figure.bare img{border:0;background:transparent;border-radius:0;}
+  .figcap{margin-top:10px;font-size:.82rem;color:var(--t3);text-align:center;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  @media(max-width:820px){.split{grid-template-columns:1fr;gap:28px;}}
+</style>
 </head>
 <body>
 
@@ -46,6 +54,8 @@
 
 <section style="padding-top:16px">
   <div class="container">
+    <div class="sec-head"><p class="eyebrow">At a glance</p><h2>Where OutPumper pulls ahead.</h2></div>
+    <figure class="figure" style="margin-bottom:30px"><img src="/assets/img/compare-scorecard.svg" alt="Scorecard: OutPumper passes every key dimension (send day one, data in your tenant, no domain farm, a couple of mailboxes, inside Outlook, verification included, one-time option) where Instantly, Smartlead and Woodpecker do not" loading="lazy"></figure>
     <div class="tablewrap reveal">
       <table class="cmp">
         <thead><tr>
@@ -79,11 +89,26 @@
 
 <section class="section-tight">
   <div class="container">
+    <div class="sec-head"><p class="eyebrow">The real cost</p><h2>Cheaper than the stack it replaces.</h2></div>
+    <figure class="figure"><img src="/assets/img/cost-stack.svg" alt="A typical cold-email stack of domains, mailboxes, a warmup tool and a platform costs about 434 dollars a month, versus OutPumper at 49" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
     <div class="grid grid-3">
       <div class="card reveal"><h3>vs Instantly</h3><p>Instantly has you buy and warm dozens of throwaway domains and spin up mailbox after mailbox, the warmup footprint inbox providers increasingly flag, all run from a separate app. OutPumper sends through a couple of real Microsoft 365 Outlook mailboxes on day one, with no domain farm and nothing to warm up.</p></div>
       <div class="card reveal d1"><h3>vs Smartlead</h3><p>Smartlead runs the same playbook: dozens of domains, stacks of mailboxes, weeks of warmup, with your contacts and campaigns living on its platform. OutPumper keeps the sending, the data, and the reputation inside your own Microsoft 365 tenant.</p></div>
       <div class="card reveal d2"><h3>vs Woodpecker</h3><p>Woodpecker is solid, but it still needs external SMTP, DNS setup, and warmed-up domains. OutPumper removes that entire layer. No SMTP wiring, no domain farm, just your own Outlook and Microsoft 365.</p></div>
     </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="sec-head"><p class="eyebrow">Where your data lives</p><h2>Yours, or theirs.</h2></div>
+    <figure class="figure" style="margin-bottom:30px"><img src="/assets/img/data-location.svg" alt="With OutPumper, contacts, campaigns, sending and replies stay inside your Microsoft 365 tenant; with other tools, your data and reputation sit on their cloud platform" loading="lazy"></figure>
+    <figure class="figure"><img src="/assets/img/warmup-footprint.svg" alt="A flagged warmup pool of throwaway mailboxes versus a single trusted real Microsoft 365 mailbox" loading="lazy"></figure>
   </div>
 </section>
 
