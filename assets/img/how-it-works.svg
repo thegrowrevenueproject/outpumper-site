@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" font-family="'Inter',system-ui,'Segoe UI',sans-serif">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0 0 L8 4.5 L0 9 z" fill="#3b82f6"/></marker>
+    <style>.mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;}.t1{fill:#eef2f8;}.t2{fill:#9aa6bd;}.t3{fill:#6b7591;}</style>
+  </defs>
+  <rect x="0" y="0" width="1000" height="300" rx="16" fill="#131826"/>
+
+  <!-- node 1: M365 + Outlook -->
+  <rect x="40" y="84" width="250" height="132" rx="12" fill="#0f1525" stroke="#252f44"/>
+  <g transform="translate(64,112)" fill="#3b82f6"><rect x="0" y="0" width="13" height="13" rx="2"/><rect x="15" y="0" width="13" height="13" rx="2"/><rect x="0" y="15" width="13" height="13" rx="2"/><rect x="15" y="15" width="13" height="13" rx="2"/></g>
+  <text x="64" y="172" class="t1" font-size="16" font-weight="700">Your Microsoft 365</text>
+  <text x="64" y="194" class="t3" font-size="12.5">+ desktop Outlook, mailboxes you own</text>
+
+  <!-- arrow -->
+  <line x1="298" y1="150" x2="372" y2="150" stroke="#3b82f6" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- node 2: OutPumper engine (emphasized) -->
+  <rect x="380" y="56" width="250" height="188" rx="12" fill="#131826" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="505" y="86" fill="#3b82f6" class="mono" font-size="12" font-weight="700" letter-spacing="1.5" text-anchor="middle">OUTPUMPER ENGINE</text>
+  <g class="t2" font-size="13">
+    <text x="406" y="116">Multi-step sequences</text>
+    <text x="406" y="142">Smart throttling</text>
+    <text x="406" y="168">Mailbox rotation</text>
+    <text x="406" y="194">Built-in verification</text>
+    <text x="406" y="220">Word variation per send</text>
+  </g>
+  <g fill="#10b981"><circle cx="396" cy="112" r="3"/><circle cx="396" cy="138" r="3"/><circle cx="396" cy="164" r="3"/><circle cx="396" cy="190" r="3"/><circle cx="396" cy="216" r="3"/></g>
+
+  <!-- arrow -->
+  <line x1="638" y1="150" x2="712" y2="150" stroke="#3b82f6" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- node 3: inbox -->
+  <rect x="720" y="84" width="250" height="132" rx="12" fill="#0f1525" stroke="#252f44"/>
+  <g transform="translate(744,110)" fill="none" stroke="#10b981" stroke-width="2"><rect x="0" y="2" width="30" height="22" rx="3"/><path d="M1 5 L15 15 L29 5"/></g>
+  <text x="744" y="172" class="t1" font-size="16" font-weight="700">Prospect inbox</text>
+  <text x="744" y="194" fill="#10b981" font-size="12.5">Arrives from a trusted sender</text>
+
+  <!-- caption strip -->
+  <text x="500" y="280" class="t3 mono" font-size="11.5" text-anchor="middle">No third-party relay in the path · no warmup queue · no domain farm</text>
+</svg>

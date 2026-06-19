@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 540" font-family="'Inter',system-ui,'Segoe UI',sans-serif">
+  <style>
+    .mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;}
+    .t1{fill:#eef2f8;} .t2{fill:#9aa6bd;} .t3{fill:#6b7591;}
+  </style>
+  <rect x="0" y="0" width="980" height="540" rx="16" fill="#131826"/>
+
+  <!-- headings -->
+  <text x="195" y="52" class="t2" font-size="17" font-weight="800" text-anchor="middle" letter-spacing="-.2">Every other tool</text>
+  <text x="835" y="52" fill="#3b82f6" font-size="17" font-weight="800" text-anchor="middle" letter-spacing="-.2">OutPumper</text>
+
+  <!-- totals above bars -->
+  <text x="195" y="88" class="t1 mono" font-size="18" font-weight="800" text-anchor="middle">≈ $434<tspan class="t3" font-size="12" font-weight="400"> /mo</tspan></text>
+  <text x="835" y="404" fill="#3b82f6" class="mono" font-size="20" font-weight="800" text-anchor="middle">$49<tspan class="t3" font-size="12" font-weight="400"> /mo</tspan></text>
+
+  <!-- baseline -->
+  <line x1="90" y1="460" x2="910" y2="460" stroke="#2f3b54"/>
+
+  <!-- LEFT stacked bar  x=120 w=150 -->
+  <g>
+    <rect x="120" y="294" width="150" height="166" fill="#ef4444"/>
+    <rect x="120" y="214" width="150" height="80" fill="#f0682f"/>
+    <rect x="120" y="134" width="150" height="80" fill="#f59e0b"/>
+    <rect x="120" y="101" width="150" height="33" fill="#6b7591"/>
+    <rect x="120" y="101" width="150" height="359" fill="none" stroke="#2f3b54"/>
+  </g>
+
+  <!-- connectors + labels (between bars) -->
+  <g class="mono" font-size="12.5">
+    <line x1="270" y1="118" x2="300" y2="118" stroke="#2f3b54"/>
+    <text x="308" y="115" class="t2">Throwaway domains <tspan class="t1" font-weight="700">~$40</tspan></text>
+    <text x="308" y="131" class="t3" font-size="10.5">40 domains, bought and configured</text>
+
+    <line x1="270" y1="174" x2="300" y2="174" stroke="#2f3b54"/>
+    <text x="308" y="171" class="t2">Warmup tool <tspan class="t1" font-weight="700">~$97</tspan></text>
+    <text x="308" y="187" class="t3" font-size="10.5">the footprint inbox providers now flag</text>
+
+    <line x1="270" y1="254" x2="300" y2="254" stroke="#2f3b54"/>
+    <text x="308" y="251" class="t2">Sending platform <tspan class="t1" font-weight="700">~$97</tspan></text>
+    <text x="308" y="267" class="t3" font-size="10.5">monthly seat and inbox fees</text>
+
+    <line x1="270" y1="377" x2="300" y2="377" stroke="#2f3b54"/>
+    <text x="308" y="374" class="t2">Extra mailboxes ×50 <tspan class="t1" font-weight="700">~$200</tspan></text>
+    <text x="308" y="390" class="t3" font-size="10.5">created, connected, rotated, replaced</text>
+  </g>
+
+  <!-- RIGHT bar  x=760 w=150 -->
+  <rect x="760" y="419" width="150" height="41" fill="#2563eb"/>
+  <rect x="760" y="419" width="150" height="41" fill="none" stroke="#3b82f6"/>
+  <text x="835" y="486" class="t3 mono" font-size="12" text-anchor="middle">or $497 once · no per-mailbox fees</text>
+
+  <!-- footnote -->
+  <text x="40" y="522" class="t3" font-size="11">Illustrative monthly cost of a typical cold-email stack. Your numbers will vary; the shape rarely does.</text>
+</svg>

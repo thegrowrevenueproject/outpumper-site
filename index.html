@@ -18,10 +18,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css">
 <style>
-  .hero-points{list-style:none;margin:.2rem 0 0;padding:0;display:flex;flex-direction:column;gap:.75rem;max-width:60ch;}
-  .hero-points li{position:relative;padding-left:1.9rem;font-size:clamp(1rem,1.5vw,1.18rem);color:var(--t2);line-height:1.45;}
+  /* hero spacing + sizing */
+  .hero{padding:64px 0 56px;}
+  .hero-grid{align-items:center;gap:56px;}
+  .hero h1{font-size:clamp(2rem,4.4vw,3.4rem);margin:.8rem 0 1rem;}
+  .hero .lead{margin-bottom:0;}
+  .hero-points{list-style:none;margin:1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.7rem;max-width:58ch;}
+  .hero-points li{position:relative;padding-left:1.85rem;font-size:clamp(.98rem,1.4vw,1.1rem);color:var(--t2);line-height:1.4;}
   .hero-points li::before{content:"\2713";position:absolute;left:0;top:.02em;color:var(--green);font-weight:800;font-size:1.05em;}
   .hero-points .hl{color:var(--t1);font-weight:700;}
+  .hero-cta{margin-top:1.5rem;}
+  .hero-note{margin-top:1rem;}
+  /* logo / works-with strip */
+  .logostrip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg1);}
+  .logostrip .container{padding-top:30px;padding-bottom:30px;}
+  .logostrip .lstrip-label{text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:18px;}
+  .lstrip-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 34px;}
+  .lstrip-row .wm{display:inline-flex;align-items:center;gap:.5rem;color:var(--t2);font-weight:700;font-size:1.02rem;letter-spacing:-.01em;opacity:.82;transition:opacity .15s,color .15s;}
+  .lstrip-row .wm:hover{opacity:1;color:var(--t1);}
+  .lstrip-row .wm svg{flex:none;color:var(--accent-bright);}
+  /* generic image-figure styling */
+  .figure{margin:0;}
+  .figure img{display:block;width:100%;height:auto;border-radius:var(--r);border:1px solid var(--border);background:var(--card);}
+  .figure.bare img{border:0;background:transparent;border-radius:0;}
+  .figcap{margin-top:10px;font-size:.82rem;color:var(--t3);text-align:center;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  @media(max-width:820px){.split{grid-template-columns:1fr;gap:28px;}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"OutPumper","applicationCategory":"BusinessApplication","operatingSystem":"Windows (Microsoft 365 + Outlook)","description":"OutPumper runs cold email inside your own Outlook and Microsoft 365, with no domain farms, no mailbox sprawl, and no warmup.","offers":[{"@type":"Offer","price":"49","priceCurrency":"USD","name":"Pro monthly"},{"@type":"Offer","price":"497","priceCurrency":"USD","name":"Lifetime"}],"publisher":{"@type":"Organization","name":"The Grow Revenue Company Limited"}}
@@ -63,7 +85,7 @@
       <div class="hero-left">
         <p class="eyebrow reveal">Cold email, from inside Outlook</p>
         <h1 class="reveal d1">Cold email from a couple of real Outlook mailboxes.</h1>
-        <p class="lead reveal d2" style="margin-bottom:1.1rem">OutPumper runs inside Outlook and sends through your own Microsoft 365 mailboxes.</p>
+        <p class="lead reveal d2">OutPumper runs inside Outlook and sends through your own Microsoft 365 mailboxes.</p>
         <ul class="hero-points reveal d3">
           <li>No buying <b class="hl">30 to 50 domains</b></li>
           <li>No spinning up <b class="hl">hundreds of mailboxes</b></li>
@@ -105,6 +127,21 @@
   </div>
 </section>
 
+<section class="logostrip reveal">
+  <div class="container">
+    <p class="lstrip-label">Works with the infrastructure you already pay for</p>
+    <div class="lstrip-row">
+      <span class="wm"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><rect x="1" y="1" width="7.4" height="7.4" rx="1"/><rect x="9.6" y="1" width="7.4" height="7.4" rx="1"/><rect x="1" y="9.6" width="7.4" height="7.4" rx="1"/><rect x="9.6" y="9.6" width="7.4" height="7.4" rx="1"/></svg> Microsoft 365</span>
+      <span class="wm"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="3" width="15" height="12" rx="2"/><path d="M2 4.5 9 10l7-5.5"/></svg> Outlook</span>
+      <span class="wm"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 1.5 16 5v8L9 16.5 2 13V5z"/><path d="M2 5l7 3.5L16 5"/></svg> Exchange</span>
+      <span class="wm"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1.5 6 9 11l7.5-5"/><rect x="1.5" y="4" width="15" height="10" rx="2"/></svg> SendGrid</span>
+      <span class="wm"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="7.2"/><path d="M5 9a4 4 0 0 1 8 0v2.5"/><circle cx="13" cy="11.5" r="1.4" fill="currentColor" stroke="none"/></svg> Mailgun</span>
+      <span class="wm"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12c2.5 1.6 11.5 1.6 14 0"/><path d="M3.5 13.5c2 1.1 9 1.1 11 0"/><path d="M9 2.2 15 5.5v6"/><path d="M9 2.2 3 5.5v6"/></svg> Amazon SES</span>
+      <span class="wm"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="4" width="15" height="10" rx="2"/><path d="M2 5l7 4.5L16 5"/></svg> Any SMTP</span>
+    </div>
+  </div>
+</section>
+
 <section class="section-tight">
   <div class="container">
     <div class="contrast">
@@ -130,6 +167,21 @@
           <li>Your contacts and sending stay in your Microsoft 365 tenant</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Inside your inbox</p>
+        <h2 style="margin:.6rem 0 1rem">The whole engine, in the Outlook you already use.</h2>
+        <p class="lead">Queue campaigns, dispatch them, watch sends, replies and bounces in real time, all from a panel in your Outlook ribbon. No separate app, no dashboard to log into, and nothing leaves your Microsoft 365 tenant.</p>
+      </div>
+      <figure class="figure bare">
+        <img src="/assets/img/outlook-panel.svg" alt="OutPumper dispatcher panel inside Outlook: queued campaigns, live send stats, start and stop controls, and a dispatcher log" loading="lazy">
+      </figure>
     </div>
   </div>
 </section>
@@ -170,6 +222,10 @@
       <p class="eyebrow">What it replaces</p>
       <h2>Tools other senders pay for, included.</h2>
     </div>
+    <figure class="figure" style="margin-bottom:28px">
+      <img src="/assets/img/cost-stack.svg" alt="Cost comparison: a typical cold-email stack of domains, extra mailboxes, a warmup tool and a sending platform runs about 434 dollars a month, versus OutPumper at 49 dollars a month" loading="lazy">
+      <figcaption class="figcap">Where the money goes on a typical cold-email stack, and what OutPumper replaces.</figcaption>
+    </figure>
     <div class="killer">
       <div class="killer-row reveal">
         <div><h3>Email verification</h3><p>Built into the sending engine. Verify ten addresses or ten million for the same price.</p></div>
@@ -187,12 +243,28 @@
   </div>
 </section>
 
+<section class="section-tight">
+  <div class="container">
+    <div class="sec-head center">
+      <p class="eyebrow">Why warmup backfires</p>
+      <h2>The warmup you paid for is the pattern they flag.</h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto">Tools that warm dozens of throwaway mailboxes in shared pools leave a footprint inbox providers have learned to spot. A mailbox you already own carries real history no warmup can fake.</p>
+    </div>
+    <figure class="figure">
+      <img src="/assets/img/warmup-footprint.svg" alt="On the left, a mesh of throwaway warmup mailboxes emailing each other is flagged by Google, Yahoo and Microsoft; on the right, a single real Microsoft 365 mailbox is trusted and lands in the inbox" loading="lazy">
+    </figure>
+  </div>
+</section>
+
 <section id="how">
   <div class="container">
     <div class="sec-head center">
       <p class="eyebrow">How it works</p>
       <h2>Three steps to your first campaign.</h2>
     </div>
+    <figure class="figure bare" style="margin-bottom:30px">
+      <img src="/assets/img/how-it-works.svg" alt="Flow: your Microsoft 365 and Outlook feed the OutPumper engine, which runs sequences, throttling, mailbox rotation, verification and word variation, and delivers to the prospect inbox" loading="lazy">
+    </figure>
     <div class="steps">
       <div class="step reveal"><div class="n"></div><div><h3>Install the Outlook add-in</h3><p>Download, install, and OutPumper appears in your Outlook ribbon. Microsoft 365 plus desktop Outlook is all you need.</p></div></div>
       <div class="step reveal d1"><div class="n"></div><div><h3>Drop in your list</h3><p>Import a CSV with any columns. No mapping wizard, no long setup. Your contacts are ready to send.</p></div></div>
