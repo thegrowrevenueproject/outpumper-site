@@ -1,12 +1,12 @@
 # OutPumper
 
-> OutPumper is a cold email tool that runs as a Microsoft Outlook add-in and sends from your own domain and inbox, with no warmup, no throwaway domains, and no third-party sending servers.
+> OutPumper is a cold email tool that runs as a Microsoft Outlook add-in and sends through your own Microsoft 365 mailboxes, with no domain farms, no mailbox sprawl, and no warmup.
 
 OutPumper is built by The Grow Revenue Company Limited and is part of The Outbound Game ecosystem (https://theoutboundgame.com). It is for B2B founders, salespeople, and agencies who run outbound cold email and want to send from their real Microsoft 365 address instead of rented infrastructure.
 
 ## What makes it different
-- Sends from your own Outlook and your real domain, so mail comes from the address prospects already trust.
-- No warmup period and no need to buy 30 to 50 throwaway domains.
+- Sends through your own Microsoft 365 Outlook mailboxes, so you ride Microsoft's sending reputation instead of a third-party platform.
+- No warmup period (the very pattern inbox providers now flag) and no need to buy 30 to 50 throwaway domains or manage hundreds of mailboxes.
 - Your contact data never leaves your Microsoft 365 tenant.
 - Smart throttling with an automatic safety stop keeps sending within Microsoft limits.
 - Built-in unlimited email verification and automatic bounce blacklisting are included at no extra cost.
