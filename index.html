@@ -17,6 +17,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css">
+<style>
+  .hero-points{list-style:none;margin:.2rem 0 0;padding:0;display:flex;flex-direction:column;gap:.75rem;max-width:60ch;}
+  .hero-points li{position:relative;padding-left:1.9rem;font-size:clamp(1rem,1.5vw,1.18rem);color:var(--t2);line-height:1.45;}
+  .hero-points li::before{content:"\2713";position:absolute;left:0;top:.02em;color:var(--green);font-weight:800;font-size:1.05em;}
+  .hero-points .hl{color:var(--t1);font-weight:700;}
+</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"OutPumper","applicationCategory":"BusinessApplication","operatingSystem":"Windows (Microsoft 365 + Outlook)","description":"OutPumper runs cold email inside your own Outlook and Microsoft 365, with no domain farms, no mailbox sprawl, and no warmup.","offers":[{"@type":"Offer","price":"49","priceCurrency":"USD","name":"Pro monthly"},{"@type":"Offer","price":"497","priceCurrency":"USD","name":"Lifetime"}],"publisher":{"@type":"Organization","name":"The Grow Revenue Company Limited"}}
 </script>
@@ -57,7 +63,13 @@
       <div class="hero-left">
         <p class="eyebrow reveal">Cold email, from inside Outlook</p>
         <h1 class="reveal d1">Cold email from a couple of real Outlook mailboxes.</h1>
-        <p class="lead reveal d2">No buying 30 to 50 domains. No spinning up hundreds of mailboxes. No weeks of warmup, the very pattern Google, Yahoo and Microsoft now flag. OutPumper runs inside Outlook and sends through your own Microsoft 365, so you inherit Microsoft's deliverability instead of fighting for your own.</p>
+        <p class="lead reveal d2" style="margin-bottom:1.1rem">OutPumper runs inside Outlook and sends through your own Microsoft 365 mailboxes.</p>
+        <ul class="hero-points reveal d3">
+          <li>No buying <b class="hl">30 to 50 domains</b></li>
+          <li>No spinning up <b class="hl">hundreds of mailboxes</b></li>
+          <li>No weeks of <b class="hl">warmup</b>, the very pattern Google, Yahoo and Microsoft now flag</li>
+          <li>You inherit <b class="hl">Microsoft's deliverability</b> instead of fighting for your own</li>
+        </ul>
         <div class="hero-cta reveal d3">
           <a class="btn btn-primary btn-lg" href="/pricing.html">Start 7-day free trial</a>
           <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
