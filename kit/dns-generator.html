@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
+<title>Zero-Typo DNS Generator — OutPumper Launch Kit</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<style>
+  .tool-wrap{max-width:860px;margin:0 auto;}
+  .gen-form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:1.4rem;}
+  .gen-field{display:flex;flex-direction:column;gap:.35rem;}
+  .gen-field label{font-size:.82rem;font-weight:600;color:var(--t2);}
+  .gen-field input,.gen-field select{background:var(--card);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-family:var(--mono);font-size:.95rem;padding:.8rem .9rem;}
+  .gen-field input:focus,.gen-field select:focus{outline:none;border-color:var(--accent);}
+  .gen-field .hint{font-size:.72rem;color:var(--t3);}
+  .gen-actions{grid-column:1/-1;display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;}
+  .field-err{color:var(--danger);font-size:.85rem;min-height:1.1em;grid-column:1/-1;}
+  .rec{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px 18px;margin-top:12px;}
+  .rec .top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem;}
+  .rec .name{font-weight:700;}
+  .rec .why{color:var(--t3);font-size:.8rem;margin-top:.5rem;}
+  .kv{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;font-family:var(--mono);font-size:.82rem;}
+  .kv .k{color:var(--t3);}
+  .kv .v{color:#7fa7f7;word-break:break-all;background:var(--bg1);border:1px solid var(--border2);border-radius:6px;padding:.45rem .6rem;}
+  .copy-btn{font-size:.75rem;font-family:var(--mono);font-weight:700;background:rgba(37,99,235,.12);color:var(--accent-bright);border:1px solid rgba(37,99,235,.4);border-radius:99px;padding:.3rem .8rem;cursor:pointer;}
+  .copy-btn:hover{background:rgba(37,99,235,.22);}
+  .note{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--amber,#f59e0b);border-radius:var(--rs);padding:14px 16px;margin-top:12px;font-size:.88rem;color:var(--t2);}
+  .locked-card{background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:30px;max-width:520px;margin:3rem auto;text-align:center;box-shadow:0 30px 70px -40px rgba(37,99,235,.6);}
+  .locked-card h2{margin-bottom:.6rem;}
+  .locked-card p{color:var(--t2);font-size:.95rem;margin-bottom:1rem;}
+  .dl-strip{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;margin-top:1.6rem;padding:16px 18px;background:linear-gradient(180deg,rgba(37,99,235,.10),rgba(37,99,235,.02));border:1px solid rgba(37,99,235,.32);border-radius:var(--r);}
+  .dl-strip p{color:var(--t2);font-size:.88rem;flex:1;min-width:220px;margin:0;}
+  .hidden{display:none!important;}
+  #genout{margin-top:1.6rem;}
+  @media(max-width:640px){.gen-form{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
+    <nav><ul class="nav-links" id="navlinks">
+      <li><a href="/features.html">Features</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/comparison.html">Compare</a></li>
+      <li><a href="https://theoutboundgame.com">Blog</a></li>
+      <li><a href="/download.html">Download</a></li>
+    </ul></nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/pricing.html">Start free trial</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="container tool-wrap" style="padding-top:3rem;padding-bottom:4rem;">
+
+  <div id="checking" style="text-align:center;padding:4rem 0;color:var(--t2);font-family:var(--mono);">Checking your access&hellip;</div>
+
+  <div id="locked" class="hidden">
+    <div class="locked-card">
+      <h2>This tool is part of your Launch Kit purchase</h2>
+      <p>The Zero-Typo DNS Generator is included with the Zero-Typo add-on. Open the link from your delivery email to access it — or if you haven't grabbed the kit yet, it ships with every order that includes the add-on.</p>
+      <a class="btn btn-primary" href="/launch-kit.html">Get the Cold Email Launch Kit</a>
+      <p style="margin-top:1rem;font-size:.8rem;color:var(--t3);">Bought it and stuck? Reply to your delivery email — a human will fix it.</p>
+    </div>
+  </div>
+
+  <div id="tool" class="hidden">
+    <p class="mono" style="font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.16em;color:var(--accent-bright);text-transform:uppercase;">Launch Kit &middot; Zero-Typo Add-on</p>
+    <h1 style="margin-top:.4rem;">Zero-Typo DNS Generator</h1>
+    <p style="color:var(--t2);max-width:640px;margin-top:.6rem;">Enter your domain, pick your platform, and copy the exact records into your DNS panel. No guessing, no typos, no blackholed email.</p>
+
+    <div class="gen-form">
+      <div class="gen-field">
+        <label for="dom">Your root domain</label>
+        <input type="text" id="dom" placeholder="acme.com" autocomplete="off" spellcheck="false">
+        <span class="hint">The domain you own — not the subdomain.</span>
+      </div>
+      <div class="gen-field">
+        <label for="sub">Sending subdomain</label>
+        <input type="text" id="sub" value="mail" autocomplete="off" spellcheck="false">
+        <span class="hint">Default "mail" is fine. Records go on this subdomain only.</span>
+      </div>
+      <div class="gen-field">
+        <label for="plat">Mailbox platform</label>
+        <select id="plat">
+          <option value="gws">Google Workspace</option>
+          <option value="m365">Microsoft 365</option>
+        </select>
+        <span class="hint">Where your sending mailboxes live.</span>
+      </div>
+      <div class="gen-field" id="tenantField" style="display:none;">
+        <label for="tenant">M365 tenant (optional)</label>
+        <input type="text" id="tenant" placeholder="acme.onmicrosoft.com" autocomplete="off" spellcheck="false">
+        <span class="hint">Found in M365 admin &rarr; Settings &rarr; Domains. Enables exact DKIM CNAMEs.</span>
+      </div>
+      <div class="gen-field">
+        <label for="dmarcmail">DMARC report email (optional)</label>
+        <input type="text" id="dmarcmail" placeholder="dmarc@acme.com" autocomplete="off" spellcheck="false">
+        <span class="hint">Where weekly aggregate reports go. Leave blank to skip reporting.</span>
+      </div>
+      <div class="gen-actions">
+        <button class="btn btn-primary" id="genbtn" onclick="generate()">Generate my records</button>
+        <span class="field-err" id="err"></span>
+      </div>
+    </div>
+
+    <div id="genout"></div>
+
+    <div class="dl-strip">
+      <p><strong>Working with an IT department?</strong> Download the IT-Approval Template — the email script plus the one-page technical brief that gets these records approved without a meeting.</p>
+      <a class="btn btn-primary" id="itdl" href="#">Download the IT pack (PDF)</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <p style="color:var(--t3);font-size:.82rem;text-align:center;padding:1.2rem 0;">Part of the Cold Email Launch Kit &middot; OutPumper, an Outbound Game company</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var API = "https://api.outpumper.com/api/kit";
+  var qs = new URLSearchParams(location.search);
+  var t = qs.get("t") || "";
+  var show = function(id){["checking","locked","tool"].forEach(function(x){document.getElementById(x).classList.add("hidden");});document.getElementById(id).classList.remove("hidden");};
+  if(!t){ show("locked"); return; }
+  fetch(API + "/verify?t=" + encodeURIComponent(t))
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d && d.ok && d.bump){ document.getElementById("itdl").href = API + "/file?t=" + encodeURIComponent(t) + "&asset=bump"; show("tool"); }
+      else { show("locked"); }
+    })
+    .catch(function(){ show("locked"); });
+
+  document.getElementById("plat") && document.getElementById("plat").addEventListener("change", function(){
+    document.getElementById("tenantField").style.display = this.value === "m365" ? "flex" : "none";
+  });
+})();
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+function rec(name, why, rows){
+  var kv = rows.map(function(r){return '<span class="k">'+r[0]+'</span><span class="v" id="v'+r[3]+'">'+esc(r[1])+'</span>';}).join("");
+  var copyVal = rows.filter(function(r){return r[2];}).map(function(r){return r[1];}).join("\n");
+  return '<div class="rec"><div class="top"><span class="name">'+name+'</span>'+
+    '<button class="copy-btn" onclick="copyText(this, '+JSON.stringify(copyVal).replace(/"/g,"&quot;")+')">Copy value</button></div>'+
+    '<div class="kv">'+kv+'</div><p class="why">'+why+'</p></div>';
+}
+
+function copyText(btn, txt){
+  function done(){btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy value";},1600);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(function(){btn.textContent="Copy manually";});}
+  else{btn.textContent="Copy manually";}
+}
+
+function generate(){
+  var err = document.getElementById("err"); err.textContent = "";
+  var dom = document.getElementById("dom").value.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*$/,"").replace(/^www\./,"");
+  var sub = document.getElementById("sub").value.trim().toLowerCase().replace(/[^a-z0-9-]/g,"") || "mail";
+  var plat = document.getElementById("plat").value;
+  var tenant = document.getElementById("tenant").value.trim().toLowerCase();
+  var dmarcMail = document.getElementById("dmarcmail").value.trim();
+  if(!/^[a-z0-9][a-z0-9.-]+\.[a-z]{2,}$/.test(dom)){ err.textContent = "Enter a valid root domain, like acme.com"; return; }
+  var fq = sub + "." + dom;
+  var dashed = fq.replace(/\./g,"-");
+  var out = "";
+
+  out += rec("1 · MX — so " + fq + " can receive replies",
+    "Replies to your cold email land in your " + (plat==="gws"?"Google Workspace":"Microsoft 365") + " inbox. Without this, every reply bounces.",
+    plat==="gws"
+      ? [["Type","MX",false,1],["Host",sub,false,2],["Priority","1",false,3],["Value","smtp.google.com",true,4]]
+      : [["Type","MX",false,1],["Host",sub,false,2],["Priority","0",false,3],["Value",dashed+".mail.protection.outlook.com",true,4]]);
+
+  out += rec("2 · SPF — authorizes your platform to send as " + fq,
+    "Receiving servers check this record to confirm the mail came from where it claims. One record only — never create two SPF records on the same host.",
+    plat==="gws"
+      ? [["Type","TXT",false,5],["Host",sub,false,6],["Value","v=spf1 include:_spf.google.com ~all",true,7]]
+      : [["Type","TXT",false,5],["Host",sub,false,6],["Value","v=spf1 include:spf.protection.outlook.com -all",true,7]]);
+
+  if(plat==="gws"){
+    out += rec("3 · DKIM — cryptographic signature",
+      "Generate the key in Google Admin → Apps → Google Workspace → Gmail → Authenticate email. Select " + fq + ", click Generate new record, then create this TXT with the value Google shows. Come back and hit Start authentication after the record is live.",
+      [["Type","TXT",false,8],["Host","google._domainkey."+sub,false,9],["Value","(paste the p= value from Google Admin)",false,10]]);
+  } else if(tenant){
+    out += rec("3 · DKIM — two CNAME records",
+      "After both CNAMEs are live, enable DKIM for " + fq + " in Microsoft Defender → Email authentication settings → DKIM.",
+      [["Type","CNAME",false,8],["Host","selector1._domainkey."+sub,false,9],["Value","selector1-"+dashed+"._domainkey."+tenant,true,10],
+       ["Type","CNAME",false,11],["Host","selector2._domainkey."+sub,false,12],["Value","selector2-"+dashed+"._domainkey."+tenant,true,13]]);
+  } else {
+    out += rec("3 · DKIM — two CNAME records",
+      "Enter your tenant above (acme.onmicrosoft.com) to generate the exact CNAME values — or copy them from Microsoft Defender → Email authentication settings → DKIM → " + fq + ".",
+      [["Type","CNAME",false,8],["Host","selector1._domainkey."+sub,false,9],["Value","selector1-"+dashed+"._domainkey.YOURTENANT.onmicrosoft.com",false,10],
+       ["Type","CNAME",false,11],["Host","selector2._domainkey."+sub,false,12],["Value","selector2-"+dashed+"._domainkey.YOURTENANT.onmicrosoft.com",false,13]]);
+  }
+
+  var dmarcVal = "v=DMARC1; p=none;" + (dmarcMail ? " rua=mailto:"+dmarcMail+";" : "");
+  out += rec("4 · DMARC — policy for the two checks above",
+    "Start at p=none (monitor only). After two clean weeks of sending, tighten to p=quarantine. The kit's manual, Step 3, covers when and why.",
+    [["Type","TXT",false,14],["Host","_dmarc."+sub,false,15],["Value",dmarcVal,true,16]]);
+
+  out += '<div class="note"><strong>Add records exactly as shown.</strong> In Cloudflare, set every record to "DNS only" (grey cloud). Propagation: usually minutes, up to a few hours. Then verify with the free <a href="/deliverability-checker.html" style="color:var(--accent-bright);">Deliverability Checker</a> — enter '+esc(fq)+'.</div>';
+
+  document.getElementById("genout").innerHTML = out;
+  document.getElementById("genout").scrollIntoView({behavior:"smooth", block:"start"});
+}
+</script>
+
+</body>
+</html>
