@@ -448,8 +448,19 @@
     wireMsgCopy($('libList'));
   }
 
-  // lead capture STUB — wire to Mautic later (Cloudflare Pages Function forwarding {email,magnet,scenario,tone,inputs}).
-  function submitLead(payload){try{console.log('[lead capture stub]',payload);}catch(e){}return Promise.resolve(true);}
+  // lead capture — POSTs to the Cloudflare Pages Function, which forwards to Mautic server-side.
+  // Fail-soft: always resolves true so the tool never blocks on the CRM.
+  function submitLead(payload){
+    try{
+      var qs=new URLSearchParams(location.search);
+      ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(function(k){var v=qs.get(k);if(v)payload[k]=v;});
+      payload.hp="";
+      var ctl=(typeof AbortController!=="undefined")?new AbortController():null;
+      if(ctl)setTimeout(function(){try{ctl.abort();}catch(e){}},4000);
+      return fetch("/api/lead-capture",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),signal:ctl?ctl.signal:undefined,keepalive:true})
+        .then(function(){return true;}).catch(function(){return true;});
+    }catch(e){return Promise.resolve(true);}
+  }
 
   $('analyzeBtn').addEventListener('click',function(){
     var text=$('pasteBox').value||'';
