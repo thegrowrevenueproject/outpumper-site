@@ -8,7 +8,7 @@
 <meta name="description" content="The complete DIY cold email system: deliverability setup manual, proven sequences, subject lines, follow-up framework, ICP worksheet, and campaign tracker. $47, instant delivery, 30-day guarantee.">
 <link rel="canonical" href="https://outpumper.com/launch-kit.html">
 <meta property="og:title" content="The Cold Email Launch Kit">
-<meta property="og:description" content="Set up your own inbox-ready cold email system in an afternoon. Keep the $500-5,000 an agency would charge.">
+<meta property="og:description" content="Set up your own inbox-ready cold email system in one afternoon. Keep the $500-5,000 an agency would charge.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,50 +16,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css">
 <style>
-  .lk-wrap{max-width:880px;margin:0 auto;}
-  .hero-kit{text-align:center;padding:3.5rem 0 2.5rem;}
-  .hero-kit h1{font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.15;max-width:760px;margin:0 auto;}
-  .hero-kit .sub{color:var(--t2);font-size:1.08rem;max-width:640px;margin:1.2rem auto 1.8rem;}
+  .lk-wrap{max-width:900px;margin:0 auto;}
   .kicker{font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.16em;color:var(--accent-bright);text-transform:uppercase;}
-  .buy-btn{font-size:1.08rem;padding:1rem 2.4rem;}
-  .trust-line{font-family:var(--mono);font-size:.76rem;color:var(--t3);margin-top:.9rem;}
-  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:2.5rem 0;}
+  .hero-kit{text-align:center;padding:3.2rem 0 1.6rem;}
+  .hero-kit h1{font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.15;max-width:780px;margin:.6rem auto 0;animation:rise .7s ease both;}
+  .hero-kit .sub{color:var(--t2);font-size:1.08rem;max-width:660px;margin:1.2rem auto 1.6rem;animation:rise .7s .15s ease both;}
+  .buy-btn{font-size:1.08rem;padding:1rem 2.4rem;animation:rise .7s .3s ease both;position:relative;}
+  .buy-btn:not(:disabled){animation:rise .7s .3s ease both, pulse 2.6s 1.4s ease-in-out infinite;}
+  .trust-line{font-family:var(--mono);font-size:.74rem;color:var(--t3);margin-top:.9rem;animation:rise .7s .4s ease both;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.45);}50%{box-shadow:0 0 0 12px rgba(37,99,235,0);}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+  .hero-viz{max-width:640px;margin:2.2rem auto 0;animation:rise .8s .45s ease both;}
+  .env{animation:drift 4.5s ease-in-out infinite;}
+  .env.e2{animation-delay:1.5s;}
+  .env.e3{animation-delay:3s;}
+  @keyframes drift{0%{transform:translateX(0);opacity:0;}12%{opacity:1;}78%{opacity:1;}100%{transform:translateX(300px);opacity:0;}}
+  .env.spamway{animation-name:driftdown;}
+  @keyframes driftdown{0%{transform:translate(0,0);opacity:0;}12%{opacity:1;}70%{opacity:.9;}100%{transform:translate(190px,70px);opacity:0;}}
+  .shieldpulse{transform-origin:center;animation:shield 3s ease-in-out infinite;}
+  @keyframes shield{0%,100%{opacity:.75;}50%{opacity:1;}}
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:2.6rem 0;}
   .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:20px;text-align:center;}
-  .stat-card .big{font-family:var(--mono);font-weight:800;font-size:1.7rem;color:var(--accent-bright);}
-  .stat-card p{color:var(--t2);font-size:.85rem;margin-top:.4rem;}
-  section.lk{margin:3.4rem 0;}
-  section.lk h2{font-size:1.6rem;margin-bottom:1rem;}
-  section.lk > p{color:var(--t2);max-width:700px;}
+  .stat-card .big{font-family:var(--mono);font-weight:800;font-size:1.75rem;color:var(--accent-bright);}
+  .stat-card p{color:var(--t2);font-size:.84rem;margin-top:.4rem;}
+  .stat-card .src{font-family:var(--mono);font-size:.62rem;color:var(--t3);display:block;margin-top:.5rem;letter-spacing:.06em;}
+
+  section.lk{margin:3.6rem 0;}
+  section.lk h2{font-size:1.6rem;margin-bottom:.9rem;}
+  section.lk > p{color:var(--t2);max-width:720px;}
+  .viz{margin:1.6rem 0 0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;}
+  .viz .cap{font-family:var(--mono);font-size:.7rem;color:var(--t3);text-align:center;margin-top:.7rem;letter-spacing:.06em;}
+  .viz svg{width:100%;height:auto;display:block;}
+  .bar-anim{transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.2,.7,.2,1);}
+  .inview .bar-anim{transform:scaleX(1);}
+  .draw{stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.6s ease;}
+  .inview .draw{stroke-dashoffset:0;}
+  .fadeup{opacity:0;transform:translateY(10px);transition:all .7s ease;}
+  .inview .fadeup{opacity:1;transform:none;}
+
   .asset{display:flex;gap:1.1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:20px 22px;margin-top:12px;}
   .asset .n{font-family:var(--mono);font-weight:800;color:var(--accent-bright);font-size:1.05rem;flex:none;width:34px;height:34px;display:grid;place-items:center;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.35);border-radius:9px;}
   .asset h3{font-size:1.02rem;margin-bottom:.3rem;}
   .asset p{color:var(--t2);font-size:.92rem;}
   .asset .pages{font-family:var(--mono);font-size:.72rem;color:var(--t3);margin-left:.5rem;}
-  .vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:1.4rem;}
-  .vs-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:22px;}
-  .vs-card.bad{border-left:3px solid var(--danger,#ef4444);}
-  .vs-card.good{border-left:3px solid var(--green,#10b981);}
-  .vs-card h3{font-size:1rem;margin-bottom:.7rem;}
-  .vs-card ul{margin:0;padding-left:1.1rem;color:var(--t2);font-size:.9rem;}
-  .vs-card li{margin-bottom:.45rem;}
-  .vs-card .price{font-family:var(--mono);font-weight:800;font-size:1.4rem;margin-top:.8rem;}
-  .bad .price{color:var(--danger,#ef4444);} .good .price{color:var(--green,#10b981);}
-  .honest{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--amber,#f59e0b);border-radius:var(--rs);padding:22px 24px;}
+
+  .honest{background:var(--card);border:1px solid var(--border);border-left:3px solid #f59e0b;border-radius:var(--rs);padding:22px 24px;}
   .honest p{color:var(--t2);font-size:.95rem;}
   .price-box{background:linear-gradient(180deg,rgba(37,99,235,.12),rgba(37,99,235,.03));border:1px solid rgba(37,99,235,.4);border-radius:var(--r);padding:34px;text-align:center;margin-top:1.6rem;}
   .price-box .amount{font-family:var(--mono);font-weight:800;font-size:3rem;}
   .price-box .amount span{font-size:1.1rem;color:var(--t3);font-weight:400;}
-  .price-box ul{list-style:none;margin:1.2rem auto;padding:0;max-width:420px;text-align:left;color:var(--t2);font-size:.92rem;}
+  .price-box ul{list-style:none;margin:1.2rem auto;padding:0;max-width:440px;text-align:left;color:var(--t2);font-size:.92rem;}
   .price-box li{padding:.35rem 0 .35rem 1.6rem;position:relative;}
-  .price-box li:before{content:"✓";position:absolute;left:0;color:var(--green,#10b981);font-weight:700;}
+  .price-box li:before{content:"✓";position:absolute;left:0;color:#10b981;font-weight:700;}
   .g-card{display:flex;gap:1.2rem;align-items:center;background:var(--card);border:1px solid rgba(16,185,129,.4);border-radius:var(--r);padding:24px;margin-top:1.6rem;}
   .g-card .badge{flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.4);font-size:1.6rem;}
   .g-card p{color:var(--t2);font-size:.93rem;}
   .faq details{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px 20px;margin-top:10px;}
   .faq summary{cursor:pointer;font-weight:600;font-size:.98rem;}
   .faq p{color:var(--t2);font-size:.92rem;margin-top:.7rem;}
-  .err-line{color:var(--danger,#ef4444);font-size:.85rem;min-height:1.2em;margin-top:.6rem;font-family:var(--mono);}
-  @media(max-width:680px){.stat-row,.vs{grid-template-columns:1fr;}}
+  .err-line{color:#ef4444;font-size:.85rem;min-height:1.2em;margin-top:.6rem;font-family:var(--mono);}
+  @media(max-width:680px){.stat-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -86,72 +105,145 @@
   <div class="hero-kit">
     <p class="kicker">The Cold Email Launch Kit</p>
     <h1>Every email that lands in spam is a client you paid to lose.</h1>
-    <p class="sub">The complete do-it-yourself cold email system: go from nothing to an authenticated, inbox-ready sending setup — plus the sequences, subject lines, and follow-ups to fill your pipeline — in one afternoon.</p>
+    <p class="sub">The complete do-it-yourself system: go from nothing to an authenticated, inbox-ready cold email setup — plus the sequences, subject lines, and follow-ups that fill your pipeline — in one afternoon.</p>
     <button class="btn btn-primary buy-btn" onclick="buyKit(this)">Get the Launch Kit — $47</button>
     <p class="err-line" id="buyerr1"></p>
     <p class="trust-line">INSTANT DELIVERY &middot; 30-DAY MONEY-BACK GUARANTEE &middot; NO SUBSCRIPTION</p>
+
+    <div class="hero-viz">
+      <svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Authenticated email flows to the inbox, unauthenticated email drifts to spam">
+        <defs>
+          <linearGradient id="gl" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#2563eb" stop-opacity=".0"/><stop offset="1" stop-color="#2563eb" stop-opacity=".5"/>
+          </linearGradient>
+        </defs>
+        <line x1="120" y1="60" x2="440" y2="60" stroke="url(#gl)" stroke-width="2"/>
+        <line x1="120" y1="60" x2="330" y2="140" stroke="#3b2530" stroke-width="1.6" stroke-dasharray="4 5"/>
+        <g class="env"><rect x="120" y="48" width="34" height="24" rx="4" fill="#0f1a33" stroke="#2563eb" stroke-width="1.6"/><path d="M120 50 L137 64 L154 50" fill="none" stroke="#2563eb" stroke-width="1.4"/></g>
+        <g class="env e2"><rect x="120" y="48" width="34" height="24" rx="4" fill="#0f1a33" stroke="#2563eb" stroke-width="1.6"/><path d="M120 50 L137 64 L154 50" fill="none" stroke="#2563eb" stroke-width="1.4"/></g>
+        <g class="env spamway e3"><rect x="120" y="48" width="34" height="24" rx="4" fill="#131019" stroke="#7a3a3a" stroke-width="1.4"/><path d="M120 50 L137 64 L154 50" fill="none" stroke="#7a3a3a" stroke-width="1.2"/></g>
+        <g class="shieldpulse"><path d="M96 40 L96 66 Q96 80 82 86 Q68 80 68 66 L68 40 L82 34 Z" fill="rgba(37,99,235,.15)" stroke="#2563eb" stroke-width="1.6" transform="translate(-38,-6)"/><text x="44" y="66" font-family="JetBrains Mono" font-size="9" fill="#7fa7f7" text-anchor="middle">SPF DKIM</text><text x="44" y="78" font-family="JetBrains Mono" font-size="9" fill="#7fa7f7" text-anchor="middle">DMARC</text></g>
+        <rect x="466" y="30" width="150" height="58" rx="10" fill="rgba(16,185,129,.08)" stroke="#10b981" stroke-width="1.5"/>
+        <text x="541" y="55" font-family="Inter" font-weight="700" font-size="14" fill="#10b981" text-anchor="middle">INBOX</text>
+        <text x="541" y="74" font-family="JetBrains Mono" font-size="9" fill="#5eead4" text-anchor="middle">authenticated &middot; seen &middot; replied</text>
+        <rect x="352" y="126" width="120" height="42" rx="9" fill="rgba(239,68,68,.06)" stroke="#7a3a3a" stroke-width="1.3" stroke-dasharray="5 4"/>
+        <text x="412" y="145" font-family="Inter" font-weight="700" font-size="12" fill="#b06060" text-anchor="middle">SPAM</text>
+        <text x="412" y="160" font-family="JetBrains Mono" font-size="8.4" fill="#8a5b5b" text-anchor="middle">unauthenticated &middot; invisible</text>
+        <text x="82" y="118" font-family="JetBrains Mono" font-size="8.6" fill="#64748b" text-anchor="middle">3 DNS records decide the route</text>
+      </svg>
+    </div>
   </div>
 
   <div class="stat-row">
-    <div class="stat-card"><div class="big">1 in 6</div><p>legitimate emails never reaches the inbox at all</p></div>
-    <div class="stat-card"><div class="big">~30%</div><p>of cold email from new, unauthenticated domains is filtered silently</p></div>
-    <div class="stat-card"><div class="big">$500–5,000</div><p>what agencies charge for the exact setup this kit walks you through</p></div>
+    <div class="stat-card"><div class="big"><span class="count" data-to="16.9" data-dec="1">0</span>%</div><p>of legitimate email worldwide never reaches the inbox — filtered or lost before it's ever seen</p><span class="src">VALIDITY / RETURN PATH INBOX PLACEMENT RESEARCH</span></div>
+    <div class="stat-card"><div class="big">&lt;<span class="count" data-to="0.3" data-dec="1">0</span>%</div><p>spam-complaint rate Google and Yahoo now require — with SPF, DKIM and DMARC mandatory for bulk senders since Feb 2024</p><span class="src">GOOGLE &amp; YAHOO SENDER REQUIREMENTS, 2024</span></div>
+    <div class="stat-card"><div class="big">$<span class="count" data-to="5000" data-sep="1">0</span></div><p>the top end of what agencies charge for the one-time setup this kit walks you through yourself</p><span class="src">TYPICAL AGENCY SETUP FEES, 2026</span></div>
   </div>
 
-  <section class="lk">
+  <section class="lk" data-anim>
+    <h2>The rules changed in 2024. Most senders still haven't caught up.</h2>
+    <p>In February 2024, Google and Yahoo stopped treating email authentication as a best practice and made it <strong>policy</strong>: bulk senders must pass SPF, DKIM and DMARC, keep spam complaints under 0.3%, and honor one-click unsubscribe — or get filtered, silently. Microsoft followed with its own high-volume sender requirements in 2025. The era of "just send and hope" is over.</p>
+    <p>That's bad news for everyone winging it — and a genuine edge for you, because <strong>most of your competitors' cold email now dies before it's ever read.</strong> Yours doesn't have to.</p>
+    <div class="viz">
+      <svg viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline of authentication requirements">
+        <line x1="40" y1="70" x2="720" y2="70" stroke="#223052" stroke-width="2" class="draw"/>
+        <g class="fadeup"><circle cx="120" cy="70" r="6" fill="#2563eb"/><text x="120" y="46" font-family="Inter" font-weight="700" font-size="12" fill="#e2e8f0" text-anchor="middle">Feb 2024</text><text x="120" y="96" font-family="JetBrains Mono" font-size="8.6" fill="#94a3b8" text-anchor="middle">Google + Yahoo:</text><text x="120" y="108" font-family="JetBrains Mono" font-size="8.6" fill="#94a3b8" text-anchor="middle">auth mandatory</text></g>
+        <g class="fadeup" style="transition-delay:.2s"><circle cx="330" cy="70" r="6" fill="#2563eb"/><text x="330" y="46" font-family="Inter" font-weight="700" font-size="12" fill="#e2e8f0" text-anchor="middle">2025</text><text x="330" y="96" font-family="JetBrains Mono" font-size="8.6" fill="#94a3b8" text-anchor="middle">Microsoft: high-volume</text><text x="330" y="108" font-family="JetBrains Mono" font-size="8.6" fill="#94a3b8" text-anchor="middle">sender rules</text></g>
+        <g class="fadeup" style="transition-delay:.4s"><circle cx="540" cy="70" r="6" fill="#f59e0b"/><text x="540" y="46" font-family="Inter" font-weight="700" font-size="12" fill="#e2e8f0" text-anchor="middle">Today</text><text x="540" y="96" font-family="JetBrains Mono" font-size="8.6" fill="#94a3b8" text-anchor="middle">unauthenticated =</text><text x="540" y="108" font-family="JetBrains Mono" font-size="8.6" fill="#94a3b8" text-anchor="middle">silently filtered</text></g>
+        <g class="fadeup" style="transition-delay:.6s"><circle cx="690" cy="70" r="7" fill="#10b981"/><text x="690" y="46" font-family="Inter" font-weight="700" font-size="12" fill="#10b981" text-anchor="middle">You, set up right</text><text x="690" y="96" font-family="JetBrains Mono" font-size="8.6" fill="#5eead4" text-anchor="middle">passes every check</text></g>
+      </svg>
+      <p class="cap">AUTHENTICATION WENT FROM ADVICE TO POLICY. THE KIT SETS YOU UP ON THE RIGHT SIDE OF IT.</p>
+    </div>
+  </section>
+
+  <section class="lk" data-anim>
+    <h2>Same effort. 3&times; the conversations.</h2>
+    <p>Run the numbers on 2,000 sends a month — two mailboxes, properly ramped. The only variable is whether the setup underneath them is done right. Authentication doesn't just avoid spam; it multiplies everything downstream: more emails seen, more replies, more booked calls, from the exact same work.</p>
+    <div class="viz">
+      <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Funnel comparison: authenticated vs unauthenticated sending">
+        <text x="190" y="24" font-family="Inter" font-weight="700" font-size="13" fill="#b06060" text-anchor="middle">Winging it (unauthenticated)</text>
+        <text x="570" y="24" font-family="Inter" font-weight="700" font-size="13" fill="#10b981" text-anchor="middle">Set up with the kit</text>
+        <g font-family="JetBrains Mono" font-size="10">
+          <rect x="60" y="44" width="260" height="26" rx="5" fill="#1a2440"/><rect x="60" y="44" width="260" height="26" rx="5" fill="#233158" class="bar-anim"/><text x="70" y="61" fill="#cbd5e1">2,000 sent</text>
+          <rect x="60" y="82" width="260" height="26" rx="5" fill="#1a2440"/><rect x="60" y="82" width="65" height="26" rx="5" fill="#7a3a3a" class="bar-anim" style="transition-delay:.2s"/><text x="70" y="99" fill="#cbd5e1">~500 reach the inbox (25%)</text>
+          <rect x="60" y="120" width="260" height="26" rx="5" fill="#1a2440"/><rect x="60" y="120" width="20" height="26" rx="5" fill="#7a3a3a" class="bar-anim" style="transition-delay:.4s"/><text x="70" y="137" fill="#cbd5e1">~15 replies</text>
+          <rect x="60" y="158" width="260" height="26" rx="5" fill="#1a2440"/><rect x="60" y="158" width="8" height="26" rx="4" fill="#7a3a3a" class="bar-anim" style="transition-delay:.6s"/><text x="70" y="175" fill="#cbd5e1">~4 calls booked</text>
+
+          <rect x="440" y="44" width="260" height="26" rx="5" fill="#1a2440"/><rect x="440" y="44" width="260" height="26" rx="5" fill="#233158" class="bar-anim"/><text x="450" y="61" fill="#cbd5e1">2,000 sent — same effort</text>
+          <rect x="440" y="82" width="260" height="26" rx="5" fill="#1a2440"/><rect x="440" y="82" width="221" height="26" rx="5" fill="#0e6b4f" class="bar-anim" style="transition-delay:.2s"/><text x="450" y="99" fill="#eafff6">~1,700 reach the inbox (85%)</text>
+          <rect x="440" y="120" width="260" height="26" rx="5" fill="#1a2440"/><rect x="440" y="120" width="68" height="26" rx="5" fill="#0e6b4f" class="bar-anim" style="transition-delay:.4s"/><text x="450" y="137" fill="#eafff6">~51 replies</text>
+          <rect x="440" y="158" width="260" height="26" rx="5" fill="#1a2440"/><rect x="440" y="158" width="26" height="26" rx="5" fill="#0e6b4f" class="bar-anim" style="transition-delay:.6s"/><text x="450" y="175" fill="#eafff6">~13 calls booked</text>
+        </g>
+        <text x="380" y="218" font-family="Inter" font-weight="700" font-size="15" fill="#e2e8f0" text-anchor="middle">Same 2,000 emails. Same copy. 3&times; the pipeline.</text>
+        <text x="380" y="238" font-family="JetBrains Mono" font-size="9" fill="#64748b" text-anchor="middle">ILLUSTRATIVE: 25% VS 85% INBOX PLACEMENT, 3% REPLY RATE ON DELIVERED, 25% REPLY-TO-CALL</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="lk" data-anim>
     <h2>Stop renting your warmup</h2>
-    <p>The cold email industry has trained you to pay $30–100 every month to "rent" warmup pools and hope for the best. Here's what they don't lead with: <strong>authentication is the foundation.</strong> Three DNS records — SPF, DKIM, DMARC — done once, on domains you own, decide most of your inbox placement. Warmup is polish, not foundation, and you can ramp for free inside the mailboxes you already pay for.</p>
-    <p>The kit shows you how to own the whole thing: your domains, your reputation, your pipeline. Set it up once, keep the money forever.</p>
+    <p>The industry trained you to pay $30–100 a month, forever, to "rent" warmup pools — while the thing that actually decides placement sits unconfigured. <strong>Authentication is the foundation. Warmup is polish.</strong> Three DNS records, done once, on domains you own. Then ramp for free inside the mailboxes you already pay for — the manual gives you the exact schedule.</p>
+    <div class="viz">
+      <svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Renting warmup costs grow forever, owning your setup is one flat afternoon">
+        <line x1="70" y1="170" x2="710" y2="170" stroke="#223052" stroke-width="1.6"/>
+        <line x1="70" y1="170" x2="70" y2="30" stroke="#223052" stroke-width="1.6"/>
+        <path d="M70 160 L230 138 L390 112 L550 82 L700 48" fill="none" stroke="#ef4444" stroke-width="2.4" class="draw"/>
+        <path d="M70 150 L140 148 L700 148" fill="none" stroke="#10b981" stroke-width="2.4" class="draw" style="transition-delay:.4s"/>
+        <text x="700" y="38" font-family="Inter" font-weight="700" font-size="12.5" fill="#ef4444" text-anchor="end">Renting: $360–1,200+/yr, forever</text>
+        <text x="700" y="140" font-family="Inter" font-weight="700" font-size="12.5" fill="#10b981" text-anchor="end">Owning: ~$30 + one afternoon, flat</text>
+        <g font-family="JetBrains Mono" font-size="9" fill="#64748b">
+          <text x="70" y="188" text-anchor="middle">Month 1</text>
+          <text x="390" y="188" text-anchor="middle">Year 1</text>
+          <text x="700" y="188" text-anchor="middle">Year 3</text>
+        </g>
+      </svg>
+      <p class="cap">THE COST CURVE OF RENTING VS OWNING YOUR SENDING INFRASTRUCTURE</p>
+    </div>
   </section>
 
   <section class="lk">
     <h2>What's inside — a system, not a pile of PDFs</h2>
-    <p>Six assets, built to be used in order. Each one hands off to the next.</p>
+    <p>Six assets, 70+ pages, built to be used in order. Each one hands off to the next: define who you're targeting, build the setup, write the emails, follow up, measure.</p>
 
-    <div class="asset"><div class="n">1</div><div><h3>The Deliverability Setup Manual <span class="pages">25 pages · the flagship</span></h3><p>Zero to inbox-ready: buying dedicated sending domains (with current 2026 registrar pricing), creating mailboxes on Google Workspace or Microsoft 365, copy-paste SPF/DKIM/DMARC records for both platforms, connecting and testing in your sending tool, the honest truth about warmup, and the exact daily ramp schedule.</p></div></div>
-    <div class="asset"><div class="n">2</div><div><h3>The Sequence Swipe Library <span class="pages">14 pages</span></h3><p>Four fully-annotated multi-touch sequences — founder-to-founder, agency outreach, SaaS, re-engagement. Every email explains <em>why</em> it works, so you learn to write, not just copy.</p></div></div>
-    <div class="asset"><div class="n">3</div><div><h3>The Subject-Line Bank <span class="pages">11 pages</span></h3><p>Tested lines grouped by angle — curiosity, direct value, question, social proof, pattern-interrupt — with the psychology behind each group and the spam-trigger words to avoid.</p></div></div>
-    <div class="asset"><div class="n">4</div><div><h3>The Follow-Up Cadence Framework <span class="pages">12 pages</span></h3><p>The Day 0 → 3 → 7 → 12 cadence, what to say at every touch, and a reply playbook covering all six reply types — each with the next move, a sample response, and the trap to avoid.</p></div></div>
-    <div class="asset"><div class="n">5</div><div><h3>The ICP + Offer Worksheet <span class="pages">8 pages · fillable</span></h3><p>Nail exactly who you're targeting and what you're offering before you write a single email — the step everyone skips and then wonders why nobody replies.</p></div></div>
-    <div class="asset"><div class="n">6</div><div><h3>The Campaign Tracker <span class="pages">Excel · 132 formulas</span></h3><p>A four-tab workbook that auto-calculates reply rate, reply-to-meeting, return on cost, and flags unhealthy mailboxes before they burn.</p></div></div>
+    <div class="asset"><div class="n">1</div><div><h3>The Deliverability Setup Manual <span class="pages">25 pages · the flagship</span></h3><p>Zero to inbox-ready: buying dedicated sending domains (current 2026 registrar pricing compared), creating mailboxes on Google Workspace or Microsoft 365, copy-paste SPF/DKIM/DMARC records for both platforms, connecting and testing in your sending tool, the honest truth about warmup, and the exact daily ramp schedule that keeps new mailboxes safe.</p></div></div>
+    <div class="asset"><div class="n">2</div><div><h3>The Sequence Swipe Library <span class="pages">14 pages</span></h3><p>Four fully-annotated multi-touch sequences — founder-to-founder, agency outreach, SaaS, re-engagement. Every email explains <em>why</em> it works, so you learn to write, not just copy-paste someone else's voice.</p></div></div>
+    <div class="asset"><div class="n">3</div><div><h3>The Subject-Line Bank <span class="pages">11 pages</span></h3><p>Tested lines grouped by angle — curiosity, direct value, question, social proof, pattern-interrupt — with the open-rate psychology behind each group and the spam-trigger words that quietly kill campaigns.</p></div></div>
+    <div class="asset"><div class="n">4</div><div><h3>The Follow-Up Cadence Framework <span class="pages">12 pages</span></h3><p>Most replies come from follow-ups, not the first email — yet most senders quit after one touch. The Day 0 → 3 → 7 → 12 cadence, what to say at every step, and a reply playbook for all six reply types with the trap to avoid in each.</p></div></div>
+    <div class="asset"><div class="n">5</div><div><h3>The ICP + Offer Worksheet <span class="pages">8 pages · fillable</span></h3><p>Nail exactly who you're targeting and what you're offering before you write a single email — the step everyone skips, then wonders why nobody replies.</p></div></div>
+    <div class="asset"><div class="n">6</div><div><h3>The Campaign Tracker <span class="pages">Excel · 132 formulas</span></h3><p>A four-tab workbook that auto-calculates reply rate, reply-to-meeting, return on cost, and flags unhealthy mailboxes before they burn a domain.</p></div></div>
   </section>
 
-  <section class="lk">
+  <section class="lk" data-anim>
     <h2>Do the math on doing it yourself</h2>
-    <div class="vs">
-      <div class="vs-card bad">
-        <h3>The way you're told to do it</h3>
-        <ul>
-          <li>Agency setup fee: $500–5,000, one time</li>
-          <li>Rented warmup pool: $30–100/mo, forever</li>
-          <li>Extra "deliverability tools" stack: up to ~$400/mo</li>
-          <li>Zero understanding of your own system</li>
-        </ul>
-        <div class="price">$1,000s / year</div>
-      </div>
-      <div class="vs-card good">
-        <h3>The kit way</h3>
-        <ul>
-          <li>Dedicated sending domain: ~$10/year</li>
-          <li>Mailboxes you already pay for (Google or Microsoft)</li>
-          <li>Authentication done right, once, by you</li>
-          <li>Full ownership of domains and reputation</li>
-        </ul>
-        <div class="price">~$30 + one afternoon</div>
-      </div>
+    <p>An agency charges $500–5,000 to run the same checklist once. The rented stack costs $360–1,200+ every year it stays plugged in. The kit's whole job is to hand you that checklist — with the exact records, screenshots, and ramp schedule — for the price of a lunch.</p>
+    <div class="viz">
+      <svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cost comparison bars">
+        <g font-family="Inter" font-size="12.5">
+          <text x="200" y="40" fill="#cbd5e1" text-anchor="end">Agency setup (one time)</text>
+          <rect x="215" y="26" width="440" height="22" rx="5" fill="#7a3a3a" class="bar-anim"/>
+          <text x="662" y="42" fill="#ef4444" font-family="JetBrains Mono" font-weight="700" font-size="12">$500–5,000</text>
+          <text x="200" y="86" fill="#cbd5e1" text-anchor="end">Rented warmup stack (yearly)</text>
+          <rect x="215" y="72" width="300" height="22" rx="5" fill="#8a5a2b" class="bar-anim" style="transition-delay:.2s"/>
+          <text x="522" y="88" fill="#f59e0b" font-family="JetBrains Mono" font-weight="700" font-size="12">$360–1,200+</text>
+          <text x="200" y="132" fill="#cbd5e1" text-anchor="end">The Launch Kit (once, forever)</text>
+          <rect x="215" y="118" width="18" height="22" rx="5" fill="#0e6b4f" class="bar-anim" style="transition-delay:.4s"/>
+          <text x="240" y="134" fill="#10b981" font-family="JetBrains Mono" font-weight="700" font-size="12">$47</text>
+        </g>
+        <text x="380" y="174" font-family="JetBrains Mono" font-size="9" fill="#64748b" text-anchor="middle">EVEN AT THE AGENCY'S FLOOR PRICE, THE KIT PAYS FOR ITSELF 10&times; OVER</text>
+      </svg>
     </div>
   </section>
 
   <section class="lk">
     <h2>Who this is for</h2>
-    <p><strong>Freelancers and consultants</strong> who book their own clients and were quoted four figures for a setup they can do themselves in an afternoon. <strong>Small business and agency owners</strong> who want a pipeline they own — no $2,000/month SDR retainer, no mailbox-farm tools their IT department would never approve.</p>
+    <p><strong>Freelancers and consultants</strong> who book their own clients and were quoted four figures for a setup they can genuinely do themselves in an afternoon. <strong>Small business and agency owners</strong> who want a pipeline they own — no $2,000/month SDR retainer, no mailbox-farm tools their IT department would never approve.</p>
     <p>If you can copy and paste, you can do everything in this kit. The language is layman, the records are exact, and every step shows both the Google Workspace and Microsoft 365 path.</p>
   </section>
 
   <section class="lk">
     <div class="honest">
       <h3 style="margin-bottom:.6rem;">What this kit is not</h3>
-      <p>It's not a magic list of "10 templates that print money," and it won't tell you that ramping is optional — new mailboxes still need to warm up gradually, and the manual gives you the exact schedule. It's the honest, boring, foundational work that decides whether your emails get seen at all — packaged so it takes an afternoon instead of a month of Googling.</p>
+      <p>It's not a magic list of "10 templates that print money," and it won't tell you ramping is optional — new mailboxes still need to warm up gradually, and the manual gives you the exact free schedule. It's the honest, boring, foundational work that decides whether your emails get seen at all — packaged so it takes one afternoon instead of a month of contradictory Googling.</p>
     </div>
   </section>
 
@@ -160,9 +252,10 @@
     <div class="price-box">
       <div class="amount">$47 <span>one time</span></div>
       <ul>
-        <li>All six assets + the Start Here roadmap (instant delivery)</li>
+        <li>All six assets + the Start Here roadmap — 70+ pages, instant delivery</li>
         <li>Both platforms covered: Google Workspace and Microsoft 365</li>
         <li>Current 2026 pricing and DNS records — not recycled 2019 advice</li>
+        <li>Meets the 2024+ Google/Yahoo sender requirements out of the box</li>
         <li>Works with any sending tool you use</li>
         <li>30-day money-back guarantee</li>
       </ul>
@@ -183,9 +276,9 @@
     <h2>Questions, answered straight</h2>
     <details><summary>Do I need OutPumper to use this?</summary><p>No. The kit is tool-agnostic — the setup, sequences, and tracker work with Instantly, Smartlead, OutPumper, or plain mailboxes. The manual shows connecting and testing in the common tools. We obviously think sending from inside your own Outlook is the cleanest path, and the manual explains why, honestly.</p></details>
     <details><summary>Google Workspace or Microsoft 365?</summary><p>Both, fully. Every step in the manual — mailbox creation, DNS records, DKIM — is written twice, once per platform. Pick your column and follow it.</p></details>
-    <details><summary>I'm not technical. Can I actually do this?</summary><p>Yes. Everything is copy-paste with screenshots of where to paste it. And if you want zero chance of a typo, there's an optional Zero-Typo add-on at checkout that generates your exact records and includes the email script to hand the whole thing to an IT person.</p></details>
+    <details><summary>I'm not technical. Can I actually do this?</summary><p>Yes. Everything is copy-paste with exact records and where to paste them. And if you want zero chance of a typo, there's an optional Zero-Typo add-on at checkout that generates your exact records and includes the email script to hand the whole thing to an IT person.</p></details>
     <details><summary>How is it delivered?</summary><p>Instantly. You get an email with your download link within a minute of purchase — one zip, all seven files, yours to keep.</p></details>
-    <details><summary>Isn't warmup dead? / Isn't warmup essential?</summary><p>Neither. Authentication is the foundation and matters more than any warmup tool — that's the kit's core finding. But new mailboxes still need gradual ramping, and the manual gives you the exact free schedule. Anyone telling you to skip ramping, or to rent warmup forever, is selling you something.</p></details>
+    <details><summary>Isn't warmup dead? / Isn't warmup essential?</summary><p>Neither. Authentication is the foundation and matters more than any warmup tool — and since 2024 it's literally required by Google and Yahoo for bulk senders. But new mailboxes still need gradual ramping, and the manual gives you the exact free schedule. Anyone telling you to skip ramping, or to rent warmup forever, is selling you something.</p></details>
     <details><summary>What if it's not for me?</summary><p>30 days, full refund, no questions. Reply to your delivery email and it's done.</p></details>
   </section>
 
@@ -226,6 +319,47 @@ function buyKit(btn){
     errs.forEach(function(id){var e=document.getElementById(id); if(e) e.textContent="Checkout didn't open — try again, or email support@outpumper.com";});
   });
 }
+
+(function(){
+  // count-up stats
+  function animateCount(el){
+    var to = parseFloat(el.getAttribute("data-to"));
+    var dec = parseInt(el.getAttribute("data-dec") || "0", 10);
+    var sep = el.getAttribute("data-sep") === "1";
+    var dur = 1400, t0 = null;
+    function fmt(v){
+      var s = v.toFixed(dec);
+      if(sep){ s = Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+      return s;
+    }
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(to * eased);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var seen = new WeakSet();
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting && !seen.has(en.target)){
+          seen.add(en.target);
+          if(en.target.hasAttribute("data-anim")){ en.target.classList.add("inview"); }
+          en.target.querySelectorAll(".count").forEach(animateCount);
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold: .3});
+    document.querySelectorAll("[data-anim]").forEach(function(s){ io.observe(s); });
+    document.querySelectorAll(".stat-row").forEach(function(s){ io.observe(s); });
+  } else {
+    document.querySelectorAll("[data-anim]").forEach(function(s){ s.classList.add("inview"); });
+    document.querySelectorAll(".count").forEach(animateCount);
+  }
+})();
 </script>
 
 </body>
