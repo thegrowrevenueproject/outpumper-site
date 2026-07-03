@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
+<title>The Cold Email Launch Kit — go from zero to inbox-ready in one afternoon | OutPumper</title>
+<meta name="description" content="The complete DIY cold email system: deliverability setup manual, proven sequences, subject lines, follow-up framework, ICP worksheet, and campaign tracker. $47, instant delivery, 30-day guarantee.">
+<link rel="canonical" href="https://outpumper.com/launch-kit.html">
+<meta property="og:title" content="The Cold Email Launch Kit">
+<meta property="og:description" content="Set up your own inbox-ready cold email system in an afternoon. Keep the $500-5,000 an agency would charge.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<style>
+  .lk-wrap{max-width:880px;margin:0 auto;}
+  .hero-kit{text-align:center;padding:3.5rem 0 2.5rem;}
+  .hero-kit h1{font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.15;max-width:760px;margin:0 auto;}
+  .hero-kit .sub{color:var(--t2);font-size:1.08rem;max-width:640px;margin:1.2rem auto 1.8rem;}
+  .kicker{font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.16em;color:var(--accent-bright);text-transform:uppercase;}
+  .buy-btn{font-size:1.08rem;padding:1rem 2.4rem;}
+  .trust-line{font-family:var(--mono);font-size:.76rem;color:var(--t3);margin-top:.9rem;}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:2.5rem 0;}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:20px;text-align:center;}
+  .stat-card .big{font-family:var(--mono);font-weight:800;font-size:1.7rem;color:var(--accent-bright);}
+  .stat-card p{color:var(--t2);font-size:.85rem;margin-top:.4rem;}
+  section.lk{margin:3.4rem 0;}
+  section.lk h2{font-size:1.6rem;margin-bottom:1rem;}
+  section.lk > p{color:var(--t2);max-width:700px;}
+  .asset{display:flex;gap:1.1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:20px 22px;margin-top:12px;}
+  .asset .n{font-family:var(--mono);font-weight:800;color:var(--accent-bright);font-size:1.05rem;flex:none;width:34px;height:34px;display:grid;place-items:center;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.35);border-radius:9px;}
+  .asset h3{font-size:1.02rem;margin-bottom:.3rem;}
+  .asset p{color:var(--t2);font-size:.92rem;}
+  .asset .pages{font-family:var(--mono);font-size:.72rem;color:var(--t3);margin-left:.5rem;}
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:1.4rem;}
+  .vs-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:22px;}
+  .vs-card.bad{border-left:3px solid var(--danger,#ef4444);}
+  .vs-card.good{border-left:3px solid var(--green,#10b981);}
+  .vs-card h3{font-size:1rem;margin-bottom:.7rem;}
+  .vs-card ul{margin:0;padding-left:1.1rem;color:var(--t2);font-size:.9rem;}
+  .vs-card li{margin-bottom:.45rem;}
+  .vs-card .price{font-family:var(--mono);font-weight:800;font-size:1.4rem;margin-top:.8rem;}
+  .bad .price{color:var(--danger,#ef4444);} .good .price{color:var(--green,#10b981);}
+  .honest{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--amber,#f59e0b);border-radius:var(--rs);padding:22px 24px;}
+  .honest p{color:var(--t2);font-size:.95rem;}
+  .price-box{background:linear-gradient(180deg,rgba(37,99,235,.12),rgba(37,99,235,.03));border:1px solid rgba(37,99,235,.4);border-radius:var(--r);padding:34px;text-align:center;margin-top:1.6rem;}
+  .price-box .amount{font-family:var(--mono);font-weight:800;font-size:3rem;}
+  .price-box .amount span{font-size:1.1rem;color:var(--t3);font-weight:400;}
+  .price-box ul{list-style:none;margin:1.2rem auto;padding:0;max-width:420px;text-align:left;color:var(--t2);font-size:.92rem;}
+  .price-box li{padding:.35rem 0 .35rem 1.6rem;position:relative;}
+  .price-box li:before{content:"✓";position:absolute;left:0;color:var(--green,#10b981);font-weight:700;}
+  .g-card{display:flex;gap:1.2rem;align-items:center;background:var(--card);border:1px solid rgba(16,185,129,.4);border-radius:var(--r);padding:24px;margin-top:1.6rem;}
+  .g-card .badge{flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.4);font-size:1.6rem;}
+  .g-card p{color:var(--t2);font-size:.93rem;}
+  .faq details{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px 20px;margin-top:10px;}
+  .faq summary{cursor:pointer;font-weight:600;font-size:.98rem;}
+  .faq p{color:var(--t2);font-size:.92rem;margin-top:.7rem;}
+  .err-line{color:var(--danger,#ef4444);font-size:.85rem;min-height:1.2em;margin-top:.6rem;font-family:var(--mono);}
+  @media(max-width:680px){.stat-row,.vs{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
+    <nav><ul class="nav-links" id="navlinks">
+      <li><a href="/features.html">Features</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/comparison.html">Compare</a></li>
+      <li><a href="https://theoutboundgame.com">Blog</a></li>
+      <li><a href="/download.html">Download</a></li>
+    </ul></nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/pricing.html">Start free trial</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="container lk-wrap">
+
+  <div class="hero-kit">
+    <p class="kicker">The Cold Email Launch Kit</p>
+    <h1>Every email that lands in spam is a client you paid to lose.</h1>
+    <p class="sub">The complete do-it-yourself cold email system: go from nothing to an authenticated, inbox-ready sending setup — plus the sequences, subject lines, and follow-ups to fill your pipeline — in one afternoon.</p>
+    <button class="btn btn-primary buy-btn" onclick="buyKit(this)">Get the Launch Kit — $47</button>
+    <p class="err-line" id="buyerr1"></p>
+    <p class="trust-line">INSTANT DELIVERY &middot; 30-DAY MONEY-BACK GUARANTEE &middot; NO SUBSCRIPTION</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="big">1 in 6</div><p>legitimate emails never reaches the inbox at all</p></div>
+    <div class="stat-card"><div class="big">~30%</div><p>of cold email from new, unauthenticated domains is filtered silently</p></div>
+    <div class="stat-card"><div class="big">$500–5,000</div><p>what agencies charge for the exact setup this kit walks you through</p></div>
+  </div>
+
+  <section class="lk">
+    <h2>Stop renting your warmup</h2>
+    <p>The cold email industry has trained you to pay $30–100 every month to "rent" warmup pools and hope for the best. Here's what they don't lead with: <strong>authentication is the foundation.</strong> Three DNS records — SPF, DKIM, DMARC — done once, on domains you own, decide most of your inbox placement. Warmup is polish, not foundation, and you can ramp for free inside the mailboxes you already pay for.</p>
+    <p>The kit shows you how to own the whole thing: your domains, your reputation, your pipeline. Set it up once, keep the money forever.</p>
+  </section>
+
+  <section class="lk">
+    <h2>What's inside — a system, not a pile of PDFs</h2>
+    <p>Six assets, built to be used in order. Each one hands off to the next.</p>
+
+    <div class="asset"><div class="n">1</div><div><h3>The Deliverability Setup Manual <span class="pages">25 pages · the flagship</span></h3><p>Zero to inbox-ready: buying dedicated sending domains (with current 2026 registrar pricing), creating mailboxes on Google Workspace or Microsoft 365, copy-paste SPF/DKIM/DMARC records for both platforms, connecting and testing in your sending tool, the honest truth about warmup, and the exact daily ramp schedule.</p></div></div>
+    <div class="asset"><div class="n">2</div><div><h3>The Sequence Swipe Library <span class="pages">14 pages</span></h3><p>Four fully-annotated multi-touch sequences — founder-to-founder, agency outreach, SaaS, re-engagement. Every email explains <em>why</em> it works, so you learn to write, not just copy.</p></div></div>
+    <div class="asset"><div class="n">3</div><div><h3>The Subject-Line Bank <span class="pages">11 pages</span></h3><p>Tested lines grouped by angle — curiosity, direct value, question, social proof, pattern-interrupt — with the psychology behind each group and the spam-trigger words to avoid.</p></div></div>
+    <div class="asset"><div class="n">4</div><div><h3>The Follow-Up Cadence Framework <span class="pages">12 pages</span></h3><p>The Day 0 → 3 → 7 → 12 cadence, what to say at every touch, and a reply playbook covering all six reply types — each with the next move, a sample response, and the trap to avoid.</p></div></div>
+    <div class="asset"><div class="n">5</div><div><h3>The ICP + Offer Worksheet <span class="pages">8 pages · fillable</span></h3><p>Nail exactly who you're targeting and what you're offering before you write a single email — the step everyone skips and then wonders why nobody replies.</p></div></div>
+    <div class="asset"><div class="n">6</div><div><h3>The Campaign Tracker <span class="pages">Excel · 132 formulas</span></h3><p>A four-tab workbook that auto-calculates reply rate, reply-to-meeting, return on cost, and flags unhealthy mailboxes before they burn.</p></div></div>
+  </section>
+
+  <section class="lk">
+    <h2>Do the math on doing it yourself</h2>
+    <div class="vs">
+      <div class="vs-card bad">
+        <h3>The way you're told to do it</h3>
+        <ul>
+          <li>Agency setup fee: $500–5,000, one time</li>
+          <li>Rented warmup pool: $30–100/mo, forever</li>
+          <li>Extra "deliverability tools" stack: up to ~$400/mo</li>
+          <li>Zero understanding of your own system</li>
+        </ul>
+        <div class="price">$1,000s / year</div>
+      </div>
+      <div class="vs-card good">
+        <h3>The kit way</h3>
+        <ul>
+          <li>Dedicated sending domain: ~$10/year</li>
+          <li>Mailboxes you already pay for (Google or Microsoft)</li>
+          <li>Authentication done right, once, by you</li>
+          <li>Full ownership of domains and reputation</li>
+        </ul>
+        <div class="price">~$30 + one afternoon</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lk">
+    <h2>Who this is for</h2>
+    <p><strong>Freelancers and consultants</strong> who book their own clients and were quoted four figures for a setup they can do themselves in an afternoon. <strong>Small business and agency owners</strong> who want a pipeline they own — no $2,000/month SDR retainer, no mailbox-farm tools their IT department would never approve.</p>
+    <p>If you can copy and paste, you can do everything in this kit. The language is layman, the records are exact, and every step shows both the Google Workspace and Microsoft 365 path.</p>
+  </section>
+
+  <section class="lk">
+    <div class="honest">
+      <h3 style="margin-bottom:.6rem;">What this kit is not</h3>
+      <p>It's not a magic list of "10 templates that print money," and it won't tell you that ramping is optional — new mailboxes still need to warm up gradually, and the manual gives you the exact schedule. It's the honest, boring, foundational work that decides whether your emails get seen at all — packaged so it takes an afternoon instead of a month of Googling.</p>
+    </div>
+  </section>
+
+  <section class="lk">
+    <h2>Get the complete kit</h2>
+    <div class="price-box">
+      <div class="amount">$47 <span>one time</span></div>
+      <ul>
+        <li>All six assets + the Start Here roadmap (instant delivery)</li>
+        <li>Both platforms covered: Google Workspace and Microsoft 365</li>
+        <li>Current 2026 pricing and DNS records — not recycled 2019 advice</li>
+        <li>Works with any sending tool you use</li>
+        <li>30-day money-back guarantee</li>
+      </ul>
+      <button class="btn btn-primary buy-btn" onclick="buyKit(this)">Get the Launch Kit — $47</button>
+      <p class="err-line" id="buyerr2"></p>
+      <p class="trust-line">SECURE CHECKOUT VIA STRIPE &middot; DELIVERED TO YOUR INBOX IN ~1 MINUTE</p>
+    </div>
+    <div class="g-card">
+      <div class="badge">✓</div>
+      <div>
+        <h3 style="margin-bottom:.3rem;">The 30-day guarantee</h3>
+        <p>Go through the kit. If it doesn't save you multiples of $47 in tools and agency fees, reply to your delivery email within 30 days and you get every cent back. No forms, no hoops.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lk faq">
+    <h2>Questions, answered straight</h2>
+    <details><summary>Do I need OutPumper to use this?</summary><p>No. The kit is tool-agnostic — the setup, sequences, and tracker work with Instantly, Smartlead, OutPumper, or plain mailboxes. The manual shows connecting and testing in the common tools. We obviously think sending from inside your own Outlook is the cleanest path, and the manual explains why, honestly.</p></details>
+    <details><summary>Google Workspace or Microsoft 365?</summary><p>Both, fully. Every step in the manual — mailbox creation, DNS records, DKIM — is written twice, once per platform. Pick your column and follow it.</p></details>
+    <details><summary>I'm not technical. Can I actually do this?</summary><p>Yes. Everything is copy-paste with screenshots of where to paste it. And if you want zero chance of a typo, there's an optional Zero-Typo add-on at checkout that generates your exact records and includes the email script to hand the whole thing to an IT person.</p></details>
+    <details><summary>How is it delivered?</summary><p>Instantly. You get an email with your download link within a minute of purchase — one zip, all seven files, yours to keep.</p></details>
+    <details><summary>Isn't warmup dead? / Isn't warmup essential?</summary><p>Neither. Authentication is the foundation and matters more than any warmup tool — that's the kit's core finding. But new mailboxes still need gradual ramping, and the manual gives you the exact free schedule. Anyone telling you to skip ramping, or to rent warmup forever, is selling you something.</p></details>
+    <details><summary>What if it's not for me?</summary><p>30 days, full refund, no questions. Reply to your delivery email and it's done.</p></details>
+  </section>
+
+  <div class="hero-kit" style="padding-top:1rem;">
+    <h2 style="font-size:1.5rem;">One afternoon. Your own system. Keep the money.</h2>
+    <button class="btn btn-primary buy-btn" style="margin-top:1.2rem;" onclick="buyKit(this)">Get the Launch Kit — $47</button>
+    <p class="err-line" id="buyerr3"></p>
+  </div>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <p style="color:var(--t3);font-size:.82rem;text-align:center;padding:1.2rem 0;">OutPumper, an Outbound Game company &middot; Questions? support@outpumper.com</p>
+  </div>
+</footer>
+
+<script>
+function buyKit(btn){
+  var errs = ["buyerr1","buyerr2","buyerr3"];
+  errs.forEach(function(id){var e=document.getElementById(id); if(e) e.textContent="";});
+  var orig = btn.textContent;
+  btn.textContent = "Opening secure checkout…";
+  btn.disabled = true;
+  fetch("https://api.outpumper.com/api/kit/checkout", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(d && d.ok && d.url){ window.location.href = d.url; }
+    else { throw new Error("no url"); }
+  })
+  .catch(function(){
+    btn.textContent = orig;
+    btn.disabled = false;
+    errs.forEach(function(id){var e=document.getElementById(id); if(e) e.textContent="Checkout didn't open — try again, or email support@outpumper.com";});
+  });
+}
+</script>
+
+</body>
+</html>
