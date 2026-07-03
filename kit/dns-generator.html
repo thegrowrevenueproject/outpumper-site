@@ -80,11 +80,19 @@
 
     <div class="gen-form">
       <div class="gen-field">
-        <label for="dom">Your root domain</label>
-        <input type="text" id="dom" placeholder="acme.com" autocomplete="off" spellcheck="false">
-        <span class="hint">The domain you own — not the subdomain.</span>
+        <label for="mode">Setup type</label>
+        <select id="mode">
+          <option value="dedicated">Dedicated sending domain (recommended)</option>
+          <option value="subdomain">Subdomain of my main domain</option>
+        </select>
+        <span class="hint">Dedicated = the lookalike domain you bought per the manual (getacme.com). Your main domain never takes the risk.</span>
       </div>
       <div class="gen-field">
+        <label for="dom" id="domlabel">Your sending domain</label>
+        <input type="text" id="dom" placeholder="getacme.com" autocomplete="off" spellcheck="false">
+        <span class="hint" id="domhint">The dedicated domain you purchased for cold email.</span>
+      </div>
+      <div class="gen-field" id="subField" style="display:none;">
         <label for="sub">Sending subdomain</label>
         <input type="text" id="sub" value="mail" autocomplete="off" spellcheck="false">
         <span class="hint">Default "mail" is fine. Records go on this subdomain only.</span>
@@ -147,6 +155,13 @@
   document.getElementById("plat") && document.getElementById("plat").addEventListener("change", function(){
     document.getElementById("tenantField").style.display = this.value === "m365" ? "flex" : "none";
   });
+  document.getElementById("mode") && document.getElementById("mode").addEventListener("change", function(){
+    var ded = this.value === "dedicated";
+    document.getElementById("subField").style.display = ded ? "none" : "flex";
+    document.getElementById("domlabel").textContent = ded ? "Your sending domain" : "Your root domain";
+    document.getElementById("dom").placeholder = ded ? "getacme.com" : "acme.com";
+    document.getElementById("domhint").textContent = ded ? "The dedicated domain you purchased for cold email." : "The domain you own — records go on a subdomain of it.";
+  });
 })();
 
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
@@ -167,48 +182,52 @@ function copyText(btn, txt){
 
 function generate(){
   var err = document.getElementById("err"); err.textContent = "";
+  var mode = document.getElementById("mode").value;
   var dom = document.getElementById("dom").value.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*$/,"").replace(/^www\./,"");
   var sub = document.getElementById("sub").value.trim().toLowerCase().replace(/[^a-z0-9-]/g,"") || "mail";
   var plat = document.getElementById("plat").value;
   var tenant = document.getElementById("tenant").value.trim().toLowerCase();
   var dmarcMail = document.getElementById("dmarcmail").value.trim();
-  if(!/^[a-z0-9][a-z0-9.-]+\.[a-z]{2,}$/.test(dom)){ err.textContent = "Enter a valid root domain, like acme.com"; return; }
-  var fq = sub + "." + dom;
+  if(!/^[a-z0-9][a-z0-9.-]+\.[a-z]{2,}$/.test(dom)){ err.textContent = "Enter a valid domain, like getacme.com"; return; }
+  var dedicated = mode === "dedicated";
+  var fq = dedicated ? dom : (sub + "." + dom);
+  var host = dedicated ? "@" : sub;
+  var hostPrefix = dedicated ? "" : ("." + sub);
   var dashed = fq.replace(/\./g,"-");
   var out = "";
 
   out += rec("1 · MX — so " + fq + " can receive replies",
     "Replies to your cold email land in your " + (plat==="gws"?"Google Workspace":"Microsoft 365") + " inbox. Without this, every reply bounces.",
     plat==="gws"
-      ? [["Type","MX",false,1],["Host",sub,false,2],["Priority","1",false,3],["Value","smtp.google.com",true,4]]
-      : [["Type","MX",false,1],["Host",sub,false,2],["Priority","0",false,3],["Value",dashed+".mail.protection.outlook.com",true,4]]);
+      ? [["Type","MX",false,1],["Host",host,false,2],["Priority","1",false,3],["Value","smtp.google.com",true,4]]
+      : [["Type","MX",false,1],["Host",host,false,2],["Priority","0",false,3],["Value",dashed+".mail.protection.outlook.com",true,4]]);
 
   out += rec("2 · SPF — authorizes your platform to send as " + fq,
     "Receiving servers check this record to confirm the mail came from where it claims. One record only — never create two SPF records on the same host.",
     plat==="gws"
-      ? [["Type","TXT",false,5],["Host",sub,false,6],["Value","v=spf1 include:_spf.google.com ~all",true,7]]
-      : [["Type","TXT",false,5],["Host",sub,false,6],["Value","v=spf1 include:spf.protection.outlook.com -all",true,7]]);
+      ? [["Type","TXT",false,5],["Host",host,false,6],["Value","v=spf1 include:_spf.google.com ~all",true,7]]
+      : [["Type","TXT",false,5],["Host",host,false,6],["Value","v=spf1 include:spf.protection.outlook.com -all",true,7]]);
 
   if(plat==="gws"){
     out += rec("3 · DKIM — cryptographic signature",
       "Generate the key in Google Admin → Apps → Google Workspace → Gmail → Authenticate email. Select " + fq + ", click Generate new record, then create this TXT with the value Google shows. Come back and hit Start authentication after the record is live.",
-      [["Type","TXT",false,8],["Host","google._domainkey."+sub,false,9],["Value","(paste the p= value from Google Admin)",false,10]]);
+      [["Type","TXT",false,8],["Host","google._domainkey"+hostPrefix,false,9],["Value","(paste the p= value from Google Admin)",false,10]]);
   } else if(tenant){
     out += rec("3 · DKIM — two CNAME records",
       "After both CNAMEs are live, enable DKIM for " + fq + " in Microsoft Defender → Email authentication settings → DKIM.",
-      [["Type","CNAME",false,8],["Host","selector1._domainkey."+sub,false,9],["Value","selector1-"+dashed+"._domainkey."+tenant,true,10],
-       ["Type","CNAME",false,11],["Host","selector2._domainkey."+sub,false,12],["Value","selector2-"+dashed+"._domainkey."+tenant,true,13]]);
+      [["Type","CNAME",false,8],["Host","selector1._domainkey"+hostPrefix,false,9],["Value","selector1-"+dashed+"._domainkey."+tenant,true,10],
+       ["Type","CNAME",false,11],["Host","selector2._domainkey"+hostPrefix,false,12],["Value","selector2-"+dashed+"._domainkey."+tenant,true,13]]);
   } else {
     out += rec("3 · DKIM — two CNAME records",
       "Enter your tenant above (acme.onmicrosoft.com) to generate the exact CNAME values — or copy them from Microsoft Defender → Email authentication settings → DKIM → " + fq + ".",
-      [["Type","CNAME",false,8],["Host","selector1._domainkey."+sub,false,9],["Value","selector1-"+dashed+"._domainkey.YOURTENANT.onmicrosoft.com",false,10],
-       ["Type","CNAME",false,11],["Host","selector2._domainkey."+sub,false,12],["Value","selector2-"+dashed+"._domainkey.YOURTENANT.onmicrosoft.com",false,13]]);
+      [["Type","CNAME",false,8],["Host","selector1._domainkey"+hostPrefix,false,9],["Value","selector1-"+dashed+"._domainkey.YOURTENANT.onmicrosoft.com",false,10],
+       ["Type","CNAME",false,11],["Host","selector2._domainkey"+hostPrefix,false,12],["Value","selector2-"+dashed+"._domainkey.YOURTENANT.onmicrosoft.com",false,13]]);
   }
 
   var dmarcVal = "v=DMARC1; p=none;" + (dmarcMail ? " rua=mailto:"+dmarcMail+";" : "");
   out += rec("4 · DMARC — policy for the two checks above",
     "Start at p=none (monitor only). After two clean weeks of sending, tighten to p=quarantine. The kit's manual, Step 3, covers when and why.",
-    [["Type","TXT",false,14],["Host","_dmarc."+sub,false,15],["Value",dmarcVal,true,16]]);
+    [["Type","TXT",false,14],["Host","_dmarc"+hostPrefix,false,15],["Value",dmarcVal,true,16]]);
 
   out += '<div class="note"><strong>Add records exactly as shown.</strong> In Cloudflare, set every record to "DNS only" (grey cloud). Propagation: usually minutes, up to a few hours. Then verify with the free <a href="/deliverability-checker.html" style="color:var(--accent-bright);">Deliverability Checker</a> — enter '+esc(fq)+'.</div>';
 
