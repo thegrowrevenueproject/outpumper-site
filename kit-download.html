@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0e1a">
+<title>Your Launch Kit download — OutPumper</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<style>
+  .dl-wrap{max-width:760px;margin:0 auto;}
+  .center-note{text-align:center;padding:4rem 0;color:var(--t2);font-family:var(--mono);}
+  .dl-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:30px;margin-top:1.6rem;}
+  .dl-hero{border-color:rgba(37,99,235,.45);background:linear-gradient(180deg,rgba(37,99,235,.10),rgba(37,99,235,.02));text-align:center;}
+  .dl-hero p{color:var(--t2);margin:.6rem 0 1.4rem;}
+  .dl-meta{font-family:var(--mono);font-size:.78rem;color:var(--t3);margin-top:1rem;}
+  .files{list-style:none;margin:0;padding:0;}
+  .files li{display:flex;gap:.7rem;align-items:baseline;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--t2);}
+  .files li:last-child{border-bottom:none;}
+  .files .fname{font-family:var(--mono);font-size:.8rem;color:#7fa7f7;white-space:nowrap;}
+  .files .first{color:var(--t1);font-weight:600;}
+  .bump-card{border-left:3px solid var(--accent);}
+  .bump-card p{color:var(--t2);font-size:.92rem;margin:.5rem 0 1rem;}
+  .err-card{border:1px solid var(--border);text-align:center;max-width:520px;margin:3rem auto;}
+  .err-card h2{margin-bottom:.6rem;}
+  .err-card p{color:var(--t2);font-size:.95rem;margin-bottom:.4rem;}
+  .trial-strip{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:1.6rem;padding:18px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);}
+  .trial-strip p{flex:1;min-width:240px;color:var(--t2);font-size:.9rem;margin:0;}
+  .hidden{display:none!important;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
+    <nav><ul class="nav-links" id="navlinks">
+      <li><a href="/features.html">Features</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/comparison.html">Compare</a></li>
+      <li><a href="https://theoutboundgame.com">Blog</a></li>
+      <li><a href="/download.html">Download</a></li>
+    </ul></nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/pricing.html">Start free trial</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="container dl-wrap" style="padding-top:3rem;padding-bottom:4rem;">
+
+  <div id="checking" class="center-note">Checking your order&hellip;</div>
+
+  <div id="invalid" class="hidden">
+    <div class="dl-card err-card">
+      <h2>This download link isn't active</h2>
+      <p>It may have expired (links last 7 days), hit its download limit, or the order was refunded.</p>
+      <p style="margin-top:1rem;">Bought the kit and need a fresh link? <strong>Reply to your delivery email</strong> — a human will sort it within a day.</p>
+      <a class="btn btn-primary" href="/launch-kit.html" style="margin-top:1.2rem;">Get the Cold Email Launch Kit</a>
+    </div>
+  </div>
+
+  <div id="ready" class="hidden">
+    <p style="font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.16em;color:var(--accent-bright);text-transform:uppercase;">Order confirmed</p>
+    <h1 style="margin-top:.4rem;">Your Cold Email Launch Kit</h1>
+
+    <div class="dl-card dl-hero">
+      <h2>Everything in one zip</h2>
+      <p>All six assets plus the Start Here guide. Save it somewhere safe.</p>
+      <a class="btn btn-primary" id="dlbtn" href="#" style="font-size:1.05rem;padding:.9rem 2rem;">Download the kit (.zip)</a>
+      <p class="dl-meta">Link valid 7 days from purchase &middot; 5 downloads &middot; ~700&nbsp;KB</p>
+    </div>
+
+    <div id="bumpcard" class="dl-card bump-card hidden">
+      <h3>Your Zero-Typo add-on</h3>
+      <p>Generate the exact copy-paste DNS records for your sending domains — and grab the IT-Approval pack (the email script + technical brief) from inside the tool.</p>
+      <a class="btn btn-primary" id="genbtn" href="#">Open your DNS Generator</a>
+    </div>
+
+    <div class="dl-card">
+      <h3 style="margin-bottom:.8rem;">What's inside &middot; use it in this order</h3>
+      <ul class="files">
+        <li><span class="fname">00-start-here.pdf</span><span class="first">Read this first — the 5-minute roadmap</span></li>
+        <li><span class="fname">01-deliverability-setup-manual.pdf</span><span>Zero to inbox-ready sending setup (the flagship)</span></li>
+        <li><span class="fname">02-sequence-swipe-library.pdf</span><span>Annotated cold email sequences to adapt</span></li>
+        <li><span class="fname">03-subject-line-bank.pdf</span><span>Subject lines by angle, with the logic</span></li>
+        <li><span class="fname">04-followup-cadence-framework.pdf</span><span>When to follow up and what to say</span></li>
+        <li><span class="fname">05-icp-offer-worksheet.pdf</span><span>Nail who you target and what you offer</span></li>
+        <li><span class="fname">06-campaign-tracker.xlsx</span><span>Track sends, replies, meetings, revenue</span></li>
+      </ul>
+    </div>
+
+    <div class="trial-strip">
+      <p><strong>When you're ready to send:</strong> everything the manual sets up plugs straight into OutPumper — cold email that runs inside the Outlook you already pay for. Takes 2 minutes to install, and if it gives you any trouble, reply to your delivery email and a human will fix it for you.</p>
+      <a class="btn btn-primary" href="/pricing.html">Start the free trial</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <p style="color:var(--t3);font-size:.82rem;text-align:center;padding:1.2rem 0;">Part of the Cold Email Launch Kit &middot; OutPumper, an Outbound Game company &middot; Need help? Reply to your delivery email.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var API = "https://api.outpumper.com/api/kit";
+  var t = new URLSearchParams(location.search).get("t") || "";
+  function show(id){["checking","invalid","ready"].forEach(function(x){document.getElementById(x).classList.add("hidden");});document.getElementById(id).classList.remove("hidden");}
+  if(!t){ show("invalid"); return; }
+  fetch(API + "/verify?t=" + encodeURIComponent(t))
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d && d.ok){
+        document.getElementById("dlbtn").href = API + "/file?t=" + encodeURIComponent(t);
+        if(d.bump){
+          document.getElementById("genbtn").href = "/kit/dns-generator.html?t=" + encodeURIComponent(t);
+          document.getElementById("bumpcard").classList.remove("hidden");
+        }
+        show("ready");
+      } else { show("invalid"); }
+    })
+    .catch(function(){ show("invalid"); });
+})();
+</script>
+
+</body>
+</html>
