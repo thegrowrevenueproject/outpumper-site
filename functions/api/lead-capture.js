@@ -11,6 +11,7 @@ const MAGNET_MAP = {
   "deliverability": "checker",
   "roi-calculator": "roi",
   "reply-to-close": "r2c",
+  "lifetime-intent": "lifetime-intent",
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
