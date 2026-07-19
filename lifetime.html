@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0a0e1a">
-<title>OutPumper Lifetime: one payment, send forever | OutPumper</title>
-<meta name="description" content="Pay once, send cold email from inside your Outlook forever. Up to 50,000 emails a day, account rotation, built-in verification. $497 one time.">
+<title>OutPumper Lifetime: pay once, send cold email forever | OutPumper</title>
+<meta name="description" content="One payment, the whole cold email engine inside your Outlook forever. 50,000 emails a day, rotate Microsoft 365, Google Workspace, SendGrid, Mailgun and SMTP mailboxes. $497 once.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,42 +30,110 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 <style>
-  .lt-wrap{max-width:820px;margin:0 auto;}
-  .kicker{font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.16em;color:var(--accent-bright);text-transform:uppercase;}
-  .lt-hero{text-align:center;padding:2.6rem 0 1rem;}
-  .lt-hero h1{font-size:clamp(1.9rem,4.6vw,2.9rem);line-height:1.15;max-width:720px;margin:.6rem auto 0;}
-  .lt-hero .sub{color:var(--t2);font-size:1.06rem;max-width:620px;margin:1.1rem auto 1.4rem;}
-  section.lt{margin:2.4rem 0;}
-  section.lt h2{font-size:1.5rem;margin-bottom:.7rem;}
-  section.lt > p{color:var(--t2);max-width:700px;}
-  .mathbox{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-top:1.2rem;}
-  .mathrow{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.95rem;}
-  .mathrow:last-child{border-bottom:none;}
-  .mathrow .l{color:var(--t2);}
-  .mathrow .r{font-family:var(--mono);font-weight:700;}
-  .mathrow.bad .r{color:#ef4444;}
-  .mathrow.good .r{color:#10b981;}
-  .stack{list-style:none;margin:1rem 0 0;padding:0;color:var(--t2);font-size:.95rem;max-width:640px;}
-  .stack li{padding:.42rem 0 .42rem 1.7rem;position:relative;}
-  .stack li:before{content:"✓";position:absolute;left:0;color:#10b981;font-weight:700;}
-  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1.2rem;}
-  .step3{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:18px;text-align:center;}
-  .step3 .n{font-family:var(--mono);font-weight:800;color:var(--accent-bright);font-size:1.1rem;}
-  .step3 p{color:var(--t2);font-size:.86rem;margin-top:.4rem;}
-  .buy-card{background:linear-gradient(180deg,rgba(37,99,235,.13),rgba(37,99,235,.03));border:1px solid rgba(37,99,235,.5);border-radius:var(--r);padding:32px;text-align:center;margin:2rem 0;box-shadow:0 30px 70px -45px rgba(37,99,235,.55);}
+  .lt-wrap{max-width:900px;margin:0 auto;}
+  .kicker{font-family:var(--mono);font-size:.76rem;font-weight:700;letter-spacing:.16em;color:var(--accent-bright);text-transform:uppercase;}
+  section.lt{margin:10px 0;padding:10px 0;}
+  section.lt h2{font-size:1.55rem;margin-bottom:.6rem;line-height:1.25;}
+  section.lt > p{color:var(--t2);max-width:740px;}
+  .lt-hero{text-align:center;padding:2rem 0 10px;}
+  .lt-hero h1{font-size:clamp(1.9rem,4.8vw,3rem);line-height:1.12;max-width:780px;margin:.5rem auto 0;animation:rise .7s ease both;}
+  .lt-hero .sub{color:var(--t2);font-size:1.06rem;max-width:640px;margin:1rem auto 1.2rem;animation:rise .7s .12s ease both;}
+  .cta-main{font-size:1.06rem;padding:1rem 2.2rem;animation:rise .7s .24s ease both, pulse 2.6s 1.6s ease-in-out infinite;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.45);}50%{box-shadow:0 0 0 12px rgba(37,99,235,0);}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+  .trust-line{font-family:var(--mono);font-size:.72rem;color:var(--t3);margin-top:.8rem;}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px;text-align:center;}
+  .stat-card .big{font-family:var(--mono);font-weight:800;font-size:1.6rem;color:var(--accent-bright);}
+  .stat-card p{color:var(--t2);font-size:.8rem;margin-top:.3rem;}
+
+  /* interactive calculator */
+  .calc{background:linear-gradient(180deg,rgba(37,99,235,.1),rgba(37,99,235,.02));border:1px solid rgba(37,99,235,.45);border-radius:var(--r);padding:22px;margin-top:12px;}
+  .calc label{display:block;color:var(--t2);font-size:.92rem;margin-bottom:.6rem;}
+  .calc input[type=range]{width:100%;accent-color:var(--accent);height:6px;cursor:pointer;}
+  .calc .readout{display:flex;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap;}
+  .calc .ro{flex:1;min-width:150px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
+  .calc .ro .v{font-family:var(--mono);font-weight:800;font-size:1.5rem;}
+  .calc .ro.bad .v{color:#ef4444;}
+  .calc .ro.good .v{color:#10b981;}
+  .calc .ro.save .v{color:var(--accent-bright);}
+  .calc .ro p{color:var(--t3);font-size:.75rem;margin-top:.3rem;font-family:var(--mono);}
+  .calc .verdict{margin-top:12px;text-align:center;font-weight:700;font-size:1rem;}
+
+  /* comparison table */
+  .cmp{width:100%;border-collapse:collapse;margin-top:12px;font-size:.9rem;}
+  .cmp th,.cmp td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);}
+  .cmp th{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--t3);text-transform:uppercase;}
+  .cmp td.r,.cmp th.r{text-align:right;font-family:var(--mono);}
+  .cmp .bad{color:#ef4444;font-weight:700;}
+  .cmp .good{color:#10b981;font-weight:700;}
+  .cmp tr.hero-row{background:rgba(16,185,129,.07);}
+  .cmp tr.hero-row td{border-bottom:none;}
+  .cmp-note{font-family:var(--mono);font-size:.68rem;color:var(--t3);margin-top:8px;}
+
+  .viz{margin:12px 0 0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;}
+  .viz svg{width:100%;height:auto;display:block;}
+  .viz .cap{font-family:var(--mono);font-size:.68rem;color:var(--t3);text-align:center;margin-top:.6rem;letter-spacing:.05em;}
+  .fadeup{opacity:0;transform:translateY(10px);transition:all .6s ease;}
+  .inview .fadeup{opacity:1;transform:none;}
+  .rot-chip{animation:orbit 8s linear infinite;transform-origin:340px 150px;}
+  @keyframes orbit{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .rot-chip g{animation:counter 8s linear infinite;transform-origin:340px 27px;}
+  @keyframes counter{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+  .feat{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px;transition:transform .18s ease,border-color .18s ease;}
+  .feat:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .feat h3{font-size:.98rem;margin-bottom:.3rem;}
+  .feat p{color:var(--t2);font-size:.83rem;line-height:1.5;}
+  .feat .ico{font-size:1.2rem;margin-bottom:.4rem;display:block;}
+
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+  .step3{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px;text-align:center;}
+  .step3 .n{font-family:var(--mono);font-weight:800;color:var(--accent-bright);font-size:1.05rem;}
+  .step3 p{color:var(--t2);font-size:.84rem;margin-top:.35rem;}
+
+  .g-card{display:flex;gap:1rem;align-items:center;background:var(--card);border:1px solid rgba(16,185,129,.45);border-radius:var(--r);padding:18px;margin-top:12px;}
+  .g-card .badge{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.4);font-size:1.4rem;}
+  .g-card p{color:var(--t2);font-size:.9rem;}
+
+  .buy-card{background:linear-gradient(180deg,rgba(37,99,235,.14),rgba(37,99,235,.03));border:1px solid rgba(37,99,235,.55);border-radius:var(--r);padding:28px;text-align:center;margin:12px 0;box-shadow:0 30px 70px -45px rgba(37,99,235,.6);}
   .buy-card .amount{font-family:var(--mono);font-weight:800;font-size:2.8rem;}
-  .buy-card .amount span{font-size:1rem;color:var(--t3);font-weight:400;}
-  .buy-card p.note{color:var(--t2);font-size:.92rem;margin:.6rem auto 1.2rem;max-width:460px;}
-  .buy-form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+  .buy-card .amount .was{font-size:1.2rem;color:var(--t3);text-decoration:line-through;font-weight:400;margin-right:.6rem;}
+  .buy-card .amount span.per{font-size:1rem;color:var(--t3);font-weight:400;}
+  .buy-card p.note{color:var(--t2);font-size:.92rem;margin:.5rem auto 1rem;max-width:480px;}
+  .buy-form{display:flex;gap:10px;max-width:500px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
   .buy-form input[type=email]{flex:1;min-width:230px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--t1);font-family:inherit;font-size:1rem;padding:14px 16px;}
   .buy-form input[type=email]:focus{outline:none;border-color:var(--accent);}
-  .buy-form button{font-size:1rem;padding:14px 26px;}
-  .err-line{color:#ef4444;font-size:.85rem;min-height:1.2em;margin-top:.6rem;font-family:var(--mono);}
-  .fine{font-family:var(--mono);font-size:.7rem;color:var(--t3);margin-top:.9rem;letter-spacing:.05em;}
-  .faq details{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:15px 20px;margin-top:10px;}
-  .faq summary{cursor:pointer;font-weight:600;font-size:.96rem;}
-  .faq p{color:var(--t2);font-size:.9rem;margin-top:.6rem;}
-  @media(max-width:640px){.steps3{grid-template-columns:1fr;}}
+  .buy-form button{font-size:1rem;padding:14px 24px;}
+  .err-line{color:#ef4444;font-size:.85rem;min-height:1.2em;margin-top:.5rem;font-family:var(--mono);}
+  .fine{font-family:var(--mono);font-size:.68rem;color:var(--t3);margin-top:.8rem;letter-spacing:.05em;}
+
+  .faq details{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 18px;margin-top:8px;}
+  .faq summary{cursor:pointer;font-weight:600;font-size:.95rem;}
+  .faq p{color:var(--t2);font-size:.88rem;margin-top:.55rem;}
+
+  /* sticky mobile CTA bar */
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;background:rgba(10,14,26,.96);border-top:1px solid var(--border);padding:10px 14px;display:none;z-index:60;backdrop-filter:blur(8px);}
+  .sticky-cta.show{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .sticky-cta .p{font-family:var(--mono);font-weight:800;font-size:1rem;}
+  .sticky-cta .p small{color:var(--t3);font-weight:400;font-size:.7rem;display:block;}
+
+  /* exit popup */
+  .popup-ov{position:fixed;inset:0;background:rgba(4,7,14,.8);z-index:100;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px);}
+  .popup-ov.show{display:flex;}
+  .popup{background:var(--card);border:1px solid rgba(37,99,235,.55);border-radius:16px;max-width:460px;width:100%;padding:26px;text-align:center;position:relative;animation:pop .3s ease both;}
+  @keyframes pop{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+  .popup .x{position:absolute;top:10px;right:14px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;}
+  .popup h3{font-size:1.3rem;margin:.3rem 0 .5rem;}
+  .popup p{color:var(--t2);font-size:.92rem;margin-bottom:.9rem;}
+  .popup .math{font-family:var(--mono);font-size:.85rem;color:var(--t2);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:1rem;}
+  .popup .math b{color:#ef4444;}
+  .popup .math .g{color:#10b981;font-weight:700;}
+
+  @media(max-width:700px){.feat-grid{grid-template-columns:1fr 1fr;}.stat-row{grid-template-columns:1fr;}.steps3{grid-template-columns:1fr;}.cmp{font-size:.78rem;}.cmp th,.cmp td{padding:8px 6px;}}
+  @media(max-width:460px){.feat-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -74,7 +142,7 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   <div class="container nav-inner">
     <a class="brand" href="/"><img class="dot" src="/assets/mark.svg" alt=""> OutPumper</a>
     <div class="nav-cta">
-      <a class="btn btn-primary" href="#buy">Get Lifetime</a>
+      <a class="btn btn-primary" href="#buy">Get Lifetime $497</a>
     </div>
   </div>
 </header>
@@ -82,115 +150,303 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
 <main class="container lt-wrap">
 
   <div class="lt-hero">
-    <p class="kicker">Lifetime deal &middot; One payment</p>
-    <h1>Pay once. Send cold email from your Outlook forever.</h1>
-    <p class="sub">OutPumper Lifetime: everything in Pro, one payment of $497, no subscription ever again. Up to 50,000 emails a day with account rotation, built-in verification, and deliverability that meets the 2024+ Google and Yahoo rules.</p>
-    <a class="btn btn-primary buy-btn" style="font-size:1.05rem;padding:1rem 2.2rem;" href="#buy">Get OutPumper for life, $497</a>
-    <p class="fine">INSTANT LICENSE DELIVERY &middot; 30-DAY MONEY-BACK GUARANTEE</p>
+    <p class="kicker">Lifetime deal &middot; One payment &middot; Zero subscriptions</p>
+    <h1>Your cold email tool charges you rent. Buy the building instead.</h1>
+    <p class="sub">OutPumper Lifetime: the full cold email engine living inside the Outlook you already pay for. Up to 50,000 emails a day, every mailbox type you own, rotated automatically. $497 once. Then it is yours until the sun burns out.</p>
+    <a class="btn btn-primary cta-main" href="#buy">Get OutPumper for life</a>
+    <p class="trust-line">LICENSE IN YOUR INBOX IN ~1 MINUTE &middot; 30-DAY MONEY-BACK GUARANTEE &middot; NO MONTHLY ANYTHING</p>
   </div>
 
-  <section class="lt">
-    <h2>The math the subscription industry hopes you never do</h2>
-    <p>Every serious cold email tool charges monthly, forever. Run the numbers on what "just $49 a month" actually costs against paying once:</p>
-    <div class="mathbox">
-      <div class="mathrow bad"><span class="l">Subscription, year 1</span><span class="r">$588</span></div>
-      <div class="mathrow bad"><span class="l">Subscription, year 2</span><span class="r">$1,176 total</span></div>
-      <div class="mathrow bad"><span class="l">Subscription, year 3</span><span class="r">$1,764 total</span></div>
-      <div class="mathrow good"><span class="l">OutPumper Lifetime, year 3</span><span class="r">still $497</span></div>
-      <div class="mathrow good"><span class="l">Break-even point</span><span class="r">month 11</span></div>
+  <div class="stat-row" data-anim>
+    <div class="stat-card"><div class="big"><span class="count" data-to="50000" data-sep="1">0</span>/day</div><p>emails with automatic account rotation</p></div>
+    <div class="stat-card"><div class="big">$<span class="count" data-to="497">0</span> once</div><p>vs $588+ every single year, forever</p></div>
+    <div class="stat-card"><div class="big">Month <span class="count" data-to="11">0</span></div><p>break-even vs a $49/mo subscription. After that: free sending.</p></div>
+  </div>
+
+  <section class="lt" data-anim>
+    <h2>Drag the slider. Watch the subscription lose.</h2>
+    <p>Be honest: how long will you be sending cold email? Move the slider and watch what "just $49 a month" quietly does to your wallet.</p>
+    <div class="calc">
+      <label>I will be sending cold email for <strong id="calcmo">24</strong> months</label>
+      <input type="range" id="calcrange" min="6" max="60" step="1" value="24">
+      <div class="readout">
+        <div class="ro bad"><div class="v" id="calcsub">$1,176</div><p>SUBSCRIPTION TOTAL</p></div>
+        <div class="ro good"><div class="v">$497</div><p>OUTPUMPER LIFETIME</p></div>
+        <div class="ro save"><div class="v" id="calcsave">$679</div><p>YOU KEEP</p></div>
+      </div>
+      <p class="verdict" id="calcverdict"></p>
     </div>
-    <p style="margin-top:1rem;">Send for longer than 10 months and Lifetime is simply the cheaper way to own the same engine. Everything after month 11 is free sending, for years.</p>
+  </section>
+
+  <section class="lt" data-anim>
+    <h2>What the "normal" cold email stack really costs</h2>
+    <p>The industry built a subscription for every symptom. Typical published pricing in 2026, stacked over 3 years, next to paying once:</p>
+    <table class="cmp">
+      <thead><tr><th>What you rent</th><th class="r">Per month</th><th class="r">3-year cost</th></tr></thead>
+      <tbody>
+        <tr class="fadeup"><td>Cold email sequencer (typical mid tier)</td><td class="r">$39-97</td><td class="r bad">$1,400-3,500</td></tr>
+        <tr class="fadeup"><td>Warmup pool rental</td><td class="r">$30-100</td><td class="r bad">$1,080-3,600</td></tr>
+        <tr class="fadeup"><td>Email verification credits</td><td class="r">$15-50</td><td class="r bad">$540-1,800</td></tr>
+        <tr class="fadeup"><td>Deliverability monitoring</td><td class="r">$25-50</td><td class="r bad">$900-1,800</td></tr>
+        <tr class="fadeup"><td><strong>The rented stack, total</strong></td><td class="r bad">$109-297</td><td class="r bad">$3,900-10,700</td></tr>
+        <tr class="hero-row fadeup"><td><strong>OutPumper Lifetime</strong> (sequencer + rotation + verification + bounce intelligence, built in)</td><td class="r good">$0</td><td class="r good">$497. Once.</td></tr>
+      </tbody>
+    </table>
+    <p class="cmp-note">TYPICAL PUBLISHED PRICING RANGES, 2026. YOUR MAILBOXES (M365/GOOGLE) ARE THE ONLY ONGOING COST, AND YOU ALREADY PAY FOR THOSE.</p>
+  </section>
+
+  <section class="lt" data-anim>
+    <h2>Why sending from Microsoft 365 beats renting infrastructure</h2>
+    <p>Mailbox providers do not trust anonymous bulk IPs. They trust <strong>real business mailboxes on infrastructure they already know</strong>. When you send through your own Microsoft 365 mailboxes, your email rides the same Microsoft infrastructure the world's corporate email lives on, with your own domain reputation, warmed by your own real conversations. No shared pool. No stranger's spam burning your deliverability at 3am.</p>
+    <div class="viz">
+      <svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Shared pool risk vs own mailbox trust">
+        <text x="190" y="28" font-family="Inter" font-weight="700" font-size="14" fill="#ef4444" text-anchor="middle">Rented sending pool</text>
+        <circle cx="190" cy="115" r="58" fill="rgba(239,68,68,.06)" stroke="#7a3a3a" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <circle cx="165" cy="95" r="11" fill="#131826" stroke="#64748b"/><circle cx="215" cy="90" r="11" fill="#131826" stroke="#64748b"/>
+        <circle cx="170" cy="140" r="11" fill="#131826" stroke="#64748b"/><circle cx="218" cy="135" r="11" fill="#ef4444"/>
+        <text x="218" y="140" font-family="Inter" font-weight="700" font-size="12" fill="#fff" text-anchor="middle">!</text>
+        <text x="190" y="200" font-family="JetBrains Mono" font-size="10" fill="#b06060" text-anchor="middle">one spammer burns everyone</text>
+        <text x="560" y="28" font-family="Inter" font-weight="700" font-size="14" fill="#10b981" text-anchor="middle">Your M365 mailboxes</text>
+        <rect x="440" y="70" width="110" height="80" rx="12" fill="rgba(16,185,129,.07)" stroke="#10b981" stroke-width="1.6"/>
+        <text x="495" y="105" font-family="Inter" font-weight="700" font-size="13" fill="#10b981" text-anchor="middle">yours</text>
+        <text x="495" y="126" font-family="JetBrains Mono" font-size="9" fill="#5eead4" text-anchor="middle">your reputation</text>
+        <rect x="570" y="70" width="110" height="80" rx="12" fill="rgba(16,185,129,.07)" stroke="#10b981" stroke-width="1.6"/>
+        <text x="625" y="105" font-family="Inter" font-weight="700" font-size="13" fill="#10b981" text-anchor="middle">yours</text>
+        <text x="625" y="126" font-family="JetBrains Mono" font-size="9" fill="#5eead4" text-anchor="middle">Microsoft infra</text>
+        <text x="560" y="200" font-family="JetBrains Mono" font-size="10" fill="#5eead4" text-anchor="middle">isolated, authenticated, trusted by filters</text>
+      </svg>
+      <p class="cap">FILTERS TRUST REAL BUSINESS MAILBOXES. THEY HUNT ANONYMOUS BULK POOLS.</p>
+    </div>
+  </section>
+
+  <section class="lt" data-anim>
+    <h2>Bring every mailbox you own. OutPumper rotates them all.</h2>
+    <p>Microsoft 365. Google Workspace. SendGrid. Mailgun. Amazon SES. Even your own private SMTP server. Connect them all and OutPumper rotates your sending across every one of them automatically, from inside Outlook, spreading volume so no single mailbox ever looks like a blaster.</p>
+    <div class="viz">
+      <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mailbox providers rotating into Outlook">
+        <rect x="270" y="110" width="140" height="80" rx="14" fill="rgba(37,99,235,.12)" stroke="#2563eb" stroke-width="2"/>
+        <text x="340" y="145" font-family="Inter" font-weight="800" font-size="16" fill="#e2e8f0" text-anchor="middle">Outlook</text>
+        <text x="340" y="168" font-family="JetBrains Mono" font-size="10" fill="#7fa7f7" text-anchor="middle">+ OutPumper</text>
+        <circle cx="340" cy="150" r="118" fill="none" stroke="#223052" stroke-width="1.4" stroke-dasharray="4 6"/>
+        <g class="rot-chip"><g><rect x="300" y="12" width="80" height="30" rx="15" fill="#0f1a33" stroke="#2563eb"/><text x="340" y="32" font-family="JetBrains Mono" font-size="11" fill="#7fa7f7" text-anchor="middle">M365</text></g></g>
+        <g class="rot-chip" style="animation-delay:-1.6s"><g style="animation-delay:-1.6s"><rect x="300" y="12" width="80" height="30" rx="15" fill="#0f1a33" stroke="#2563eb"/><text x="340" y="32" font-family="JetBrains Mono" font-size="9" fill="#7fa7f7" text-anchor="middle">GWorkspace</text></g></g>
+        <g class="rot-chip" style="animation-delay:-3.2s"><g style="animation-delay:-3.2s"><rect x="300" y="12" width="80" height="30" rx="15" fill="#0f1a33" stroke="#2563eb"/><text x="340" y="32" font-family="JetBrains Mono" font-size="10" fill="#7fa7f7" text-anchor="middle">SendGrid</text></g></g>
+        <g class="rot-chip" style="animation-delay:-4.8s"><g style="animation-delay:-4.8s"><rect x="300" y="12" width="80" height="30" rx="15" fill="#0f1a33" stroke="#2563eb"/><text x="340" y="32" font-family="JetBrains Mono" font-size="10" fill="#7fa7f7" text-anchor="middle">Mailgun</text></g></g>
+        <g class="rot-chip" style="animation-delay:-6.4s"><g style="animation-delay:-6.4s"><rect x="300" y="12" width="80" height="30" rx="15" fill="#0f1a33" stroke="#2563eb"/><text x="340" y="32" font-family="JetBrains Mono" font-size="11" fill="#7fa7f7" text-anchor="middle">SMTP</text></g></g>
+        <text x="340" y="288" font-family="JetBrains Mono" font-size="10" fill="#64748b" text-anchor="middle">every mailbox takes its turn, volume spread, patterns human</text>
+      </svg>
+      <p class="cap">ONE ENGINE. EVERY PROVIDER. AUTOMATIC ROTATION.</p>
+    </div>
   </section>
 
   <section class="lt">
-    <h2>Everything in Pro, owned outright</h2>
-    <ul class="stack">
-      <li>Up to 50,000 emails a day with account rotation</li>
-      <li>Unlimited campaigns and contacts</li>
-      <li>Built-in email verification, unlimited and free</li>
-      <li>Mailbox rotation, smart throttling, A/B testing</li>
-      <li>Word variation engine and auto-bounce intelligence</li>
-      <li>Connect SendGrid, Mailgun, SES, anything</li>
-      <li>Runs inside the Outlook you already pay for: your reputation, your domains, no shared IP pools</li>
-      <li>One year of updates included ($97 a year after, optional, never required)</li>
-    </ul>
+    <h2>Everything inside, owned outright</h2>
+    <div class="feat-grid">
+      <div class="feat"><span class="ico">🔁</span><h3>Account rotation</h3><p>Up to 50,000 emails a day spread across all your mailboxes so no single one looks like a blaster.</p></div>
+      <div class="feat"><span class="ico">✅</span><h3>Unlimited verification</h3><p>Built-in email verification, free forever. Stop paying per-credit ransoms to keep lists clean.</p></div>
+      <div class="feat"><span class="ico">🧠</span><h3>Auto-bounce intelligence</h3><p>Bounces detected and senders paused before a bad list burns a domain. It protects you from yourself.</p></div>
+      <div class="feat"><span class="ico">🎲</span><h3>Word variation engine</h3><p>Every send slightly unique, so 5,000 emails never look like 5,000 copies of one email.</p></div>
+      <div class="feat"><span class="ico">🧪</span><h3>A/B testing</h3><p>Test subject lines and bodies on real sends, keep the winner, kill the loser.</p></div>
+      <div class="feat"><span class="ico">⏱️</span><h3>Smart throttling</h3><p>Human-looking send pacing with per-mailbox limits. Filters see a person, not a cannon.</p></div>
+      <div class="feat"><span class="ico">♾️</span><h3>Unlimited campaigns</h3><p>Unlimited campaigns and contacts. No per-seat, per-lead, per-anything pricing games.</p></div>
+      <div class="feat"><span class="ico">📥</span><h3>Replies in your inbox</h3><p>Conversations land in the Outlook inbox you already live in. No second app to babysit.</p></div>
+      <div class="feat"><span class="ico">🛡️</span><h3>2024+ compliant</h3><p>Built for the Google and Yahoo authentication era. Your reputation, your domains, no shared pools.</p></div>
+    </div>
   </section>
 
-  <section class="lt">
-    <h2>How it works after you pay</h2>
+  <section class="lt" data-anim>
+    <h2>From payment to first send: about 10 minutes</h2>
     <div class="steps3">
-      <div class="step3"><div class="n">1</div><p>Pay once via Stripe secure checkout</p></div>
-      <div class="step3"><div class="n">2</div><p>Your license key and password arrive by email within a minute</p></div>
-      <div class="step3"><div class="n">3</div><p>Install, click Activate in the Outlook ribbon, start sending</p></div>
+      <div class="step3"><div class="n">1</div><p><strong>Pay once</strong> via Stripe secure checkout</p></div>
+      <div class="step3"><div class="n">2</div><p><strong>License key and password arrive by email</strong> within about a minute, automatically</p></div>
+      <div class="step3"><div class="n">3</div><p><strong>Install, click Activate</strong> in the Outlook ribbon, connect mailboxes, send</p></div>
+    </div>
+    <div class="g-card">
+      <div class="badge">✓</div>
+      <div>
+        <h3 style="margin-bottom:.25rem;">The 30-day guarantee</h3>
+        <p>Use it for a month. If OutPumper does not earn its place in your Outlook, reply to your license email within 30 days and every cent comes back. No forms, no exit interview, no hoops.</p>
+      </div>
     </div>
   </section>
 
   <section class="lt" id="buy">
     <div class="buy-card">
       <p class="kicker">OutPumper Lifetime</p>
-      <div class="amount">$497 <span>one time</span></div>
-      <p class="note">Enter the email your license should be delivered to, then complete secure checkout on Stripe.</p>
+      <div class="amount"><span class="was">$1,764 by year 3</span>$497 <span class="per">one time</span></div>
+      <p class="note">Enter the email your license should be delivered to, then finish on Stripe secure checkout. Key arrives in about a minute.</p>
       <form class="buy-form" id="ltform">
         <input type="email" id="ltemail" placeholder="you@company.com" required>
         <input type="text" id="lthp" value="" style="display:none" tabindex="-1" autocomplete="off">
         <button type="submit" class="btn btn-primary">Continue to checkout</button>
       </form>
       <p class="err-line" id="lterr"></p>
-      <p class="fine">SECURE STRIPE CHECKOUT &middot; LICENSE DELIVERED INSTANTLY &middot; 30-DAY MONEY-BACK GUARANTEE</p>
+      <p class="fine">SECURE STRIPE CHECKOUT &middot; LICENSE DELIVERED INSTANTLY &middot; 30-DAY MONEY-BACK GUARANTEE &middot; 1 YEAR OF UPDATES INCLUDED</p>
     </div>
   </section>
 
   <section class="lt faq">
     <h2>Questions, answered straight</h2>
-    <details><summary>Is this really one payment?</summary><p>Yes. $497 once, the license is yours. Year one of updates is included. After that, updates are $97 a year and completely optional: your version keeps working forever whether you take them or not.</p></details>
-    <details><summary>What do I need to run it?</summary><p>Windows with desktop Outlook (Microsoft 365 or Google Workspace mailboxes both work). Install takes about 2 minutes and the OutPumper tab appears in your Outlook ribbon.</p></details>
-    <details><summary>How is the license delivered?</summary><p>Automatically, by email, within a minute of payment: your license key, password, and 3-step activation. Sent to the exact email you enter above.</p></details>
-    <details><summary>What if it is not for me?</summary><p>30-day money-back guarantee. Reply to your license email within 30 days and you get a full refund, no questions, no hoops.</p></details>
+    <details><summary>Is this really one payment? Where is the catch?</summary><p>One payment, $497, the license is yours. Year one of updates included; after that updates are $97 a year and completely optional. Your version keeps working forever either way. The "catch" is that we would rather sell you a tool once than rent you one forever. Radical, we know.</p></details>
+    <details><summary>What do I need to run it?</summary><p>Windows with desktop Outlook. Your mailboxes can be Microsoft 365, Google Workspace, SendGrid, Mailgun, SES or your own SMTP server. Install takes about 2 minutes and OutPumper appears as a tab in the Outlook ribbon.</p></details>
+    <details><summary>Can I really send 50,000 a day?</summary><p>That is the engine ceiling with account rotation across many mailboxes. Whether YOU should send 50,000 a day depends on how many warmed mailboxes you run. The tool enforces sane per-mailbox limits and human pacing precisely so you scale without burning domains.</p></details>
+    <details><summary>How is the license delivered?</summary><p>Automatically by email within about a minute of payment: license key, password, and the 3-step activation. Sent to the exact email you enter above, so type it like you mean it.</p></details>
+    <details><summary>What about warmup?</summary><p>Honest answer: authentication on your own domains matters more than any warmup tool, and ramping new mailboxes gradually is free. OutPumper's throttling and rotation handle the pacing. Nobody needs a $100-a-month warmup rental. That is half the reason this deal exists.</p></details>
+    <details><summary>What if it is not for me?</summary><p>30 days, full refund, reply to your license email and it is done. The risk is not $497. The risk is paying $49 a month for five more years.</p></details>
   </section>
+
+  <div class="lt-hero" style="padding:6px 0 24px;">
+    <h2 style="font-size:1.45rem;">Rent forever, or own it by tonight.</h2>
+    <a class="btn btn-primary cta-main" style="margin-top:.9rem;" href="#buy">Get OutPumper for life, $497</a>
+  </div>
 
 </main>
 
+<div class="sticky-cta" id="stickycta">
+  <div class="p">$497 once <small>vs $49/mo forever</small></div>
+  <a class="btn btn-primary" href="#buy">Get Lifetime</a>
+</div>
+
+<div class="popup-ov" id="popup">
+  <div class="popup">
+    <button class="x" id="popupx" aria-label="Close">&times;</button>
+    <p class="kicker">Before you go</p>
+    <h3>Leaving means choosing the subscription.</h3>
+    <div class="math">Walk away today, keep renting:<br><b>$49 x 36 months = $1,764</b><br>Stay 60 more seconds, pay once:<br><span class="g">$497, owned, guaranteed for 30 days</span></div>
+    <p>If it does not earn its keep in a month, one reply gets you a full refund. The subscription never makes you that offer.</p>
+    <button class="btn btn-primary" id="popupcta" style="width:100%;">Fine, show me the checkout</button>
+  </div>
+</div>
+
 <footer class="site">
   <div class="container">
-    <p style="color:var(--t3);font-size:.82rem;text-align:center;padding:1.2rem 0;">OutPumper &middot; The Outbound Game &mdash; by The Grow Revenue Company Limited &middot; support@outpumper.com &middot; <a href="/privacy.html" style="color:var(--t3);">Privacy</a> &middot; <a href="/terms.html" style="color:var(--t3);">Terms</a></p>
+    <p style="color:var(--t3);font-size:.82rem;text-align:center;padding:1rem 0;">OutPumper &middot; The Outbound Game &mdash; by The Grow Revenue Company Limited &middot; support@outpumper.com &middot; <a href="/privacy.html" style="color:var(--t3);">Privacy</a> &middot; <a href="/terms.html" style="color:var(--t3);">Terms</a></p>
   </div>
 </footer>
 
 <script>
-document.getElementById("ltform").addEventListener("submit", function (ev) {
-  ev.preventDefault();
-  var err = document.getElementById("lterr");
-  err.textContent = "";
-  var email = (document.getElementById("ltemail").value || "").trim().toLowerCase();
-  var hp = document.getElementById("lthp").value;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    err.textContent = "Enter a valid email address";
-    return;
+(function () {
+  // ---- interactive savings calculator ----
+  var range = document.getElementById("calcrange");
+  var fmt = function (n) { return "$" + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
+  function calc() {
+    var m = parseInt(range.value, 10);
+    var sub = m * 49;
+    var save = sub - 497;
+    document.getElementById("calcmo").textContent = m;
+    document.getElementById("calcsub").textContent = fmt(sub);
+    document.getElementById("calcsave").textContent = save > 0 ? fmt(save) : "$0";
+    var v = document.getElementById("calcverdict");
+    if (save > 0) {
+      v.textContent = "That is " + fmt(save) + " staying in your pocket. It gets worse for the subscription every month.";
+      v.style.color = "#10b981";
+    } else {
+      v.textContent = "Under 11 months the subscription wins. Sending longer than that? Lifetime wins, forever.";
+      v.style.color = "#a8b3c4";
+    }
   }
-  var btn = this.querySelector("button");
-  btn.textContent = "Opening secure checkout\u2026";
-  btn.disabled = true;
+  range.addEventListener("input", calc);
+  calc();
 
-  if (typeof fbq === "function") { fbq("track", "InitiateCheckout", { content_name: "lifetime" }); }
+  // ---- count-ups + scroll animations ----
+  function animateCount(el) {
+    var to = parseFloat(el.getAttribute("data-to"));
+    var sep = el.getAttribute("data-sep") === "1";
+    var dur = 1300, t0 = null;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = Math.round(to * eased);
+      el.textContent = sep ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : val;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var seenEls = [];
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting && seenEls.indexOf(en.target) === -1) {
+          seenEls.push(en.target);
+          en.target.classList.add("inview");
+          en.target.querySelectorAll(".count").forEach(animateCount);
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: .25 });
+    document.querySelectorAll("[data-anim]").forEach(function (s) { io.observe(s); });
+  } else {
+    document.querySelectorAll("[data-anim]").forEach(function (s) { s.classList.add("inview"); });
+    document.querySelectorAll(".count").forEach(animateCount);
+  }
 
-  var params = new URLSearchParams(location.search);
-  var payload = {
-    email: email,
-    magnet: "lifetime-intent",
-    hp: hp,
-    utm_source: params.get("utm_source") || "",
-    utm_medium: params.get("utm_medium") || "",
-    utm_campaign: params.get("utm_campaign") || "",
-  };
-  fetch("/api/lead-capture", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  }).catch(function () {}).finally(function () {
-    window.location.href = "https://buy.stripe.com/fZuaEXgUI07SgSJd1C9oc0q?prefilled_email=" + encodeURIComponent(email);
+  // ---- sticky CTA after hero scrolls out ----
+  var sticky = document.getElementById("stickycta");
+  var buySection = document.getElementById("buy");
+  window.addEventListener("scroll", function () {
+    var past = window.scrollY > 560;
+    var r = buySection.getBoundingClientRect();
+    var atBuy = r.top < window.innerHeight && r.bottom > 0;
+    sticky.classList.toggle("show", past && !atBuy);
+  }, { passive: true });
+
+  // ---- checkout form ----
+  function goCheckout(email) {
+    if (typeof fbq === "function") { fbq("track", "InitiateCheckout", { content_name: "lifetime", value: 497, currency: "USD" }); }
+    var params = new URLSearchParams(location.search);
+    var payload = {
+      email: email, magnet: "lifetime-intent", hp: document.getElementById("lthp").value,
+      utm_source: params.get("utm_source") || "", utm_medium: params.get("utm_medium") || "",
+      utm_campaign: params.get("utm_campaign") || ""
+    };
+    fetch("/api/lead-capture", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+      .catch(function () {})
+      .finally(function () {
+        window.location.href = "https://buy.stripe.com/fZuaEXgUI07SgSJd1C9oc0q?prefilled_email=" + encodeURIComponent(email);
+      });
+  }
+  document.getElementById("ltform").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var err = document.getElementById("lterr"); err.textContent = "";
+    var email = (document.getElementById("ltemail").value || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = "Enter a valid email address"; return; }
+    var btn = this.querySelector("button");
+    btn.textContent = "Opening secure checkout\u2026"; btn.disabled = true;
+    goCheckout(email);
+    setTimeout(function () { btn.textContent = "Continue to checkout"; btn.disabled = false; }, 8000);
   });
-  setTimeout(function () { btn.textContent = "Continue to checkout"; btn.disabled = false; }, 8000);
-});
+
+  // ---- exit-intent popup (desktop) + deep-scroll popup (mobile), once per session ----
+  var popup = document.getElementById("popup");
+  function showPopup() {
+    try {
+      if (sessionStorage.getItem("lt_popup")) return;
+      sessionStorage.setItem("lt_popup", "1");
+    } catch (e) {}
+    popup.classList.add("show");
+    if (typeof fbq === "function") { fbq("trackCustom", "ExitPopupShown"); }
+  }
+  document.addEventListener("mouseout", function (e) {
+    if (!e.relatedTarget && e.clientY <= 0) showPopup();
+  });
+  var isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    var fired = false;
+    window.addEventListener("scroll", function () {
+      if (fired) return;
+      var depth = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+      if (depth > 0.62) { fired = true; setTimeout(showPopup, 12000); }
+    }, { passive: true });
+  }
+  document.getElementById("popupx").addEventListener("click", function () { popup.classList.remove("show"); });
+  popup.addEventListener("click", function (e) { if (e.target === popup) popup.classList.remove("show"); });
+  document.getElementById("popupcta").addEventListener("click", function () {
+    popup.classList.remove("show");
+    document.getElementById("buy").scrollIntoView({ behavior: "smooth" });
+    setTimeout(function () { document.getElementById("ltemail").focus(); }, 600);
+  });
+})();
 </script>
 
 </body>
