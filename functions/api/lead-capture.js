@@ -15,6 +15,48 @@ const MAGNET_MAP = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+
+// ---- Meta Conversions API: server-side Lead event (fail-soft) ----
+async function sendMetaLead(env, request, email, magnet, campaign) {
+  try {
+    if (!env.FB_DATASET_ID || !env.FB_CAPI_TOKEN) return;
+    const enc = new TextEncoder().encode(email);
+    const digest = await crypto.subtle.digest("SHA-256", enc);
+    const hashed = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, "0")).join("");
+    const payload = {
+      data: [{
+        event_name: "Lead",
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: "website",
+        event_source_url: request.headers.get("Referer") || "",
+        user_data: {
+          em: [hashed],
+          client_ip_address: request.headers.get("CF-Connecting-IP") || "",
+          client_user_agent: request.headers.get("User-Agent") || "",
+        },
+        custom_data: {
+          content_name: magnet || "",
+          content_category: campaign || "",
+        },
+      }],
+    };
+    if (env.FB_TEST_EVENT_CODE) payload.test_event_code = env.FB_TEST_EVENT_CODE;
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    const r = await fetch(
+      "https://graph.facebook.com/v21.0/" + env.FB_DATASET_ID + "/events?access_token=" + env.FB_CAPI_TOKEN,
+      { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: ctl.signal }
+    );
+    clearTimeout(timer);
+    if (!r.ok) {
+      const t = await r.text().catch(() => "");
+      console.error("meta capi error", r.status, t.slice(0, 300));
+    }
+  } catch (err) {
+    console.error("meta capi unreachable", String(err));
+  }
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -84,6 +126,9 @@ export async function onRequestPost(context) {
   } catch (err) {
     console.error("mautic unreachable", String(err));
   }
+
+  const campaign = (typeof body.utm_campaign === "string" && body.utm_campaign.length < 60) ? body.utm_campaign : "";
+  await sendMetaLead(env, request, email, magnet, campaign);
 
   return json({ ok: true });
 }
