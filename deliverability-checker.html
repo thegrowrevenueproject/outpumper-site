@@ -25,6 +25,12 @@
   .admode .nav-links,.admode .nav-cta .btn,.admode .menu-toggle{display:none!important;}
   .admode .gate-note-top{font-size:.76rem;color:var(--t3);margin-top:.6rem;}
   .hidden-adfield{display:none!important;}
+  .xi-ov{position:fixed;inset:0;background:rgba(4,7,14,.82);z-index:100;display:none;align-items:center;justify-content:center;padding:18px;}
+  .xi-ov.show{display:flex;}
+  .xi{background:var(--card);border:1px solid var(--accent);border-radius:16px;max-width:430px;width:100%;padding:24px;text-align:center;position:relative;}
+  .xi .x{position:absolute;top:8px;right:13px;background:none;border:none;color:var(--t3);font-size:1.25rem;cursor:pointer;}
+  .xi h3{font-size:1.15rem;margin-bottom:.4rem;}
+  .xi p{color:var(--t2);font-size:.88rem;margin-bottom:.9rem;}
   .field-err{color:var(--danger);font-size:.85rem;margin-top:.5rem;min-height:1.1em;}
   .checker-loading{display:none;align-items:center;gap:.7rem;color:var(--t2);font-family:var(--mono);font-size:.9rem;margin-top:1.4rem;}
   .spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--accent-bright);border-radius:50%;animation:sp .8s linear infinite;}
@@ -130,7 +136,7 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
       <button class="btn btn-primary btn-lg" type="submit" id="checkBtn">Check my domain</button>
     </form>
     <div class="field-err" id="domainErr" role="alert"></div>
-    <div class="gate-note-top hidden-adfield" id="adNote">Your full audit unlocks instantly. No spam, one short follow-up, unsubscribe anytime.</div>
+    <div class="gate-note-top hidden-adfield" id="adNote">Where should we send your fix list? The full audit also unlocks instantly. One report, no spam sequence.</div>
     <div class="checker-loading" id="loading"><span class="spin"></span> Checking DNS records…</div>
 
     <div class="result" id="result">
@@ -152,14 +158,14 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
         <div class="pillars" id="pillars"></div>
         <div class="gate-overlay" id="gateOverlay">
           <div class="gate-card">
-            <h3>Unlock your full audit</h3>
-            <p>See the exact record we found for each check, what it is costing you, your prioritized fix list, and copy-paste fixes, free.</p>
+            <h3 id="gateHead">Unlock your full audit</h3>
+            <p id="gateSub">See the exact record we found for each check, your prioritized fix list, and copy-paste fixes, free.</p>
             <form class="gate-form" id="gateForm" novalidate>
-              <input type="email" id="email" placeholder="you@yourcompany.com" aria-label="Your email">
-              <button class="btn btn-primary" type="submit" id="gateBtn">Show me the full audit</button>
+              <input type="email" id="email" class="hidden-adfield" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+              <button class="btn btn-primary" type="submit" id="gateBtn">Get my full audit</button>
             </form>
             <div class="field-err" id="emailErr" role="alert"></div>
-            <div class="gate-note">No spam. One short follow-up with deliverability tips, unsubscribe anytime.</div>
+            <div class="gate-note">One report. No spam sequence. We are an email deliverability company, we would know.</div>
           </div>
         </div>
       </div>
@@ -361,6 +367,17 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
       div.innerHTML='<div class="top"><span class="name">'+p.key+'</span><span class="stat '+st+'">'+label+'</span></div>';
       pillarsEl.appendChild(div);
     });
+    var fails=report.filter(function(p){return p.status==='fail';});
+    var warns=report.filter(function(p){return p.status==='warn'||p.status==='unknown';});
+    var issues=fails.length+warns.length;
+    if(issues>0){
+      var top=(fails[0]||warns[0]);
+      document.getElementById('gateHead').textContent=issues+(issues===1?' issue':' issues')+' found on '+lastDomain+(fails.length?', '+fails.length+' critical':'');
+      document.getElementById('gateSub').textContent='Top issue: '+top.key+'. Where should we send your fix list? The full audit with copy-paste fixes unlocks instantly.';
+    } else {
+      document.getElementById('gateHead').textContent=lastDomain+' passes the core checks';
+      document.getElementById('gateSub').textContent='Rare. Where should we send your full audit? It unlocks instantly, including the record-by-record detail.';
+    }
   }
   function animateScore(score){
     ringFill.style.transition='stroke-dashoffset 1s cubic-bezier(.2,.7,.3,1)';
@@ -469,19 +486,72 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     }).catch(function(){loading.style.display='none';checkBtn.disabled=false;domainErr.textContent='Something went wrong running the check. Please try again.';});
   });
 
-  gateForm.addEventListener('submit',function(e){
-    e.preventDefault();emailErr.textContent='';
-    var em=(emailInput.value||'').trim();
-    if(!validEmail(em)){emailErr.textContent='Enter a valid email so we can show the full audit.';return;}
-    gateBtn.disabled=true;
-    submitLead({email:em,magnet:'deliverability',domain:lastDomain,score:scoreOf(lastReport||[])}).then(function(){
+  var captured=false;
+  function unlockFull(em){
+    captured=true;
+    return submitLead({email:em,magnet:'deliverability',domain:lastDomain,score:scoreOf(lastReport||[])}).then(function(){
       gate.classList.add('hidden');
+      document.getElementById('xiOv').classList.remove('show');
       renderFull(lastReport||[]);
       fullReport.classList.remove('hidden');
       verdictEl.scrollIntoView({behavior:'smooth',block:'start'});
     });
+  }
+  gateForm.addEventListener('submit',function(e){
+    e.preventDefault();emailErr.textContent='';
+    if(emailInput.classList.contains('hidden-adfield')){
+      emailInput.classList.remove('hidden-adfield');
+      gateBtn.textContent='Send my fix list';
+      emailInput.focus();
+      return;
+    }
+    var em=(emailInput.value||'').trim();
+    if(!validEmail(em)){emailErr.textContent='Enter a valid email so we can send the fix list.';return;}
+    gateBtn.disabled=true;
+    unlockFull(em);
+  });
+
+  // micro-funnel: GateView when the gate becomes visible
+  if('IntersectionObserver' in window){
+    var gvSeen=false;
+    var gvIO=new IntersectionObserver(function(en){
+      en.forEach(function(x){if(x.isIntersecting&&!gvSeen){gvSeen=true;fb('c','GateView',{tool:'checker'});gvIO.disconnect();}});
+    },{threshold:.4});
+    gvIO.observe(document.getElementById('gateOverlay'));
+  }
+
+  // exit intent: only when a check ran and no email captured; once per session
+  var xiOv=document.getElementById('xiOv');
+  function showXI(){
+    if(captured||!lastDomain)return;
+    try{if(sessionStorage.getItem('chk_xi'))return;sessionStorage.setItem('chk_xi','1');}catch(e){}
+    document.getElementById('xiSub').textContent='We will hold your results for '+lastDomain+'. Tell us where to send the fix list and the full audit unlocks now.';
+    xiOv.classList.add('show');
+    fb('c','ExitPopupShown',{tool:'checker'});
+  }
+  document.addEventListener('mouseout',function(e){if(!e.relatedTarget&&e.clientY<=0)showXI();});
+  document.getElementById('xiX').addEventListener('click',function(){xiOv.classList.remove('show');});
+  xiOv.addEventListener('click',function(e){if(e.target===xiOv)xiOv.classList.remove('show');});
+  document.getElementById('xiForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('xiErr');err.textContent='';
+    var em=(document.getElementById('xiEmail').value||'').trim();
+    if(!validEmail(em)){err.textContent='Enter a valid email to get the fix list.';return;}
+    unlockFull(em);
   });
 })();
 </script>
+<div class="xi-ov" id="xiOv">
+  <div class="xi">
+    <button class="x" id="xiX" aria-label="Close">&times;</button>
+    <h3>Leaving without your fix list?</h3>
+    <p id="xiSub">We will hold your results. Tell us where to send the fix list and the full audit unlocks now.</p>
+    <form class="gate-form" id="xiForm" novalidate>
+      <input type="email" id="xiEmail" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+      <button class="btn btn-primary" type="submit">Send my fix list</button>
+    </form>
+    <div class="field-err" id="xiErr" role="alert"></div>
+  </div>
+</div>
 </body>
 </html>
