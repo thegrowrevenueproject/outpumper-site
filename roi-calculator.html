@@ -49,6 +49,12 @@
   .gate-form input{flex:1;min-width:180px;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.95rem;padding:.75rem .9rem;}
   .gate-form input:focus{outline:none;border-color:var(--accent);}
   .gate-note{font-size:.76rem;color:var(--t3);margin-top:.7rem;}
+  .admode .nav-links,.admode .nav-cta .btn,.admode .menu-toggle{display:none!important;}
+  .ad-gate{display:none;background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:20px;margin-top:14px;box-shadow:0 24px 60px -40px rgba(37,99,235,.6);}
+  .admode .ad-gate{display:block;}
+  .admode #gate{display:none;}
+  .ad-gate h3{font-size:1.05rem;margin-bottom:.4rem;}
+  .ad-gate p{color:var(--t2);font-size:.86rem;margin-bottom:.8rem;}
   .field-err{color:var(--danger);font-size:.85rem;margin-top:.5rem;min-height:1.1em;}
   .hidden{display:none!important;}
   .verdict{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--rs);padding:20px 22px;}
@@ -153,6 +159,16 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
           <div class="lbl">Projected pipeline / year</div>
           <div class="big" id="oRevYr">$180,000</div>
           <div class="sub">at your current numbers</div>
+        </div>
+        <div class="ad-gate" id="adGate">
+          <h3>Where is it leaking?</h3>
+          <p>Unlock the bottleneck analysis: which stage costs you most and what fixing it is worth per year. Instant, free.</p>
+          <form class="gate-form" id="adGateForm" novalidate>
+            <input type="email" id="adEmail" placeholder="you@yourcompany.com" aria-label="Your email">
+            <button class="btn btn-primary" type="submit" id="adGateBtn">Show my bottleneck</button>
+          </form>
+          <div class="field-err" id="adEmailErr" role="alert"></div>
+          <div class="gate-note">No spam. One short follow-up with outbound tips, unsubscribe anytime.</div>
         </div>
       </div>
     </div>
@@ -281,6 +297,15 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     }
     sync(r.value);
   }
+  var AD=/[?&](utm_medium=paid|ad=1)/.test(location.search);
+  if(AD){document.body.classList.add('admode');}
+  function fb(kind,name,data){try{if(typeof fbq==='function')fbq(kind==='c'?'trackCustom':'track',name,data||{});}catch(e){}}
+  var ranOnce=false;
+  function markRun(){if(!ranOnce){ranOnce=true;fb('c','ToolRun',{tool:'roi'});}}
+  ['emails','reply','meeting','close','deal','emailsNum','dealNum'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.addEventListener('input',markRun);
+  });
+
   bindRange('emails','emailsVal','',  'emailsNum');
   bindRange('reply','replyVal','%',   null);
   bindRange('meeting','meetingVal','%',null);
@@ -353,17 +378,30 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     }catch(e){return Promise.resolve(true);}
   }
 
+  function unlockAnalysis(em){
+    fb('c','ToolResult',{tool:'roi',revYr:current().revYr});
+    return submitLead({email:em,magnet:'roi-calculator',inputs:state,projection:current()}).then(function(){
+      $('gate').classList.add('hidden');
+      var ag=document.getElementById('adGate');if(ag)ag.style.display='none';
+      renderAnalysis();
+      $('analysis').classList.remove('hidden');
+      $('verdict').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+  document.getElementById('adGateForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('adEmailErr');err.textContent='';
+    var em=(document.getElementById('adEmail').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='Enter a valid email to unlock the analysis.';return;}
+    document.getElementById('adGateBtn').disabled=true;
+    unlockAnalysis(em);
+  });
   $('gateForm').addEventListener('submit',function(e){
     e.preventDefault();$('emailErr').textContent='';
     var em=($('email').value||'').trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){$('emailErr').textContent='Enter a valid email so we can show the analysis.';return;}
     $('gateBtn').disabled=true;
-    submitLead({email:em,magnet:'roi-calculator',inputs:state,projection:current()}).then(function(){
-      $('gate').classList.add('hidden');
-      renderAnalysis();
-      $('analysis').classList.remove('hidden');
-      $('verdict').scrollIntoView({behavior:'smooth',block:'start'});
-    });
+    unlockAnalysis(em);
   });
   $('target').addEventListener('input',renderTarget);
 
