@@ -20,6 +20,11 @@
   .checker-form{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem;}
   .checker-form input[type=text]{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-family:var(--mono);font-size:1rem;padding:.9rem 1rem;}
   .checker-form input[type=text]:focus{outline:none;border-color:var(--accent);}
+  .checker-form input[type=email]{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-family:var(--mono);font-size:1rem;padding:.9rem 1rem;}
+  .checker-form input[type=email]:focus{outline:none;border-color:var(--accent);}
+  .admode .nav-links,.admode .nav-cta .btn,.admode .menu-toggle{display:none!important;}
+  .admode .gate-note-top{font-size:.76rem;color:var(--t3);margin-top:.6rem;}
+  .hidden-adfield{display:none!important;}
   .field-err{color:var(--danger);font-size:.85rem;margin-top:.5rem;min-height:1.1em;}
   .checker-loading{display:none;align-items:center;gap:.7rem;color:var(--t2);font-family:var(--mono);font-size:.9rem;margin-top:1.4rem;}
   .spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--accent-bright);border-radius:50%;animation:sp .8s linear infinite;}
@@ -121,9 +126,11 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
 
     <form class="checker-form" id="checkForm" novalidate>
       <input type="text" id="domain" placeholder="yourcompany.com" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your sending domain">
+      <input type="email" id="adEmail" class="hidden-adfield" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
       <button class="btn btn-primary btn-lg" type="submit" id="checkBtn">Check my domain</button>
     </form>
     <div class="field-err" id="domainErr" role="alert"></div>
+    <div class="gate-note-top hidden-adfield" id="adNote">Your full audit unlocks instantly. No spam, one short follow-up, unsubscribe anytime.</div>
     <div class="checker-loading" id="loading"><span class="spin"></span> Checking DNS records…</div>
 
     <div class="result" id="result">
@@ -220,6 +227,16 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   var lastDomain='',lastReport=null,mailProvider='',isM365=false,RING_CIRC=301.6;
   var DKIM_SELECTORS=['selector1','selector2','google','k1','default','dkim','mail','s1','s2','smtp','mxvault'];
   var esc=function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+
+  var AD=/[?&](utm_medium=paid|ad=1)/.test(location.search);
+  var adEmailEl=document.getElementById('adEmail');
+  if(AD){
+    document.body.classList.add('admode');
+    adEmailEl.classList.remove('hidden-adfield');
+    document.getElementById('adNote').classList.remove('hidden-adfield');
+    document.getElementById('checkBtn').textContent='Run my free check';
+  }
+  function fb(kind,name,data){try{if(typeof fbq==='function')fbq(kind==='c'?'trackCustom':'track',name,data||{});}catch(e){}}
 
   function dohQuery(name,type){
     var cf='https://cloudflare-dns.com/dns-query?name='+encodeURIComponent(name)+'&type='+type;
@@ -422,6 +439,12 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     var d=normalizeDomain(domainInput.value);
     if(!d){domainErr.textContent='Enter your sending domain, for example yourcompany.com';return;}
     if(!validDomain(d)){domainErr.textContent='That does not look like a valid domain. Try yourcompany.com (no http, no slashes).';return;}
+    var adEm='';
+    if(AD){
+      adEm=(adEmailEl.value||'').trim();
+      if(!validEmail(adEm)){domainErr.textContent='Add your email too, the full audit unlocks instantly.';return;}
+    }
+    fb('c','ToolRun',{tool:'checker'});
     lastDomain=d;domainInput.value=d;mailProvider='';isM365=false;
     checkBtn.disabled=true;loading.style.display='flex';result.style.display='none';
     fullReport.classList.add('hidden');gate.classList.remove('hidden');gate.classList.add('locked');
@@ -434,6 +457,14 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
       loading.style.display='none';checkBtn.disabled=false;
       if(report.every(function(p){return p.status==='unknown';})){domainErr.textContent='We could not reach the DNS service. Check your connection and try again.';return;}
       renderTeaser(report);animateScore(scoreOf(report));
+      fb('c','ToolResult',{tool:'checker',score:scoreOf(report)});
+      if(AD){
+        var em=(adEmailEl.value||'').trim();
+        submitLead({email:em,magnet:'deliverability',domain:lastDomain,score:scoreOf(report)});
+        gate.classList.add('hidden');
+        renderFull(report);
+        fullReport.classList.remove('hidden');
+      }
       result.style.display='block';result.scrollIntoView({behavior:'smooth',block:'start'});
     }).catch(function(){loading.style.display='none';checkBtn.disabled=false;domainErr.textContent='Something went wrong running the check. Please try again.';});
   });
