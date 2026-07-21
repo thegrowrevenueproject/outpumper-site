@@ -69,6 +69,12 @@
   .gate-form input{flex:1;min-width:180px;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--rs);color:var(--t1);font-size:.95rem;padding:.75rem .9rem;}
   .gate-form input:focus{outline:none;border-color:var(--accent);}
   .gate-note{font-size:.76rem;color:var(--t3);margin-top:.7rem;}
+  .admode .nav-links,.admode .nav-cta .btn,.admode .menu-toggle{display:none!important;}
+  .ad-gate{display:none;background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:20px;margin-top:16px;box-shadow:0 24px 60px -40px rgba(37,99,235,.6);}
+  .admode .ad-gate{display:block;}
+  .admode #gate{display:none;}
+  .ad-gate h3{font-size:1.05rem;margin-bottom:.4rem;}
+  .ad-gate p{color:var(--t2);font-size:.86rem;margin-bottom:.8rem;}
   .hidden{display:none!important;}
   .libitem{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-top:14px;}
   .libitem .lh{font-weight:800;font-size:1.02rem;}
@@ -172,6 +178,16 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
       </div>
       <div class="why" id="primaryWhy"></div>
       <div class="kills" id="primaryKills"></div>
+      <div class="ad-gate" id="adGate">
+        <h3>Want the whole playbook?</h3>
+        <p>Unlock the full library: every reply type handled in your tone, subject + message + follow-up, plus the cadence. Instant, free.</p>
+        <form class="gate-form" id="adGateForm" novalidate>
+          <input type="email" id="adEmail" placeholder="you@yourcompany.com" aria-label="Your email">
+          <button class="btn btn-primary" type="submit" id="adGateBtn">Unlock the library</button>
+        </form>
+        <div class="field-err" id="adEmailErr" role="alert"></div>
+        <div class="gate-note">No spam. One short follow-up with closing tips, unsubscribe anytime.</div>
+      </div>
 
       <!-- gated full library -->
       <div class="gate" id="gate">
@@ -479,7 +495,38 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     }catch(e){return Promise.resolve(true);}
   }
 
+  var AD=/[?&](utm_medium=paid|ad=1)/.test(location.search);
+  if(AD){document.body.classList.add('admode');}
+  function fb(kind,name,data){try{if(typeof fbq==='function')fbq(kind==='c'?'trackCustom':'track',name,data||{});}catch(e){}}
+  var ranOnce=false;
+  function markRun(){if(!ranOnce){ranOnce=true;fb('c','ToolRun',{tool:'r2c'});}}
+
+  function unlockLibrary(em){
+    fb('c','ToolResult',{tool:'r2c',scenario:selected||''});
+    return submitLead({email:em,magnet:'reply-to-close',scenario:selected,tone:tone,inputs:{first:$('pFirst').value,you:$('pYou').value,value:$('pValue').value}}).then(function(){
+      libTone=tone;
+      Array.prototype.forEach.call($('libToneRow').children,function(b){b.classList.toggle('sel',b.getAttribute('data-libtone')===libTone);});
+      renderLibrary();
+      var v=vals();
+      var cad=$('cadenceList');
+      cad.innerHTML=cad.innerHTML.replace(/\{\{first\}\}/g,esc(v.first));
+      $('gate').classList.add('hidden');
+      var ag=document.getElementById('adGate');if(ag)ag.style.display='none';
+      $('library').classList.remove('hidden');
+      $('library').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+  document.getElementById('adGateForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('adEmailErr');err.textContent='';
+    var em=(document.getElementById('adEmail').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='Enter a valid email to unlock the library.';return;}
+    document.getElementById('adGateBtn').disabled=true;
+    unlockLibrary(em);
+  });
+
   $('analyzeBtn').addEventListener('click',function(){
+    markRun();
     var text=$('pasteBox').value||'';
     if(!text.trim()){$('genErr').textContent='';renderReadout('');$('pasteBox').focus();return;}
     renderReadout(text);
@@ -488,6 +535,7 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     else{$('genErr').textContent='Could not auto-detect, pick the closest situation below.';$('scenGrid').scrollIntoView({behavior:'smooth',block:'center'});}
   });
   $('genBtn').addEventListener('click',function(){
+    markRun();
     renderReadout($('pasteBox').value||'');
     generate();
   });
@@ -497,18 +545,7 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     var em=($('email').value||'').trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){$('emailErr').textContent='Enter a valid email so we can send the library.';return;}
     $('gateBtn').disabled=true;
-    libTone=tone;
-    Array.prototype.forEach.call($('libToneRow').children,function(b){b.classList.toggle('sel',b.getAttribute('data-libtone')===libTone);});
-    submitLead({email:em,magnet:'reply-to-close',scenario:selected,tone:tone,inputs:{first:$('pFirst').value,you:$('pYou').value,value:$('pValue').value}}).then(function(){
-      renderLibrary();
-      // personalize cadence first-name
-      var v=vals();
-      var cad=$('cadenceList');
-      cad.innerHTML=cad.innerHTML.replace(/\{\{first\}\}/g,esc(v.first));
-      $('gate').classList.add('hidden');
-      $('library').classList.remove('hidden');
-      $('library').scrollIntoView({behavior:'smooth',block:'start'});
-    });
+    unlockLibrary(em);
   });
 })();
 </script>
