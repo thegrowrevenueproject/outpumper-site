@@ -53,6 +53,13 @@
   .ad-gate{display:none;background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:20px;margin-top:14px;box-shadow:0 24px 60px -40px rgba(37,99,235,.6);}
   .admode .ad-gate{display:block;}
   .admode #gate{display:none;}
+  .hidden-step{display:none!important;}
+  .xi-ov{position:fixed;inset:0;background:rgba(4,7,14,.82);z-index:100;display:none;align-items:center;justify-content:center;padding:18px;}
+  .xi-ov.show{display:flex;}
+  .xi{background:var(--card);border:1px solid var(--accent);border-radius:16px;max-width:430px;width:100%;padding:24px;text-align:center;position:relative;}
+  .xi .x{position:absolute;top:8px;right:13px;background:none;border:none;color:var(--t3);font-size:1.25rem;cursor:pointer;}
+  .xi h3{font-size:1.15rem;margin-bottom:.4rem;}
+  .xi p{color:var(--t2);font-size:.88rem;margin-bottom:.9rem;}
   .ad-gate h3{font-size:1.05rem;margin-bottom:.4rem;}
   .ad-gate p{color:var(--t2);font-size:.86rem;margin-bottom:.8rem;}
   .field-err{color:var(--danger);font-size:.85rem;margin-top:.5rem;min-height:1.1em;}
@@ -160,15 +167,33 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
           <div class="big" id="oRevYr">$180,000</div>
           <div class="sub">at your current numbers</div>
         </div>
+        <div style="margin-top:12px;text-align:center">
+          <button class="btn" id="onepagerBtn" type="button" style="border:1px solid var(--border2);color:var(--t2);background:var(--card);font-size:.85rem;padding:.6rem 1rem;border-radius:10px;cursor:pointer">Get this as a boss-ready one-pager</button>
+        </div>
+        <div class="ad-gate" id="opCard" style="display:none">
+          <h3>Your projection, formatted to forward</h3>
+          <p>Unlocks a clean copy-ready summary of your numbers plus the full bottleneck analysis. Where should we send it?</p>
+          <form class="gate-form" id="opForm" novalidate>
+            <input type="email" id="opEmail" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+            <button class="btn btn-primary" type="submit">Unlock my one-pager</button>
+          </form>
+          <div class="field-err" id="opErr" role="alert"></div>
+          <div class="gate-note">One breakdown. No spam sequence. We are an email deliverability company, we would know.</div>
+        </div>
+        <div class="ad-gate" id="opOut" style="display:none">
+          <h3>Copy-ready summary</h3>
+          <textarea class="paste-like" id="opText" readonly style="width:100%;min-height:170px;background:var(--bg);border:1px solid var(--border2);border-radius:10px;color:var(--t1);font-family:var(--mono);font-size:.8rem;padding:12px"></textarea>
+          <button class="btn btn-primary" id="opCopy" type="button" style="margin-top:.6rem">Copy it</button>
+        </div>
         <div class="ad-gate" id="adGate">
-          <h3>Where is it leaking?</h3>
-          <p>Unlock the bottleneck analysis: which stage costs you most and what fixing it is worth per year. Instant, free.</p>
+          <h3 id="adH">Where is it leaking?</h3>
+          <p id="adP">Unlock the bottleneck analysis: which stage costs you most and what fixing it is worth per year. Instant, free.</p>
           <form class="gate-form" id="adGateForm" novalidate>
-            <input type="email" id="adEmail" placeholder="you@yourcompany.com" aria-label="Your email">
+            <input type="email" id="adEmail" class="hidden-step" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
             <button class="btn btn-primary" type="submit" id="adGateBtn">Show my bottleneck</button>
           </form>
           <div class="field-err" id="adEmailErr" role="alert"></div>
-          <div class="gate-note">No spam. One short follow-up with outbound tips, unsubscribe anytime.</div>
+          <div class="gate-note">One breakdown. No spam sequence. We are an email deliverability company, we would know.</div>
         </div>
       </div>
     </div>
@@ -183,14 +208,14 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
       </div>
       <div class="gate-overlay" id="gateOverlay">
         <div class="gate-card">
-          <h3>Unlock your bottleneck analysis</h3>
-          <p>See which stage is costing you the most, what fixing each lever is worth per year, and the volume you need to hit your target, free.</p>
+          <h3 id="orgH">Unlock your bottleneck analysis</h3>
+          <p id="orgP">See which stage is costing you the most, what fixing each lever is worth per year, and the volume you need to hit your target, free.</p>
           <form class="gate-form" id="gateForm" novalidate>
-            <input type="email" id="email" placeholder="you@yourcompany.com" aria-label="Your email">
-            <button class="btn btn-primary" type="submit" id="gateBtn">Show me the analysis</button>
+            <input type="email" id="email" class="hidden-step" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+            <button class="btn btn-primary" type="submit" id="gateBtn">Show my bottleneck</button>
           </form>
           <div class="field-err" id="emailErr" role="alert"></div>
-          <div class="gate-note">No spam. One short follow-up with outbound tips, unsubscribe anytime.</div>
+          <div class="gate-note">One breakdown. No spam sequence. We are an email deliverability company, we would know.</div>
         </div>
       </div>
     </div>
@@ -303,8 +328,31 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   var ranOnce=false;
   function markRun(){if(!ranOnce){ranOnce=true;fb('c','ToolRun',{tool:'roi'});}}
   ['emails','reply','meeting','close','deal','emailsNum','dealNum'].forEach(function(id){
+    var el0=document.getElementById(id);if(el0)el0.addEventListener('input',updateGateCopy);
+  });
+  ['emails','reply','meeting','close','deal','emailsNum','dealNum'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.addEventListener('input',markRun);
   });
+
+  function money0(n){return '$'+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+  function updateGateCopy(){
+    try{
+      var ds=deltas();
+      var h,p;
+      if(ds.length){
+        var top=ds[0];
+        var volAdd=current().revYr; // doubling volume roughly adds current yearly revenue
+        var beats=(top.worth*12)>volAdd?' That is more than doubling your send volume would add.':'';
+        h='Your biggest bottleneck: '+top.key.toLowerCase()+'.';
+        p='Lifting it from '+top.cur+' to '+top.bench+' adds about '+money0(top.worth*12)+'/year.'+beats+' Unlock the fix order, plus where you sit against typical teams at each stage. Where should we send your breakdown?';
+      } else {
+        h='Your conversion is above benchmark.';
+        p='Rare. Unlock the volume plan: exactly how many sends hit your revenue target at your rates, and where you sit against typical teams. Where should we send it?';
+      }
+      var oh=document.getElementById('orgH');if(oh){oh.textContent=h;document.getElementById('orgP').textContent=p;}
+      var ah=document.getElementById('adH');if(ah){ah.textContent=h;document.getElementById('adP').textContent=p;}
+    }catch(e){}
+  }
 
   bindRange('emails','emailsVal','',  'emailsNum');
   bindRange('reply','replyVal','%',   null);
@@ -345,9 +393,20 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
           '<p>'+x.note+'</p><p class="cur">Now '+x.cur+' → benchmark '+x.bench+' · worth '+money(x.worth)+'/mo</p></div>';
       }).join('');
     }
+    var bmRows=[
+      {k:'Reply rate',cur:state.reply,lo:RB*100*0.45,hi:RB*100*1.55,bench:RB*100},
+      {k:'Meeting rate',cur:state.meeting,lo:MB*100*0.6,hi:MB*100*1.4,bench:MB*100},
+      {k:'Close rate',cur:state.close,lo:CB*100*0.6,hi:CB*100*1.4,bench:CB*100}
+    ].map(function(b){
+      var pos=b.cur<b.lo?'below the typical range':(b.cur>b.hi?'above the typical range, top quartile territory':'inside the typical range');
+      var col=b.cur<b.lo?'var(--danger)':(b.cur>b.hi?'var(--green)':'var(--t1)');
+      return '<div class="lever"><div class="ltop"><span class="lname">'+b.k+'</span><span class="worth" style="color:'+col+'">'+b.cur+'%</span></div>'+
+        '<p class="cur">Typical range at your volume: '+(Math.round(b.lo*10)/10)+'% to '+(Math.round(b.hi*10)/10)+'% · benchmark '+(Math.round(b.bench*10)/10)+'% · you are '+pos+'.</p></div>';
+    }).join('');
+    $('levers').innerHTML+='<h3 style="margin-top:1.4rem">Where you sit</h3>'+bmRows;
     renderTarget();
     // CTA: volume angle
-    $('ctaSub').innerHTML='Every lever above takes time to move. Volume is the one you control today, and it scales the whole funnel at once. OutPumper sends cold email from your own Microsoft 365 Outlook mailboxes, no domain farm, no mailbox sprawl, no warmup, so you can send more without buying and warming new domains. Runs on Microsoft 365 with desktop Outlook.';
+    $('ctaSub').innerHTML='<span style="display:block;margin-bottom:.6rem;color:var(--accent-bright)">You are in: all OutPumper free tools are open for you now. Next, <a href="/deliverability-checker.html" style="color:var(--accent-bright)">check if your domain can actually deliver this volume</a>.</span>Every lever above takes time to move. Volume is the one you control today, and it scales the whole funnel at once. OutPumper sends cold email from your own Microsoft 365 Outlook mailboxes, no domain farm, no mailbox sprawl, no warmup, so you can send more without buying and warming new domains. Runs on Microsoft 365 with desktop Outlook.';
   }
 
   function renderTarget(){
@@ -379,6 +438,8 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   }
 
   function unlockAnalysis(em){
+    captured=true;
+    try{localStorage.setItem('op_email',em);}catch(e){}
     fb('c','ToolResult',{tool:'roi',revYr:current().revYr});
     return submitLead({email:em,magnet:'roi-calculator',inputs:state,projection:current()}).then(function(){
       $('gate').classList.add('hidden');
@@ -406,7 +467,133 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   $('target').addEventListener('input',renderTarget);
 
   renderOutputs();
+  updateGateCopy();
+
+  var captured=false;
+  // cross-tool unlock: one email opens all tools
+  var storedEmail='';
+  try{storedEmail=localStorage.getItem('op_email')||'';}catch(e){}
+  if(storedEmail){
+    captured=true;
+    document.getElementById('gate').style.display='none';
+    var ag0=document.getElementById('adGate');if(ag0)ag0.style.display='none';
+    renderAnalysis();
+    $('analysis').classList.remove('hidden');
+  }
+
+  // ad-mode inline card appears only after real engagement (2+ slider touches)
+  var interactions=0;
+  if(document.body.classList.contains('admode')&&!captured){
+    var agEl=document.getElementById('adGate');
+    if(agEl)agEl.style.display='none';
+    ['emails','reply','meeting','close','deal','emailsNum','dealNum'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el)el.addEventListener('input',function(){
+        interactions++;
+        if(interactions>=2&&!captured&&agEl)agEl.style.display='block';
+      });
+    });
+  }
+
+  function onepagerText(){
+    var f=current(), ds=deltas();
+    var L=[];
+    L.push('COLD EMAIL PIPELINE PROJECTION');
+    L.push('Volume: '+state.emails.toLocaleString('en-US')+' emails/mo · Reply '+state.reply+'% · Meeting '+state.meeting+'% · Close '+state.close+'% · Deal $'+state.deal.toLocaleString('en-US'));
+    L.push('Projected pipeline: '+money(f.revMo)+'/month = '+money(f.revYr)+'/year');
+    if(ds.length){L.push('Biggest bottleneck: '+ds[0].key+' ('+ds[0].cur+' vs '+ds[0].bench+' benchmark) = '+money(ds[0].worth*12)+'/yr on the table');}
+    L.push('Source: outpumper.com/roi-calculator');
+    return L.join('\n');
+  }
+  document.getElementById('onepagerBtn').addEventListener('click',function(){
+    if(captured){
+      document.getElementById('opText').value=onepagerText();
+      document.getElementById('opOut').style.display='block';
+      document.getElementById('opCard').style.display='none';
+      return;
+    }
+    document.getElementById('opCard').style.display='block';
+    document.getElementById('opEmail').focus();
+    fb('c','GateView',{tool:'roi',via:'onepager'});
+  });
+  document.getElementById('opForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('opErr');err.textContent='';
+    var em=(document.getElementById('opEmail').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='Enter a valid email to unlock the one-pager.';return;}
+    unlockAnalysis(em).then(function(){
+      document.getElementById('opCard').style.display='none';
+      document.getElementById('opText').value=onepagerText();
+      document.getElementById('opOut').style.display='block';
+    });
+  });
+  document.getElementById('opCopy').addEventListener('click',function(){
+    var ta=document.getElementById('opText');
+    try{ta.select();document.execCommand('copy');}catch(x){}
+    if(navigator.clipboard)navigator.clipboard.writeText(ta.value).catch(function(){});
+    this.textContent='Copied';var b=this;setTimeout(function(){b.textContent='Copy it';},1500);
+  });
+
+  // two-step reveal for both gates
+  function twoStep(formId,inputId,btnId,label){
+    var f=document.getElementById(formId),inp=document.getElementById(inputId),btn=document.getElementById(btnId);
+    f.addEventListener('submit',function(e){
+      if(inp.classList.contains('hidden-step')){
+        e.preventDefault();e.stopImmediatePropagation();
+        inp.classList.remove('hidden-step');
+        if(label)btn.textContent=label;
+        inp.focus();
+      }
+    },true);
+  }
+  twoStep('gateForm','email','gateBtn','Send my breakdown');
+  twoStep('adGateForm','adEmail','adGateBtn','Send my breakdown');
+
+  // GateView
+  if('IntersectionObserver' in window){
+    var gvSeen=false;
+    var gvIO=new IntersectionObserver(function(en){
+      en.forEach(function(x){if(x.isIntersecting&&!gvSeen){gvSeen=true;fb('c','GateView',{tool:'roi'});gvIO.disconnect();}});
+    },{threshold:.4});
+    var gvT=document.getElementById(document.body.classList.contains('admode')?'adGate':'gateOverlay');
+    if(gvT)gvIO.observe(gvT);
+  }
+
+  // exit intent: engaged but not captured, once per session
+  var xiOv=document.getElementById('xiOv');
+  function showXI(){
+    if(captured||!ranOnce)return;
+    try{if(sessionStorage.getItem('roi_xi'))return;sessionStorage.setItem('roi_xi','1');}catch(e){}
+    try{
+      var ds=deltas();
+      if(ds.length)document.getElementById('xiSub').textContent='You are leaking about '+money0(ds[0].worth)+'/month at one stage. Tell us where to send the breakdown and it unlocks now.';
+    }catch(e){}
+    xiOv.classList.add('show');
+    fb('c','ExitPopupShown',{tool:'roi'});
+  }
+  document.addEventListener('mouseout',function(e){if(!e.relatedTarget&&e.clientY<=0)showXI();});
+  document.getElementById('xiX').addEventListener('click',function(){xiOv.classList.remove('show');});
+  xiOv.addEventListener('click',function(e){if(e.target===xiOv)xiOv.classList.remove('show');});
+  document.getElementById('xiForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('xiErr');err.textContent='';
+    var em=(document.getElementById('xiEmail').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='Enter a valid email to get the breakdown.';return;}
+    unlockAnalysis(em).then(function(){xiOv.classList.remove('show');});
+  });
 })();
 </script>
+<div class="xi-ov" id="xiOv">
+  <div class="xi">
+    <button class="x" id="xiX" aria-label="Close">&times;</button>
+    <h3>Leaving without your breakdown?</h3>
+    <p id="xiSub">We will hold your numbers. Tell us where to send the breakdown and it unlocks now.</p>
+    <form class="gate-form" id="xiForm" novalidate>
+      <input type="email" id="xiEmail" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+      <button class="btn btn-primary" type="submit">Send my breakdown</button>
+    </form>
+    <div class="field-err" id="xiErr" role="alert"></div>
+  </div>
+</div>
 </body>
 </html>

@@ -73,6 +73,16 @@
   .ad-gate{display:none;background:var(--card);border:1px solid var(--accent);border-radius:var(--r);padding:20px;margin-top:16px;box-shadow:0 24px 60px -40px rgba(37,99,235,.6);}
   .admode .ad-gate{display:block;}
   .admode #gate{display:none;}
+  .hidden-step{display:none!important;}
+  .copy-mini{display:none;margin-top:.6rem;}
+  .copy-mini.show{display:block;}
+  .copy-mini .gate-form{justify-content:flex-start;}
+  .xi-ov{position:fixed;inset:0;background:rgba(4,7,14,.82);z-index:100;display:none;align-items:center;justify-content:center;padding:18px;}
+  .xi-ov.show{display:flex;}
+  .xi{background:var(--card);border:1px solid var(--accent);border-radius:16px;max-width:430px;width:100%;padding:24px;text-align:center;position:relative;}
+  .xi .x{position:absolute;top:8px;right:13px;background:none;border:none;color:var(--t3);font-size:1.25rem;cursor:pointer;}
+  .xi h3{font-size:1.15rem;margin-bottom:.4rem;}
+  .xi p{color:var(--t2);font-size:.88rem;margin-bottom:.9rem;}
   .ad-gate h3{font-size:1.05rem;margin-bottom:.4rem;}
   .ad-gate p{color:var(--t2);font-size:.86rem;margin-bottom:.8rem;}
   .hidden{display:none!important;}
@@ -139,6 +149,32 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     </div>
     <div class="readout" id="readout"></div>
 
+    <div style="margin-top:.8rem">
+      <button type="button" id="gradeToggle" style="background:none;border:none;color:var(--accent-bright);font-size:.88rem;cursor:pointer;padding:0;text-decoration:underline">Already wrote a reply? Paste it, get a grade.</button>
+      <div id="gradeWrap" class="hidden" style="margin-top:.7rem">
+        <textarea class="paste-box" id="gradeBox" placeholder="Paste the reply YOU wrote back to them. We grade it in your browser, nothing is sent anywhere."></textarea>
+        <div class="row-btn">
+          <button class="btn btn-primary" id="gradeBtn" type="button">Grade my reply</button>
+        </div>
+        <div class="readout" id="gradeOut" style="display:none"></div>
+        <div class="ad-gate" id="gradeGate" style="display:none">
+          <h3>Get the rewrite</h3>
+          <p>Unlock your reply rewritten in the structure that books, in your tone, plus the full 12-scenario library. Where should we send it?</p>
+          <form class="gate-form" id="gradeForm" novalidate>
+            <input type="email" id="gradeEmail" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+            <button class="btn btn-primary" type="submit">Unlock the rewrite</button>
+          </form>
+          <div class="field-err" id="gradeErr" role="alert"></div>
+          <div class="gate-note">One playbook. No spam sequence. We are an email deliverability company, we would know.</div>
+        </div>
+        <div class="ad-gate" id="rewriteOut" style="display:none">
+          <h3>The rewrite</h3>
+          <div class="out-card"><div class="cap"><span class="t">Subject line</span></div><input class="ed" id="rwSubject" type="text" readonly></div>
+          <div class="out-card"><div class="cap"><span class="t">The reply, rebuilt</span><button class="copy" type="button" data-target="rwReply">Copy</button></div><textarea class="ed" id="rwReply" readonly></textarea></div>
+        </div>
+      </div>
+    </div>
+
     <div class="divider">or pick the situation</div>
     <div class="scen-grid" id="scenGrid"></div>
 
@@ -171,6 +207,14 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
       <div class="out-card">
         <div class="cap"><span class="t">The reply</span><button class="copy" type="button" data-target="edReply">Copy</button></div>
         <textarea class="ed" id="edReply"></textarea>
+        <div class="copy-mini" id="copyMini">
+          <p style="color:var(--t2);font-size:.84rem;margin:.2rem 0 .5rem">Where should we send a copy? Unlocks the copy button and the other 11 scenarios, instantly.</p>
+          <form class="gate-form" id="copyForm" novalidate>
+            <input type="email" id="copyEmail" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+            <button class="btn btn-primary" type="submit">Copy + unlock all 12</button>
+          </form>
+          <div class="field-err" id="copyErr" role="alert"></div>
+        </div>
       </div>
       <div class="out-card">
         <div class="cap"><span class="t">If no answer, the Day-3 bump</span><button class="copy" type="button" data-target="edBump">Copy</button></div>
@@ -179,14 +223,14 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
       <div class="why" id="primaryWhy"></div>
       <div class="kills" id="primaryKills"></div>
       <div class="ad-gate" id="adGate">
-        <h3>Want the whole playbook?</h3>
-        <p>Unlock the full library: every reply type handled in your tone, subject + message + follow-up, plus the cadence. Instant, free.</p>
+        <h3 id="adH">Want the whole playbook?</h3>
+        <p id="adP">Unlock the full library: every reply type handled in your tone, subject + message + follow-up, plus the cadence. Instant, free.</p>
         <form class="gate-form" id="adGateForm" novalidate>
           <input type="email" id="adEmail" placeholder="you@yourcompany.com" aria-label="Your email">
           <button class="btn btn-primary" type="submit" id="adGateBtn">Unlock the library</button>
         </form>
         <div class="field-err" id="adEmailErr" role="alert"></div>
-        <div class="gate-note">No spam. One short follow-up with closing tips, unsubscribe anytime.</div>
+        <div class="gate-note">One playbook. No spam sequence. We are an email deliverability company, we would know.</div>
       </div>
 
       <!-- gated full library -->
@@ -197,14 +241,14 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
         </div>
         <div class="gate-overlay" id="gateOverlay">
           <div class="gate-card">
-            <h3>Unlock the full reply-handling library</h3>
-            <p>Get the subject line, reply and follow-up for every reply type, switchable across all three tones, plus the cadence that gets answers, free.</p>
+            <h3 id="gH">Unlock the full reply-handling library</h3>
+            <p id="gP">Get the subject line, reply and follow-up for every reply type, switchable across all three tones, plus the cadence that gets answers. Where should we send it?</p>
             <form class="gate-form" id="gateForm" novalidate>
-              <input type="email" id="email" placeholder="you@yourcompany.com" aria-label="Your email">
-              <button class="btn btn-primary" type="submit" id="gateBtn">Send me the library</button>
+              <input type="email" id="email" class="hidden-step" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+              <button class="btn btn-primary" type="submit" id="gateBtn">Get the library</button>
             </form>
             <div class="field-err" id="emailErr" role="alert"></div>
-            <div class="gate-note">No spam. One short follow-up with closing tips, unsubscribe anytime.</div>
+            <div class="gate-note">One playbook. No spam sequence. We are an email deliverability company, we would know.</div>
           </div>
         </div>
       </div>
@@ -439,7 +483,17 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   }
   // editable copy buttons (subject/reply/bump)
   Array.prototype.forEach.call(document.querySelectorAll('.copy[data-target]'),function(btn){
-    btn.addEventListener('click',function(){copyFrom($(btn.getAttribute('data-target')),btn);});
+    btn.addEventListener('click',function(){
+      var tgt=btn.getAttribute('data-target');
+      if(tgt==='edReply'&&!captured){
+        var cm=document.getElementById('copyMini');
+        cm.classList.add('show');
+        document.getElementById('copyEmail').focus();
+        fb('c','GateView',{tool:'r2c',via:'copy'});
+        return;
+      }
+      copyFrom($(tgt),btn);
+    });
   });
   function wireMsgCopy(scope){
     Array.prototype.forEach.call(scope.querySelectorAll('.copy[data-copy]'),function(btn){
@@ -462,6 +516,20 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     $('edBump').value=merge(tn.bump,v);
     $('primaryWhy').innerHTML='Why this works: '+s.why;
     $('primaryKills').innerHTML=s.kills;
+    var nm='You handled the '+s.label.toLowerCase()+' reply. Now win the silence after it.';
+    var np='Most of these threads go quiet after your response. What you send on day 2 and day 5 decides whether it books. Unlock the follow-up cadence for this exact scenario, plus all 11 other reply types, in your tone. Where should we send it?';
+    var el;
+    if((el=document.getElementById('adH')))el.textContent=nm;
+    if((el=document.getElementById('adP')))el.textContent=np;
+    if((el=document.getElementById('gH')))el.textContent=nm;
+    if((el=document.getElementById('gP')))el.textContent=np;
+    if(captured){
+      $('gate').classList.add('hidden');
+      var ag=document.getElementById('adGate');if(ag)ag.style.display='none';
+      renderLibrary();
+      var v0=vals();var cad=$('cadenceList');cad.innerHTML=cad.innerHTML.replace(/\{\{first\}\}/g,esc(v0.first));
+      $('library').classList.remove('hidden');
+    }
     $('library').classList.add('hidden');
     $('gate').classList.remove('hidden');
     $('result').style.display='block';
@@ -469,6 +537,13 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   }
 
   function renderLibrary(){
+    var yi=document.getElementById('yiBanner');
+    if(!yi){
+      yi=document.createElement('p');yi.id='yiBanner';
+      yi.style.cssText='color:var(--accent-bright);font-size:.88rem;margin-bottom:.8rem';
+      yi.innerHTML='You are in: all OutPumper free tools are open for you now. Next, <a href="/deliverability-checker.html" style="color:var(--accent-bright)">check if your domain can actually land these replies</a>.';
+      $('library').insertBefore(yi,$('library').firstChild);
+    }
     var v=vals();
     $('libList').innerHTML=SCEN.map(function(s){
       var tn=s.tones[libTone];
@@ -501,7 +576,11 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
   var ranOnce=false;
   function markRun(){if(!ranOnce){ranOnce=true;fb('c','ToolRun',{tool:'r2c'});}}
 
+  var captured=false;
+  try{if(localStorage.getItem('op_email')){captured=true;}}catch(e){}
   function unlockLibrary(em){
+    captured=true;
+    try{localStorage.setItem('op_email',em);}catch(e){}
     fb('c','ToolResult',{tool:'r2c',scenario:selected||''});
     return submitLead({email:em,magnet:'reply-to-close',scenario:selected,tone:tone,inputs:{first:$('pFirst').value,you:$('pYou').value,value:$('pValue').value}}).then(function(){
       libTone=tone;
@@ -547,7 +626,118 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
     $('gateBtn').disabled=true;
     unlockLibrary(em);
   });
+
+  document.getElementById('copyForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('copyErr');err.textContent='';
+    var em=(document.getElementById('copyEmail').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='Enter a valid email to copy and unlock.';return;}
+    unlockLibrary(em).then(function(){
+      document.getElementById('copyMini').classList.remove('show');
+      var ta=$('edReply');
+      try{ta.select();document.execCommand('copy');}catch(x){}
+      if(navigator.clipboard)navigator.clipboard.writeText(ta.value).catch(function(){});
+    });
+  });
+
+  function twoStep(formId,inputId,btnId,label){
+    var f=document.getElementById(formId),inp=document.getElementById(inputId),btn=document.getElementById(btnId);
+    if(!f||!inp)return;
+    f.addEventListener('submit',function(e){
+      if(inp.classList.contains('hidden-step')){
+        e.preventDefault();e.stopImmediatePropagation();
+        inp.classList.remove('hidden-step');
+        if(label)btn.textContent=label;
+        inp.focus();
+      }
+    },true);
+  }
+  twoStep('gateForm','email','gateBtn','Send me the library');
+
+  // ---- grade-my-draft ----
+  document.getElementById('gradeToggle').addEventListener('click',function(){
+    document.getElementById('gradeWrap').classList.toggle('hidden');
+  });
+  function gradeReply(t){
+    var w=t.trim().split(/\s+/).length, f=[], sc=100;
+    if(w<25){sc-=25;f.push('Too short to carry the close: under 25 words reads as a brush-off.');}
+    if(w>140){sc-=20;f.push('Too long: '+w+' words. Replies over ~140 words get skimmed, then parked.');}
+    if(t.indexOf('?')===-1){sc-=20;f.push('No question anywhere. Without one, the thread has no reason to continue.');}
+    if(!/\b(call|chat|meet|calendar|book|min|minutes|tomorrow|monday|tuesday|wednesday|thursday|friday|this week|next week)\b/i.test(t)){sc-=20;f.push('No concrete next step or time anchor. Vague endings produce silence.');}
+    if(/just checking in|circling back|touching base|bumping this/i.test(t)){sc-=15;f.push('"Checking in" language adds zero new value, it teaches them to ignore you.');}
+    if((t.match(/https?:\/\//g)||[]).length>1){sc-=10;f.push('More than one link looks like marketing, not a person.');}
+    if(/!{2,}/.test(t)){sc-=5;f.push('Multiple exclamation marks read as pressure.');}
+    if(f.length===0)f.push('Structurally solid. The rewrite below tightens the ask and the timing.');
+    return {score:Math.max(5,sc),findings:f.slice(0,3)};
+  }
+  function showRewrite(){
+    var src=document.getElementById('gradeBox').value||'';
+    var id=detectScenario(src)||selected||'interested';
+    var sc=getScen(id),v=vals(),tn=sc.tones[tone];
+    document.getElementById('rwSubject').value=merge(tn.subject,v);
+    document.getElementById('rwReply').value=merge(tn.reply,v);
+    document.getElementById('gradeGate').style.display='none';
+    document.getElementById('rewriteOut').style.display='block';
+  }
+  document.getElementById('gradeBtn').addEventListener('click',function(){
+    var t=document.getElementById('gradeBox').value||'';
+    if(!t.trim()){document.getElementById('gradeBox').focus();return;}
+    markRun();
+    var g=gradeReply(t);
+    var out=document.getElementById('gradeOut');
+    out.innerHTML='<h4>Score: '+g.score+'/100</h4><ul>'+g.findings.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+    out.style.display='block';
+    fb('c','ToolResult',{tool:'r2c',via:'grade',score:g.score});
+    if(captured){showRewrite();}
+    else{document.getElementById('gradeGate').style.display='block';fb('c','GateView',{tool:'r2c',via:'grade'});}
+  });
+  document.getElementById('gradeForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('gradeErr');err.textContent='';
+    var em=(document.getElementById('gradeEmail').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='Enter a valid email to unlock the rewrite.';return;}
+    unlockLibrary(em).then(showRewrite);
+  });
+
+  if('IntersectionObserver' in window){
+    var gvSeen=false;
+    var gvIO=new IntersectionObserver(function(en){
+      en.forEach(function(x){if(x.isIntersecting&&!gvSeen){gvSeen=true;fb('c','GateView',{tool:'r2c'});gvIO.disconnect();}});
+    },{threshold:.4});
+    var gvT=document.getElementById(document.body.classList.contains('admode')?'adGate':'gateOverlay');
+    if(gvT)gvIO.observe(gvT);
+  }
+
+  var xiOv=document.getElementById('xiOv');
+  function showXI(){
+    if(captured||!ranOnce)return;
+    try{if(sessionStorage.getItem('r2c_xi'))return;sessionStorage.setItem('r2c_xi','1');}catch(e){}
+    xiOv.classList.add('show');
+    fb('c','ExitPopupShown',{tool:'r2c'});
+  }
+  document.addEventListener('mouseout',function(e){if(!e.relatedTarget&&e.clientY<=0)showXI();});
+  document.getElementById('xiX').addEventListener('click',function(){xiOv.classList.remove('show');});
+  xiOv.addEventListener('click',function(e){if(e.target===xiOv)xiOv.classList.remove('show');});
+  document.getElementById('xiForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('xiErr');err.textContent='';
+    var em=(document.getElementById('xiEmail').value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='Enter a valid email to get the library.';return;}
+    unlockLibrary(em).then(function(){xiOv.classList.remove('show');});
+  });
 })();
 </script>
+<div class="xi-ov" id="xiOv">
+  <div class="xi">
+    <button class="x" id="xiX" aria-label="Close">&times;</button>
+    <h3>Leaving without the playbook?</h3>
+    <p>Your drafted reply stays right here. Tell us where to send the full library and everything unlocks now.</p>
+    <form class="gate-form" id="xiForm" novalidate>
+      <input type="email" id="xiEmail" placeholder="you@yourcompany.com" autocomplete="email" aria-label="Your email">
+      <button class="btn btn-primary" type="submit">Send the library</button>
+    </form>
+    <div class="field-err" id="xiErr" role="alert"></div>
+  </div>
+</div>
 </body>
 </html>

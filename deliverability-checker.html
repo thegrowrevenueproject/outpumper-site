@@ -481,14 +481,20 @@ src="https://www.facebook.com/tr?id=2084976475388037&ev=PageView&noscript=1"
         gate.classList.add('hidden');
         renderFull(report);
         fullReport.classList.remove('hidden');
+      } else if(captured){
+        gate.classList.add('hidden');
+        renderFull(report);
+        fullReport.classList.remove('hidden');
       }
       result.style.display='block';result.scrollIntoView({behavior:'smooth',block:'start'});
     }).catch(function(){loading.style.display='none';checkBtn.disabled=false;domainErr.textContent='Something went wrong running the check. Please try again.';});
   });
 
   var captured=false;
+  try{if(localStorage.getItem('op_email')){captured=true;}}catch(e){}
   function unlockFull(em){
     captured=true;
+    try{localStorage.setItem('op_email',em);}catch(e){}
     return submitLead({email:em,magnet:'deliverability',domain:lastDomain,score:scoreOf(lastReport||[])}).then(function(){
       gate.classList.add('hidden');
       document.getElementById('xiOv').classList.remove('show');
